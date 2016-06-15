@@ -27,6 +27,7 @@ module.exports = {
     ],
   },
   resolve: {
+    root: [path.resolve("./node_modules")],
     alias: {
       'pyret-ide': path.resolve(__dirname, 'src'),
     },
