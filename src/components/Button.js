@@ -8,7 +8,8 @@ class Button extends React.Component {
       <button
         style={[
           styles.buttons.base,
-          styles.buttons[this.props.kind]
+          styles.buttons[this.props.kind],
+          this.props.style
         ]}>
         {this.props.children}
       </button>
@@ -17,7 +18,9 @@ class Button extends React.Component {
 }
 
 Button.propTypes = {
-  kind: React.PropTypes.oneOf(styles.buttons).isRequired
+  kind: React.PropTypes.string,
+  children: React.PropTypes.node,
+  style: React.PropTypes.object
 };
 
 export default Radium(Button);

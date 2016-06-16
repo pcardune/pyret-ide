@@ -1,7 +1,6 @@
 import React from "react";
 import Radium from "radium";
-import {styles} from "./styles";
-
+import Button from "./Button";
 
 //TODO
 //if clicked this.setState should make running equal to true
@@ -15,16 +14,11 @@ class Run extends React.Component {
   render() {
     if (this.state.running) {
       return (
-        <button style={[styles.buttons.base, styles.buttons.run.running]}>
-            <img src={this.props.gif}/>
-            Running...
-        </button>
+        <Button kind="run" style={{color: "gray"}}><img src={this.props.gif}/>Running...</Button>
       );
     } else {
       return (
-        <button style={[styles.buttons.base, styles.buttons.run.notRunning]}>
-            Run
-        </button>
+        <Button kind="run" style={{backgroundColor: "#317BCF"}}>Run</Button>
       );
     }
   }

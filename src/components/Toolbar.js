@@ -1,16 +1,25 @@
 import React from "react";
+import Radium from "radium";
+import Stop from "./Stop";
+import GoogleDrive from "./GoogleDrive";
+import More from "./More";
+import Run from "./Run";
+import {styles} from "./styles";
 
-const toolbarStyle = {color: "white", backgroundColor: "gray", width: "100%", height: 40, position: "fixed"};
-
-export default class Toolbar extends React.Component {
+class Toolbar extends React.Component {
   render() {
     return (
-      <div style={toolbarStyle}> 
-        <img style={{height: "100%"}} src={this.props.logo}/>
-        this is the toolbar!
+      <div style={styles.toolbar}>
+          <a href="https://code.pyret.org/"><img style={styles.logo} src={this.props.logo}/></a>
+          <GoogleDrive/>
+          <More/>
+          <Stop/>
+          <Run/>
       </div>
     );
   } 
 }
 
 Toolbar.propTypes = {logo: React.PropTypes.string};
+
+export default Radium(Toolbar);

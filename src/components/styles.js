@@ -30,39 +30,16 @@ export var styles = {
       marginLeft: "3px"
     },
     run: {
-      notRunning: {
-        float: "right",
-        backgroundColor: "#317BCF"
-      },
-      running: {
-        width: 150, 
-        float: "right", 
-        color: "gray"
-      }
+      float: "right"
     },
-    stop:{
-      notRunning: {
-        float: "right", 
-        color: "gray"
-      },
-      running: {
-        float: "right", 
-        color: "gray",
-        backgroundColor: "#FF0000"
-      }
+    stop: {
+      float: "right",
+      color: "gray"
     },
     googleDrive: {
-      connect2: {
-        float: "left",
-        width: 194,
-        backgroundColor: "gray"
-      },
-      connecting: {
-        float: "left",
-        width: 194,
-        backgroundColor: "gray",
-        color: "#33331a"
-      },
+      float: "left",
+      width: 194,
+      backgroundColor: "gray"
     },
     userInput:{
       width: 210,

@@ -1,21 +1,16 @@
 import React from "react";
 import Radium from "radium";
-import {styles} from "./styles";
+import Button from "./Button";
 
 class Stop extends React.Component {
   render() {
     if (this.state.running) {
       return (
-        <button style={[styles.buttons.base, styles.buttons.stop.running]}>
-            <img src={this.props.gif}/>
-            Stop
-        </button>
+        <Button kind="stop" style={{backgroundColor: "#FF0000"}}>Stop</Button>
       );
     } else {
       return (
-        <button style={[styles.buttons.base, styles.buttons.stop.notRunning]}>
-            Stop
-        </button>
+        <Button kind="stop">Stop</Button>
       );
     }
   }
