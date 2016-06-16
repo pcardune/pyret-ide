@@ -2,7 +2,7 @@
   "name": "pyret-ide",
   "version": "0.0.0",
   "description": "Frontend for the code.pyret.org IDE",
-  "main": "index.js",
+  "main": "pyret-ide.js",
   "engines": {
     "npm": "2.1.x"
   },
