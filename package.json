@@ -2,11 +2,11 @@
   "name": "pyret-ide",
   "version": "0.0.0",
   "description": "Frontend for the code.pyret.org IDE",
-  "main": "index.js",
+  "main": "pyret-ide.js",
   "engines": {
     "npm": "2.1.x"
   },
-  "dependencies": {
+  "dependencies": {`
     "babel-loader": "^6.2.4",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",

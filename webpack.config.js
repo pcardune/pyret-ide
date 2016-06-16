@@ -14,6 +14,7 @@ module.exports = {
   devtool: IS_PRODUCTION ? null : 'eval',
   entry: {
     "index": './src/dev-app/index.js',
+    "PyretIDE": './src/components/PyretIDE',
     "third-party": [
       'babel-polyfill',
       'immutable',
