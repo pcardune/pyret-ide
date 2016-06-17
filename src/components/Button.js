@@ -6,6 +6,7 @@ class Button extends React.Component {
   render() {
     return (
       <button
+        {...this.props}          
         style={[
           styles.buttons.base,
           styles.buttons[this.props.kind],
