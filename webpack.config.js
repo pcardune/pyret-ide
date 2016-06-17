@@ -10,11 +10,13 @@ module.exports = {
     path: path.resolve(__dirname, "build"),
     filename: "[name].js",
     publicPath: IS_PRODUCTION ? undefined : "http://localhost:8080/assets/",
+    libraryTarget: 'commonjs2',
   },
   devtool: IS_PRODUCTION ? null : 'eval',
-  entry: {
-    "index": './src/dev-app/index.js',
+  entry: IS_PRODUCTION ? {
     "PyretIDE": './src/components/PyretIDE',
+  } : {
+    "index": './src/dev-app/index.js',
     "third-party": [
       'babel-polyfill',
       'immutable',
@@ -27,6 +29,10 @@ module.exports = {
       'redux-devtools',
     ],
   },
+  externals: IS_PRODUCTION ? [
+    'react',
+    'react-dom',
+  ] : [],
   resolve: {
     root: [path.resolve("./node_modules")],
     alias: {
@@ -35,6 +41,8 @@ module.exports = {
   },
   module: {
     loaders: [
+      { test: /\.css$/, loaders: ["style", "css"] },
+    ].concat(IS_PRODUCTION ? [] : [
       {
         test: /\.js$/,
         include: [
@@ -42,7 +50,7 @@ module.exports = {
         ],
         loader: 'react-hot'
       },
-    ],
+    ]),
     preLoaders: [{
       test: /\.js$/,
       include: [
@@ -56,20 +64,15 @@ module.exports = {
     }],
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name:'third-party',
-      minChunks: Infinity
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
   ].concat(IS_PRODUCTION ? [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
   ] : [
+    new webpack.optimize.CommonsChunkPlugin({
+      name:'third-party',
+      minChunks: Infinity
+    }),
     new webpack.HotModuleReplacementPlugin(),
   ]),
   babel: {

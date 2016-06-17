@@ -1,1 +1,1 @@
-module.exports = require('./build/PyretIDE');
+module.exports = require('./build/PyretIDE').default;
