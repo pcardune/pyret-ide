@@ -10,7 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, "build"),
     filename: "[name].js",
     publicPath: IS_PRODUCTION ? undefined : "http://localhost:8080/assets/",
-    libraryTarget: 'commonjs2',
+    libraryTarget: IS_PRODUCTION ? 'commonjs2' : undefined,
   },
   devtool: IS_PRODUCTION ? null : 'eval',
   entry: IS_PRODUCTION ? {
