@@ -1,8 +1,8 @@
 import React from 'react';
 import Editor from './Editor';
 import { Provider } from 'react-redux';
-import running from '../redux/reducer';
 import {createStore} from 'redux';
+import running from '../redux/reducer';
 
 let store = createStore(running);
 

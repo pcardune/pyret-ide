@@ -2,6 +2,7 @@ import React from "react";
 import Radium from "radium";
 import Button from "./Button";
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {run, stop} from '../redux/actionCreators';
 
 //TODO
@@ -31,19 +32,12 @@ Run.propTypes = {
 };
 
 export default connect(
-  function mapStateToProps(state) {
-    return {
-      running: state.running
-    };
-  },
-  function mapDispatchToProps(dispatch) {
-    return {
-      onRun: function() {
-        dispatch(run());
-      },
-      onStop: function() {
-        dispatch(stop());
-      }
-    };
-  }
+  (state) => ({
+    running: state.running
+  }),
+  (dispatch) => {
+    return bindActionCreators( {
+      onRun: run,
+      onStop: stop
+    }, dispatch);}
 )(Radium(Run));
