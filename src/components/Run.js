@@ -35,7 +35,7 @@ export default connect(
   state => ({
     running: state.running
   }),
-  (dispatch) => bindActionCreators( {
+  dispatch => bindActionCreators( {
     onRun: run,
     onStop: stop
   }, dispatch)
