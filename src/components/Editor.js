@@ -4,7 +4,7 @@ import Toolbar from './Toolbar';
 import CodeWindow from './CodeWindow';
 import SplitPane from '@mnmtanish/react-split-pane';
 
-export default class PyretIDE extends React.Component {
+export default class Editor extends React.Component {
   render() {
     return (
       <div>

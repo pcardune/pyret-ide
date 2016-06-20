@@ -1,1 +1,1 @@
-export const RUN = 'RUN';
+export const RUNNING = 'RUNNING';
