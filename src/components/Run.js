@@ -32,12 +32,11 @@ Run.propTypes = {
 };
 
 export default connect(
-  (state) => ({
+  state => ({
     running: state.running
   }),
-  (dispatch) => {
-    return bindActionCreators( {
-      onRun: run,
-      onStop: stop
-    }, dispatch);}
+  (dispatch) => bindActionCreators( {
+    onRun: run,
+    onStop: stop
+  }, dispatch)
 )(Radium(Run));
