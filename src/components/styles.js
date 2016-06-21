@@ -1,11 +1,19 @@
 export var styles = {
-  logo:{
+  logo: {
     height: "80%",
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 5,
     display: "block",
     float: "left"
+  },
+  gif: {
+    height: "90%",
+    paddingLeft: 5,
+    float: "left",
+    position: "relative",
+    top: -4,
+    right: -13
   },
   toolbar: {
     position: "fixed",

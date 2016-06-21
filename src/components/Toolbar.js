@@ -14,7 +14,7 @@ class Toolbar extends React.Component {
           <GoogleDrive/>
           <More/>
           <Stop/>
-          <Run/>
+          <Run gif="https://code.pyret.org/img/pyret-spin.gif"/>
       </div>
     );
   } 
