@@ -2,7 +2,7 @@ import * as actions from '../src/redux/actionCreators';
 import * as types from '../src/redux/action-types';
 import running from '../src/redux/reducer';
 
-fdescribe('The action creator', function() {
+describe('The action creator', function() {
   it('run should return return a object w/action.payload === true', function() {
     var expectedAction = {
       type: types.RUNNING,
@@ -19,7 +19,8 @@ fdescribe('The action creator', function() {
   });
 });
 
-fdescribe('The reducer', function() {
+
+describe('The reducer', function() {
   it('should return the initial state', function() {
     expect(running(undefined, {})).toEqual({running: false});
   });
