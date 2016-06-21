@@ -1,31 +1,22 @@
-import * as actions from '../src/redux/actionCreators';
-import * as types from '../src/redux/action-types';
-import running from '../src/redux/reducer';
+import * as actions from "../src/redux/actionCreators";
+import * as types from "../src/redux/action-types";
+import running from "../src/redux/reducer";
 
-describe('The action creator', function() {
-  it('run should return return a object w/action.payload === true', function() {
-    var expectedAction = {
-      type: types.RUNNING,
-      payload: true
-    };
-    expect(actions.run()).toEqual(expectedAction);
+describe("The action creator", function() {
+  it("run should return an action object with payload true", function() {
+    expect(actions.run().payload).toBeTruthy();
   });
-  it('run should return return a object w/action.payload === false', function() {
-    var expectedAction = {
-      type: types.RUNNING,
-      payload: false
-    };
-    expect(actions.stop()).toEqual(expectedAction);
+  it("stop should return an action object with payload false", function() {
+    expect(actions.stop().payload).toBeFalsy();
   });
 });
 
-
-describe('The reducer', function() {
-  it('should return the initial state', function() {
-    expect(running(undefined, {})).toEqual({running: false});
+describe("The reducer", function() {
+  it("should return the initial state", function() {
+    expect((running(undefined, {})).running).toBeFalsy();
   });
-  it('should handle RUNNING', function() {
-    expect(running(undefined, actions.run())).toEqual({running: true});
-    expect(running({running: true}, actions.stop())).toEqual({running: false});
+  it("should handle RUNNING", function() {
+    expect(running(undefined, actions.run()).running).toBeTruthy();
+    expect(running({running: true}, actions.stop()).running).toBeFalsy();
   });
 });
