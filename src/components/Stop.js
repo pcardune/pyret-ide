@@ -1,19 +1,19 @@
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import React from 'react';
-import Radium from 'radium';
-import Button from './Button';
-import {stop} from '../redux/actionCreators';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import React from "react";
+import Radium from "radium";
+import Button from "./Button";
+import {stop} from "../redux/actionCreators";
 
 class Stop extends React.Component {
   render() {
     if (this.props.running) {
       return (
-        <Button kind='stop' onClick={this.props.onStop} style={{backgroundColor: '#FF0000', color: 'white'}}>Stop</Button>
+        <Button kind="stop" onClick={this.props.onStop} style={{backgroundColor: "#FF0000", color: "white"}}>Stop</Button>
       );
     } else {
       return (
-        <Button  kind='stop'>Stop</Button>
+        <Button  kind="stop">Stop</Button>
       );
     }
   }
