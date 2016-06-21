@@ -14,7 +14,7 @@ class Run extends React.Component {
   render() {
     if (this.props.running) {
       return (
-        <Button kind="run" onClick={this.props.onStop} style={{color: "gray"}}><img src={this.props.gif}/>Running...</Button>
+        <Button kind="run" style={{color: "gray"}}><img src={this.props.gif}/>Running...</Button>
       );
     } else {
       return (
@@ -28,7 +28,6 @@ Run.propTypes = {
   gif: React.PropTypes.string,
   running: React.PropTypes.bool,
   onRun: React.PropTypes.func,
-  onStop: React.PropTypes.func
 };
 
 export default connect(
@@ -37,6 +36,5 @@ export default connect(
   }),
   dispatch => bindActionCreators( {
     onRun: run,
-    onStop: stop
   }, dispatch)
 )(Radium(Run));
