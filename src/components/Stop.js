@@ -1,24 +1,34 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import React from "react";
-import Radium from "radium";
-import Button from "./Button";
+import React from 'react';
+import Radium from 'radium';
+import Button from './Button';
+import {stop} from '../redux/actionCreators';
 
 class Stop extends React.Component {
   render() {
-    //change to this.props.running (does that mean remaking propdeclerations like in Run.js or importing them somehow or making a seperate file for them and then importing them or what?)
-    if (this.state.running) {
+    if (this.props.running) {
       return (
-        <Button kind="stop" style={{backgroundColor: "#FF0000"}}>Stop</Button>
+        <Button kind='stop' onClick={this.props.onStop} style={{backgroundColor: '#FF0000', color: 'white'}}>Stop</Button>
       );
     } else {
       return (
-        <Button kind="stop">Stop</Button>
+        <Button  kind='stop'>Stop</Button>
       );
     }
   }
 }
 
+Stop.propTypes = {
+  running: React.PropTypes.string,
+  onStop: React.PropTypes.string
+};
+
 export default connect(
-  
+  state => ({
+    running: state.running
+  }),
+  dispatch => bindActionCreators({
+    onStop: stop
+  }, dispatch)
 )(Radium(Stop));
