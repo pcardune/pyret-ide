@@ -7,7 +7,7 @@ import {run, stop} from '../redux/actionCreators';
 
 //TODO
 //debug gif img within img tag
-class Run extends React.Component {
+export class Run extends React.Component {
   constructor(props){
     super(props);
   }
