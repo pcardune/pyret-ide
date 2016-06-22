@@ -28,7 +28,7 @@ const items = [
 
 //TODO
 //implement correct behavior
-class More extends React.Component {
+export class More extends React.Component {
   constructor(props) {
     super(props);
     this.state = {expanded: false};

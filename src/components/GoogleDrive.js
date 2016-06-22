@@ -5,7 +5,7 @@ import Button from "./Button";
 //TODO
 //research google APIs
 //implement correct behavior
-class GoogleDrive extends React.Component {
+export class GoogleDrive extends React.Component {
   constructor(props){
     super(props);
     this.state = {connecting: false};

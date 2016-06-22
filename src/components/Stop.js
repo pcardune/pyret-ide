@@ -5,7 +5,7 @@ import Radium from "radium";
 import Button from "./Button";
 import {stop} from "../redux/actionCreators";
 
-class Stop extends React.Component {
+export class Stop extends React.Component {
   render() {
     if (this.props.running) {
       return (

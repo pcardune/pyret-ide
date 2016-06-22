@@ -2,7 +2,7 @@ import React from "react";
 import Radium from "radium";
 import {styles} from "./styles";
 
-class Button extends React.Component {
+export class Button extends React.Component {
   render() {
     return (
       <button
