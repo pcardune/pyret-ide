@@ -20,8 +20,8 @@ class Stop extends React.Component {
 }
 
 Stop.propTypes = {
-  running: React.PropTypes.string,
-  onStop: React.PropTypes.string
+  running: React.PropTypes.bool,
+  onStop: React.PropTypes.func
 };
 
 export default connect(
