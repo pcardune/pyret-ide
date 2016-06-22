@@ -19,21 +19,3 @@ storiesOf("StopButton", module)
   .add("running", () => (
     <Stop running={true} onStop={linkTo("StopButton", "not running")}/>
   ));
-storiesOf("More Button", module)
-  .add("collapsed", () => (
-    <More/>
-  ))
-  .add("expanded", () => (
-    <More/>
-  ));
-storiesOf("GoogleDrive Button", module)
-  .add("connect to", () => (
-    <GoogleDrive/>
-  ))
-  .add("connecting", () => (
-    <GoogleDrive/>
-  ))
-  .add("program name", () => (
-    <GoogleDrive/>
-  ));
-
