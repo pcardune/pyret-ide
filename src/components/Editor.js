@@ -9,10 +9,12 @@ export default class Editor extends React.Component {
     return (
       <div>
         <Toolbar logo="https://code.pyret.org/img/pyret-logo.png"/>
-        <SplitPane defaultSize="50%" split="vertical">
-          <div><CodeWindow/></div>
-          <div><p>Compiled</p></div>
-        </SplitPane>
+        <div style={{padding: 40}}>
+          <SplitPane defaultSize="50%" split="vertical">
+            <div><CodeWindow/></div>
+            <div><p>Compiled</p></div>
+          </SplitPane>
+        </div>
       </div>
     );
   }

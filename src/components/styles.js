@@ -8,6 +8,10 @@ export var styles = {
     float: "left"
   },
   toolbar: {
+    position: "fixed",
+    zIndex: 10,
+    margin: 0,
+    padding: 0,
     color: "white",
     backgroundColor: "#C0C0C0",
     width: "100%",

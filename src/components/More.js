@@ -3,8 +3,6 @@ import Menu from "react-menus";
 import Radium from "radium";
 import Button from "./Button";
 
-function dropDown() {}
-
 const items = [
   {
     label: "Download this file"
@@ -26,6 +24,8 @@ const items = [
   }
 ];
 
+function onClick(event, props, index){
+}
 //TODO
 //implement correct behavior
 export class More extends React.Component {
@@ -35,10 +35,10 @@ export class More extends React.Component {
   }
   render() {
     return(
-      <div>
+      <span>
           <Button kind="more" onClick={()=>{this.setState({expanded: true});}}>More</Button>
-          {this.state.expanded ? <Menu items={items} onClick={dropDown}/> : null}
-      </div>
+          {this.state.expanded ? <Menu items={items} onClick={onClick}/> : null}
+      </span>
     );
   }
 }
