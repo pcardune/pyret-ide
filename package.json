@@ -56,7 +56,6 @@
     "test-watch": "karma start",
     "start": "webpack-dev-server",
     "build": "NODE_ENV=production webpack",
-    "postinstall": "npm run build",
     "lint": "eslint src",
     "storybook": "start-storybook -p 9001"
   },
