@@ -19,9 +19,7 @@ export default class CodeWindow extends React.Component {
       lineNumbers: true,
     };
     return (
-      <div>
         <Codemirror value={this.state.code} onChange={this.updateCode} options={options} />
-      </div>
     );
   }
 }
