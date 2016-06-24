@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 import {run} from '../redux/actionCreators';
 import {styles} from './styles';
 
-class Run extends React.Component {
+export class Run extends React.Component {
   constructor(props){
     super(props);
   }
