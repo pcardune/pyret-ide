@@ -1,8 +1,6 @@
 import React from "react";
-import {storiesOf, action, linkTo} from "@kadira/storybook";
+import {storiesOf, linkTo} from "@kadira/storybook";
 import {Stop} from "../Stop";
-import {GoogleDrive} from "../GoogleDrive";
-import {More} from "../More";
 import {Run} from "../Run";
 
 storiesOf("RunButton", module)

@@ -1,8 +1,7 @@
 import { configure } from '@kadira/storybook';
 
 function loadStories() {
-  require('../src/components/stories/Toolbar');
-  // require as many stories as you need.
+  require('../src/components/stories/buttons');
 }
 
 configure(loadStories, module);
