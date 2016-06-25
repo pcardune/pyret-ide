@@ -65,7 +65,7 @@ function lazyLinkedList(n) {
     type: 'array',
     values: [
       {type: 'number', value: n},
-      {type: 'lazy', getValue() { return n > 0 ? lazyLinkedList(n-1) : {type: 'nothing'}; }},
+      {type: 'lazy', getValue() { return n > 0 ? lazyLinkedList(n - 1) : {type: 'nothing'}; }},
     ],
   };
 }

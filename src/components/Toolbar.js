@@ -17,7 +17,7 @@ class Toolbar extends React.Component {
           <Run gif="https://code.pyret.org/img/pyret-spin.gif"/>
       </div>
     );
-  } 
+  }
 }
 
 Toolbar.propTypes = {logo: React.PropTypes.string};
