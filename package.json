@@ -28,6 +28,7 @@
     "css-loader": "^0.23.1",
     "eslint": "^2.11.1",
     "eslint-plugin-react": "^5.1.1",
+    "html-webpack-plugin": "^2.21.0",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
     "karma-babel-preprocessor": "^6.0.1",
@@ -58,7 +59,8 @@
     "prepublish": "NODE_ENV=production webpack",
     "build": "NODE_ENV=production webpack",
     "lint": "eslint src",
-    "storybook": "start-storybook -p 9001"
+    "storybook": "start-storybook -p 9001",
+    "build-gh-pages": "build-storybook -o build/storybook && webpack"
   },
   "repository": {
     "type": "git",

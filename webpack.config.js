@@ -1,6 +1,6 @@
-var _ = require('lodash');
 var path = require('path');
-var webpack = webpack = require('webpack');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "[name].js",
-    publicPath: IS_PRODUCTION ? undefined : "http://localhost:8080/assets/",
+    publicPath: IS_PRODUCTION ? undefined : "",
     libraryTarget: IS_PRODUCTION ? 'commonjs2' : undefined,
   },
   devtool: IS_PRODUCTION ? null : 'eval',
@@ -74,6 +74,7 @@ module.exports = {
       minChunks: Infinity
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin(),
   ]),
   babel: {
     presets: ['es2015', 'react'],

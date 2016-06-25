@@ -8,9 +8,11 @@ import reducer from '../redux/reducer';
 
 const store = createStore(reducer, {});
 
+var app = document.createElement('div');
+document.body.appendChild(app);
 ReactDOM.render(
   <Provider store={store}>
     <PyretIDE/>
   </Provider>,
-  document.getElementById("app")
+  app
 );
