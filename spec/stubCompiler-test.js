@@ -1,6 +1,6 @@
 import stubCompiler from '../src/stubCompiler';
 
-fdescribe("The stubCompiler's", () => {
+describe("The stubCompiler's", () => {
   
   describe("parse function", () => {
   
@@ -31,6 +31,7 @@ fdescribe("The stubCompiler's", () => {
       });
     });
   });
+  
   describe("execute function", () => {
     
     it("returns a Promise instance", () => {
