@@ -3,10 +3,9 @@ import Radium from "radium";
 import Button from "./Button";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {run, stop} from '../redux/actionCreators';
+import {run} from '../redux/actionCreators';
+import {styles} from './styles';
 
-//TODO
-//debug gif img within img tag
 export class Run extends React.Component {
   constructor(props){
     super(props);
@@ -14,7 +13,7 @@ export class Run extends React.Component {
   render() {
     if (this.props.running) {
       return (
-        <Button kind="run" style={{color: "gray"}}><img src={this.props.gif}/>Running...</Button>
+        <Button kind="run" style={{color: "gray", paddingTop: 12}}><img style={styles.gif} src={this.props.gif}/>Running...</Button>
       );
     } else {
       return (
