@@ -1,12 +1,21 @@
-import {RUNNING} from './action-types';
+import * as actType from './action-types';
 
-const intialState = {running: false};
+const initialState = {
+  loadingApi: undefined,
+  runtimeApi: undefined,
+};
 
-export default function running(state = intialState, action) {
+function loadApi(state = initialState, action) {
   switch (action.type) {
-    case RUNNING:
-      return Object.assign({}, state, {running: action.payload});
+    case actType.START_LOAD_RUNTIME:
+      return Object.assign({}, state, {loadingApi: 'started'});
+    case actType.FINISH_LOAD_RUNTIME:
+      return Object.assign({}, state, {loadingApi: 'finished', runtimeApi: action.payload});
+    case actType.FAIL_LOAD_RUNTIME:
+      return Object.assign({}, state, {loadingApi: 'failed'});
     default:
       return state;
   }
 }
+
+export default loadApi;
