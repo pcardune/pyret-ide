@@ -1,5 +1,19 @@
-export const RUNNING = 'RUNNING';
-
 export const START_LOAD_RUNTIME = 'START_LOAD_RUNTIME';
 export const FINISH_LOAD_RUNTIME = 'FINISH_LOAD_RUNTIME';
 export const FAIL_LOAD_RUNTIME = 'FAIL_LOAD_RUNTIME';
+
+export const START_PARSE = 'START_PARSE';
+export const FINISH_PARSE = 'FINISH_PARSE';
+export const FAIL_PARSE = 'FAIL_PARSE';
+
+export const START_COMPILE = 'START_COMPILE';
+export const FINISH_COMPILE = 'FINISH_COMPILE';
+export const FAIL_COMPILE = 'FAIL_COMPILE';
+
+export const START_EXECUTE = 'START_EXECUTE';
+export const FINISH_EXECUTE = 'FINISH_EXECUTE';
+export const FAIL_EXECUTE = 'FAIL_EXECUTE';
+
+export const STOP_RUN = 'STOP_RUN';
+export const PAUSE_RUN = 'PAUSE_RUN';
+export const CLEAR_STATE = 'CLEAR_STATE';
