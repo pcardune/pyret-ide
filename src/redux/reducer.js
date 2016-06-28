@@ -3,6 +3,7 @@ import * as actType from './action-types';
 const initialState = {
   loadingApi: undefined,
   runtimeApi: undefined,
+  error: undefined
 };
 
 function loadApi(state = initialState, action) {
@@ -12,7 +13,7 @@ function loadApi(state = initialState, action) {
     case actType.FINISH_LOAD_RUNTIME:
       return Object.assign({}, state, {loadingApi: 'finished', runtimeApi: action.payload});
     case actType.FAIL_LOAD_RUNTIME:
-      return Object.assign({}, state, {loadingApi: 'failed'});
+      return Object.assign({}, state, {loadingApi: 'failed', error: action.payload});
     default:
       return state;
   }
