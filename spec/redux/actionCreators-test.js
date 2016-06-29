@@ -1,13 +1,19 @@
-import {loadRuntimeApi} from '../../src/redux/actionCreators';
+import {loadRuntimeApi, run} from "../../src/redux/actionCreators";
+import configureStore from "redux-mock-store";
+import thunk from 'redux-thunk';
 
-describe("the actionCreators's", () => {
+describe("The actionCreators'", () => {
+
+  const middlewares = [thunk];
+  const mockStore = configureStore(middlewares);
+
   describe("loadRuntimeApi function", () => {
     it("returns a function", () => {
       expect(loadRuntimeApi()).toEqual(jasmine.any(Function));
     });
 
     describe("return function", () => {
-      var dispatch, internalFunction, resolve, reject;
+      var resolve, reject, store;
       beforeEach(() => {
         var runtimeApiLoader = function() {
           return new Promise(function(_resolve, _reject) {
@@ -15,22 +21,19 @@ describe("the actionCreators's", () => {
             reject = _reject;
           });
         };
-        internalFunction = loadRuntimeApi(runtimeApiLoader);
-        dispatch = jasmine.createSpy('dispatch');
-        internalFunction(dispatch);
+        store = mockStore({}); //initial state of the store
+        store.dispatch(loadRuntimeApi(runtimeApiLoader));
       });
 
       it("dispatches a START_LOAD_RUNTIME action first", () => {
-        expect(dispatch.calls.count()).toEqual(1);
-        expect(dispatch.calls.first().args).toEqual([{type: 'START_LOAD_RUNTIME'}]);
+        expect(store.getActions()[0]).toEqual({type: "START_LOAD_RUNTIME"});
       });
 
       it("dispatches a FINISH_LOAD_RUNTIME after the runtime was loaded", (done) => {
         resolve("the runtime api");
         window.setTimeout(() => {
-          expect(dispatch.calls.count()).toEqual(2);
-          expect(dispatch.calls.mostRecent().args)
-            .toEqual([{type: 'FINISH_LOAD_RUNTIME', payload: "the runtime api"}]);
+          expect(store.getActions()[1])
+            .toEqual({type: "FINISH_LOAD_RUNTIME", payload: "the runtime api"});
           done();
         }, 0);
       });
@@ -38,13 +41,11 @@ describe("the actionCreators's", () => {
       it("dispatches a FAIL_LOAD_RUNTIME after the promise rejected", (done) => {
         reject("some error");
         window.setTimeout(() => {
-          expect(dispatch.calls.count()).toEqual(2);
-          expect(dispatch.calls.mostRecent().args)
-            .toEqual([{type: 'FAIL_LOAD_RUNTIME', payload: "some error"}]);
+          expect(store.getActions()[1])
+            .toEqual({type: "FAIL_LOAD_RUNTIME", payload: "some error"});
           done();
         }, 0);
       });
-
     });
   });
 });
