@@ -2,30 +2,19 @@ import pyretReducer from '../../src/redux/reducer';
 import * as actType from '../../src/redux/action-types';
 
 describe("The reducer", () => {
+  var state;
+
+  beforeEach(() => {
+    state = pyretReducer(undefined,{});
+  });
 
   describe("handles loadApi calls", () => {
 
     it("and returns a state object", () => {
-      var nextState = pyretReducer(undefined,"");
-      expect(nextState).toEqual(jasmine.any(Object));
+      expect(state.loadApi).toEqual(jasmine.any(Object));
     });
 
     describe("and returns a state change", () => {
-      var state;
-
-      beforeEach(() => {
-        state = {
-          loadingApi: undefined,
-          runtimeApi: undefined,
-          errorApi: undefined,
-          runtimeStage: undefined,
-          ast: undefined,
-          bytecode: undefined,
-          result: undefined,
-          errorRun: undefined,
-          pausing: false
-        };
-      });
 
       const start = {type: actType.START_LOAD_RUNTIME};
       const finish = {type: actType.FINISH_LOAD_RUNTIME, payload: "loadedRuntimeApi"};
@@ -33,18 +22,18 @@ describe("The reducer", () => {
 
       it("for action type START_LOAD_RUNTIME", () => {
         var nextState = pyretReducer(state, start).loadApi;
-        expect(nextState.loadingApi).toEqual('starting');
+        expect(nextState.stage).toEqual('started');
       });
 
       it("for action type FINISH_LOAD_RUNTIME", () => {
         var nextState = pyretReducer(state, finish).loadApi;
-        expect(nextState.loadingApi).toEqual('finished');
-        expect(nextState.runtimeApi).toEqual(finish.payload);
+        expect(nextState.stage).toEqual('finished');
+        expect(nextState.runtime).toEqual(finish.payload);
       });
 
       it("for action type FAIL_LOAD_RUNTIME", () => {
         var nextState = pyretReducer(state, fail).loadApi;
-        expect(nextState.loadingApi).toEqual('failed');
+        expect(nextState.stage).toEqual('failed');
         expect(nextState.error).toEqual(fail.payload);
       });
     });
@@ -53,26 +42,10 @@ describe("The reducer", () => {
   describe("handles runCode calls", () => {
 
     it("and returns a state object ", () => {
-      var nextState = pyretReducer(undefined,"");
-      expect(nextState).toEqual(jasmine.any(Object));
+      expect(state.runCode).toEqual(jasmine.any(Object));
     });
 
     describe("and returns a state change", () => {
-      var state;
-
-      beforeEach(() => {
-        state = {
-          loadingApi: undefined,
-          runtimeApi: undefined,
-          errorApi: undefined,
-          runtimeStage: undefined,
-          ast: undefined,
-          bytecode: undefined,
-          result: undefined,
-          errorRun: undefined,
-          pausing: false
-        };
-      });
 
       const startParse = {type: actType.START_PARSE};
       const finishParse = {type: actType.FINISH_PARSE, payload: "ast"};
@@ -88,7 +61,7 @@ describe("The reducer", () => {
 
       it("for action type START_PARSE", () => {
         var nextState = pyretReducer(state, startParse).runCode;
-        expect(nextState.runtimeStage).toEqual('parsing');
+        expect(nextState.stage).toEqual('parsing');
       });
 
       it("for action type FINISH_PARSE", () => {
@@ -103,7 +76,7 @@ describe("The reducer", () => {
 
       it("for action type START_COMPILE", () => {
         var nextState = pyretReducer(state, startCompile).runCode;
-        expect(nextState.runtimeStage).toEqual('compiling');
+        expect(nextState.stage).toEqual('compiling');
       });
 
       it("for action type FINISH_COMPILE", () => {
@@ -118,7 +91,7 @@ describe("The reducer", () => {
 
       it("for action type START_EXECUTE", () => {
         var nextState = pyretReducer(state, startExecute).runCode;
-        expect(nextState.runtimeStage).toEqual('executing');
+        expect(nextState.stage).toEqual('executing');
       });
 
       it("for action type FINISH_EXECUTE", () => {
