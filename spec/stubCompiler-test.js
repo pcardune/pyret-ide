@@ -54,14 +54,15 @@ describe("The stubCompiler's", () => {
   describe("all together now", () => {
     it("you can combine the parse, compile, and execute functions together", (done) => {
       stubCompiler
-        .parse("3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3")
-        .then(stubCompiler.compile)
-        .then(stubCompiler.execute)
-        .then(result => {
-          expect(result).toEqual(823.125);
-          done();
-        })
-        .catch(error => done.fail(error));
+        .parse("3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 2")
+        .then(
+          ast => stubCompiler.compile(ast).then(
+            bytecode => stubCompiler.execute(bytecode).then(
+              result => {
+                expect(result).toEqual(3.03125);
+                done();
+              }
+            )));
     });
   });
 });

@@ -1,25 +1,37 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Codemirror from 'react-codemirror';
+import {changeSource} from '../redux/actionCreators';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 
-export default class CodeWindow extends React.Component {
-  constructor() {
-    super();
-    this.state = {code: "// Code"};
-  }
-  updateCode(newCode) {
-    this.setState({
-      code: newCode
-    });
-  }
+class CodeWindow extends React.Component {
   render() {
     var options = {
       lineNumbers: true,
     };
     return (
-        <Codemirror value={this.state.code} onChange={this.updateCode} options={options} />
+      <Codemirror value={this.props.source}
+                  onChange={this.props.changeSource}
+                  options={options} />
     );
   }
 }
+CodeWindow.propTypes = {
+  source: React.PropTypes.string,
+  changeSource: React.PropTypes.func,
+};
+
+export default connect(
+  state => ({
+    source: state.editor.source,
+  }),
+  dispatch => bindActionCreators(
+    {
+      changeSource: changeSource
+    },
+    dispatch
+  )
+)(CodeWindow);

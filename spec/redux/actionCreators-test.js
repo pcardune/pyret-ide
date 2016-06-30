@@ -1,4 +1,6 @@
+import pyretReducer from '../../src/redux/reducer';
 import {loadRuntimeApi, run} from "../../src/redux/actionCreators";
+import * as actType from '../../src/redux/action-types';
 import configureStore from "redux-mock-store";
 import thunk from 'redux-thunk';
 
@@ -46,13 +48,16 @@ describe("The actionCreators'", () => {
 
   describe("run function,", () => {
 
-    var getState, parseResolve, parseReject, compileResolve, compileReject;
+    var parseResolve, parseReject, compileResolve, compileReject;
     var executeResolve, executeReject, store;
     var src = "some source code";
 
     beforeEach(() => {
-      getState = () => ({
-        runtimeApi: {
+
+      let state = pyretReducer(undefined, {});
+      state = pyretReducer(state, {
+        type: actType.FINISH_LOAD_RUNTIME,
+        payload: {
           parse() {
             return new Promise((_resolve, _reject) => {
               parseResolve = _resolve;
@@ -73,7 +78,8 @@ describe("The actionCreators'", () => {
           }
         }
       });
-      store = mockStore(getState());
+
+      store = mockStore(state);
       store.dispatch(run(src));
     });
 

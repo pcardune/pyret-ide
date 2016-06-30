@@ -10,11 +10,13 @@ class Toolbar extends React.Component {
   render() {
     return (
       <div style={styles.toolbar}>
-          <a href="https://code.pyret.org/"><img style={styles.logo} src={this.props.logo}/></a>
-          <GoogleDrive/>
-          <More/>
-          <Stop/>
-          <Run gif="https://code.pyret.org/img/pyret-spin.gif"/>
+        <a href="https://code.pyret.org/">
+          <img style={styles.logo} src={this.props.logo}/>
+        </a>
+        <GoogleDrive/>
+        <More/>
+        <Stop/>
+        <Run gif="https://code.pyret.org/img/pyret-spin.gif"/>
       </div>
     );
   }

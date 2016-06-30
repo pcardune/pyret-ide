@@ -16,7 +16,6 @@ export var styles = {
     right: -13
   },
   toolbar: {
-    position: "fixed",
     zIndex: 10,
     margin: 0,
     padding: 0,

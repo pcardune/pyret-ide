@@ -17,7 +17,10 @@ describe("The reducer", () => {
     describe("and returns a state change", () => {
 
       const start = {type: actType.START_LOAD_RUNTIME};
-      const finish = {type: actType.FINISH_LOAD_RUNTIME, payload: "loadedRuntimeApi"};
+      const finish = {
+        type: actType.FINISH_LOAD_RUNTIME,
+        payload: "loadedRuntimeApi"
+      };
       const fail = {type: actType.FAIL_LOAD_RUNTIME, payload: "reason"};
 
       it("for action type START_LOAD_RUNTIME", () => {

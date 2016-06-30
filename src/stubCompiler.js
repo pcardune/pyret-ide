@@ -19,17 +19,27 @@ export default {
 
       var stack = [];
       const PRECEDENCE = {"^":4, "*":3, "/":3, "+":2, "-":2};
-      const ASSOCIATIVITY = {"^":"Right", "*":"Left", "/":"Left", "+":"Left", "-":"Left"};
+      const ASSOCIATIVITY = {
+        "^":"Right",
+        "*":"Left",
+        "/":"Left",
+        "+":"Left",
+        "-":"Left"
+      };
       var token;
       var postfix = [];
       var o1, o2;
 
+      function isNum(token) {
+        return token >= "0" && token <= "9" || token == '.';
+      }
+
       for (var i = 0; i < infix.length; i++) {
         token = infix[i];
-        if (token >= "0" && token <= "9") {
+        if (isNum(token)) {
           // token is part of an operand
           var prev = infix[i - 1];
-          if (prev && prev[0] >= "0" && prev[0] <= "9") {
+          if (prev && isNum(prev[0])) {
             postfix[postfix.length - 1] += token;
           } else {
             postfix.push(token);
@@ -65,7 +75,7 @@ export default {
         postfix.push(stack.pop());
       }
 
-      resolve(postfix);
+      window.setTimeout(() => resolve(postfix), 1000);
     });
   },
 
@@ -74,15 +84,18 @@ export default {
       if (!ast) {
         reject(new Error("no ast provided"));
       }
+      ast = ast.slice();
       function comp() {
         var next = ast.pop();
         if (OPS[next]) {
-          return OPS[next].bind(null, comp(ast), comp(ast));
+          var b = comp(ast);
+          var a = comp(ast);
+          return OPS[next].bind(null, a, b);
         } else {
-          return () => parseInt(next);
+          return () => parseFloat(next);
         }
       }
-      resolve(comp(ast));
+      window.setTimeout(() => resolve(comp(ast)), 1000);
     });
   },
 
@@ -91,7 +104,8 @@ export default {
       if (!bytecode) {
         reject(new Error("No bytecode provided"));
       }
-      resolve(bytecode());
+      var result = bytecode();
+      window.setTimeout(() => resolve(result), 1000);
     });
   }
 };

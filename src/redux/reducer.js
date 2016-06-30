@@ -14,8 +14,20 @@ const initialState = {
     result: undefined,
     error: undefined,
     pausing: false
-  }
+  },
+  editor: {
+    source: '// Code',
+  },
 };
+
+function editor(state = initialState.editor, action) {
+  switch (action.type) {
+    case actType.CHANGE_SOURCE:
+      return Object.assign({}, state, {source: action.payload});
+    default:
+      return state;
+  }
+}
 
 function loadApi(state = initialState.loadApi, action) {
   switch (action.type) {
@@ -35,21 +47,22 @@ function runCode(state = initialState.runCode, action) {
     case actType.START_PARSE:
       return Object.assign({}, state, {stage: 'parsing'});
     case actType.FINISH_PARSE:
-      return Object.assign({}, state, {ast: action.payload});
+      return Object.assign({}, state, {stage: null, ast: action.payload});
     case actType.FAIL_PARSE:
-      return Object.assign({}, state, {error: action.payload});
+      console.error(action.payload);
+      return Object.assign({}, state, {stage: null, error: action.payload});
     case actType.START_COMPILE:
       return Object.assign({}, state, {stage: 'compiling'});
     case actType.FINISH_COMPILE:
-      return Object.assign({}, state, {bytecode: action.payload});
+      return Object.assign({}, state, {stage: null, bytecode: action.payload});
     case actType.FAIL_COMPILE:
-      return Object.assign({}, state, {error: action.payload});
+      return Object.assign({}, state, {stage: null, error: action.payload});
     case actType.START_EXECUTE:
       return Object.assign({}, state, {stage: 'executing'});
     case actType.FINISH_EXECUTE:
-      return Object.assign({}, state, {result: action.payload});
+      return Object.assign({}, state, {stage: null, result: action.payload});
     case actType.FAIL_EXECUTE:
-      return Object.assign({}, state, {error: action.payload});
+      return Object.assign({}, state, {stage: null, error: action.payload});
     case actType.STOP_RUN:
       return Object.assign({}, state, {stage: 'stopping'});
     case actType.PAUSE_RUN:
@@ -63,7 +76,8 @@ function runCode(state = initialState.runCode, action) {
 
 const pyretReducer = combineReducers({
   loadApi,
-  runCode
+  runCode,
+  editor,
 });
 
 export default pyretReducer;

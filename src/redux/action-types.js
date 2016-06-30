@@ -17,3 +17,5 @@ export const FAIL_EXECUTE = 'FAIL_EXECUTE';
 export const STOP_RUN = 'STOP_RUN';
 export const PAUSE_RUN = 'PAUSE_RUN';
 export const CLEAR_STATE = 'CLEAR_STATE';
+
+export const CHANGE_SOURCE = 'CHANGE_SOURCE';

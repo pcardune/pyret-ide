@@ -22,7 +22,8 @@ export function loadRuntimeApi(runtimeApiLoader) {
 export function run(src) {
   return (dispatch, getState) => {
     dispatch({type: actType.START_PARSE, stage: 'parsing'});
-    var runtimeApi = getState().runtimeApi;
+    const state = getState();
+    const runtimeApi = state.loadApi && state.loadApi.runtime;
     if (!runtimeApi) {
       throw new Error("Runtime has not been loaded, you can't run anything yet!");
     }
@@ -58,6 +59,12 @@ export function run(src) {
   };
 }
 
+export function changeSource(source) {
+  return {
+    type: actType.CHANGE_SOURCE,
+    payload: source,
+  };
+}
 
 //TODO: implement the stop action creator synchronously
 export function stop() {
