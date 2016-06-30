@@ -7,13 +7,19 @@ export var styles = {
     display: "block",
     float: "left"
   },
-  gif: {
-    height: "90%",
-    paddingLeft: 5,
-    float: "left",
-    position: "relative",
-    top: -4,
-    right: -13
+  spinners: {
+    toolbar: {
+      height: "90%",
+      paddingLeft: 5,
+      float: "left",
+      position: "relative",
+      top: -4,
+      right: -13,
+    },
+    window: {
+      margin: "auto",
+      display: "block",
+    },
   },
   toolbar: {
     zIndex: 10,
