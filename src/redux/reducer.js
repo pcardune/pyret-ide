@@ -1,4 +1,5 @@
 import * as actType from './action-types';
+import * as constant from './constants';
 import { combineReducers } from 'redux';
 
 const initialState = {
@@ -32,11 +33,13 @@ function editor(state = initialState.editor, action) {
 function loadApi(state = initialState.loadApi, action) {
   switch (action.type) {
     case actType.START_LOAD_RUNTIME:
-      return Object.assign({}, state, {stage: 'started'});
+      return Object.assign({}, state, {stage: constant.LoadApiStages.STARTED});
     case actType.FINISH_LOAD_RUNTIME:
-      return Object.assign({}, state, {stage: 'finished', runtime: action.payload});
+      return Object.assign({}, state, {stage: constant.LoadApiStages.FINISHED,
+                                       runtime: action.payload});
     case actType.FAIL_LOAD_RUNTIME:
-      return Object.assign({}, state, {stage: 'failed', error: action.payload});
+      return Object.assign({}, state, {stage: constant.LoadApiStages.FAILED,
+                                       error: action.payload});
     default:
       return state;
   }
