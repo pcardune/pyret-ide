@@ -14,7 +14,7 @@ module.exports = {
   },
   devtool: IS_PRODUCTION ? null : 'eval',
   entry: IS_PRODUCTION ? {
-    "PyretIDE": './src/components/PyretIDE',
+    "pyret-ide": './src/pyret-ide',
   } : {
     "index": './src/dev-app/index.js',
     "third-party": [
