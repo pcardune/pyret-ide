@@ -46,7 +46,8 @@ describe("The actionCreators'", () => {
 
   describe("run function,", () => {
 
-    var getState, parseResolve, parseReject, compileResolve, compileReject, executeResolve, executeReject, store;
+    var getState, parseResolve, parseReject, compileResolve, compileReject;
+    var executeResolve, executeReject, store;
     var src = "some source code";
 
     beforeEach(() => {
@@ -134,14 +135,15 @@ describe("The actionCreators'", () => {
           }, 0);
         });
 
-        it("dispatches a FAIL_COMPILE action once the second promise is rejected", (done) => {
-          compileReject("some error");
-          window.setTimeout(() => {
-            expect(store.getActions()[3])
-              .toEqual({type: "FAIL_COMPILE", payload: "some error"});
-            done();
-          }, 0);
-        });
+        it("dispatches a FAIL_COMPILE action once the second promise is rejected",
+           (done) => {
+             compileReject("some error");
+             window.setTimeout(() => {
+               expect(store.getActions()[3])
+                 .toEqual({type: "FAIL_COMPILE", payload: "some error"});
+               done();
+             }, 0);
+           });
 
         describe("and the execute function,", () => {
 
@@ -150,23 +152,25 @@ describe("The actionCreators'", () => {
             window.setTimeout(done, 0);
           });
 
-          it("dispatches a FINISH_EXECUTE action once the bytecode is executed", (done) => {
-            executeResolve("some result");
-            window.setTimeout(() => {
-              expect(store.getActions()[5])
-                .toEqual({type: "FINISH_EXECUTE", payload: "some result"});
-              done();
-            }, 0);
-          });
+          it("dispatches a FINISH_EXECUTE action once the bytecode is executed",
+             (done) => {
+               executeResolve("some result");
+               window.setTimeout(() => {
+                 expect(store.getActions()[5])
+                   .toEqual({type: "FINISH_EXECUTE", payload: "some result"});
+                 done();
+               }, 0);
+             });
 
-          it("dispatches a FAIL_EXECUTE action once the third promise is rejected", (done) => {
-            executeReject("some error");
-            window.setTimeout(() => {
-              expect(store.getActions()[5])
-                .toEqual({type: "FAIL_EXECUTE", payload: "some error"});
-              done();
-            }, 0);
-          });
+          it("dispatches a FAIL_EXECUTE action once the third promise is rejected",
+             (done) => {
+               executeReject("some error");
+               window.setTimeout(() => {
+                 expect(store.getActions()[5])
+                   .toEqual({type: "FAIL_EXECUTE", payload: "some error"});
+                 done();
+               }, 0);
+             });
         });
       });
     });
