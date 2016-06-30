@@ -79,7 +79,9 @@ export function connectGoogleDrive() {
     var promise = new Promise((resolve, reject) => {
       var googleDrive = "Google Drive";
       window.setTimeout(() => resolve(googleDrive), 1000);
-      reject(new Error("Google Drive not connected"));
+      if (!googleDrive) {
+        reject(new Error("Google Drive not connected"));
+      }
     });
     promise
       .then(drive => {
@@ -97,7 +99,9 @@ export function saveGoogleDrive() {
     var promise = new Promise((resolve, reject) => {
       var savedFile = "Saved file";
       window.setTimeout(() => resolve(savedFile), 1000);
-      reject(new Error("File not saved"));
+      if (!savedFile) {
+        reject(new Error("File not saved"));
+      }
     });
     promise
       .then(file => {
@@ -115,7 +119,9 @@ export function shareGoogleDrive() {
     var promise = new Promise((resolve, reject) => {
       var sharedFile = "Shared file";
       window.setTimeout(() => resolve(sharedFile), 1000);
-      reject(new Error("File not shared"));
+      if (!sharedFile) {
+        reject(new Error("File not shared"));
+      }
     });
     promise
       .then(link => {

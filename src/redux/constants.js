@@ -20,7 +20,6 @@ export const GDriveStages = {
     STARTED: 'started',
     FINISHED: 'finished',
     FAILED: 'failed',
-
   },
   share: {
     STARTED: 'started',

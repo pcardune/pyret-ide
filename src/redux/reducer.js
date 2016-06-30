@@ -88,43 +88,43 @@ function googleDrive(state = initialState.googleDrive, action) {
   switch (action.type) {
     case actType.START_CONNECT_DRIVE:
       return Object.assign({}, state, {
-        stage: constant.GDriveStages.connect.STARTED
+        stage: constants.GDriveStages.connect.STARTED
       });
     case actType.FINISH_CONNECT_DRIVE:
       return Object.assign({}, state, {
-        stage: constant.GDriveStages.connect.FINISHED,
+        stage: constants.GDriveStages.connect.FINISHED,
         drive: action.payload
       });
     case actType.FAIL_CONNECT_DRIVE:
       return Object.assign({}, state, {
-        stage: constant.GDriveStages.connect.FAILED,
+        stage: constants.GDriveStages.connect.FAILED,
         error: action.payload});
     case actType.START_SAVE_DRIVE:
       return Object.assign({}, state, {
-        stage: constant.GDriveStages.save.STARTED
+        stage: constants.GDriveStages.save.STARTED
       });
     case actType.FINISH_SAVE_DRIVE:
       return Object.assign({}, state, {
-        stage: constant.GDriveStages.save.FINISHED,
+        stage: constants.GDriveStages.save.FINISHED,
         save: action.payload
       });
     case actType.FAIL_SAVE_DRIVE:
       return Object.assign({}, state, {
-        stage: constant.GDriveStages.save.FAILED,
+        stage: constants.GDriveStages.save.FAILED,
         error: action.payload
       });
     case actType.START_SHARE_DRIVE:
       return Object.assign({}, state, {
-        stage: constant.GDriveStages.share.STARTED
+        stage: constants.GDriveStages.share.STARTED
       });
     case actType.FINISH_SHARE_DRIVE:
       return Object.assign({}, state, {
-        stage: constant.GDriveStages.share.FINISHED,
+        stage: constants.GDriveStages.share.FINISHED,
         share: action.payload
       });
     case actType.FAIL_SHARE_DRIVE:
       return Object.assign({}, state, {
-        stage: constant.GDriveStages.share.FAILED,
+        stage: constants.GDriveStages.share.FAILED,
         error: action.payload
       });
     default:
