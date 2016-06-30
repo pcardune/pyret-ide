@@ -9,3 +9,22 @@ export const runtimeStages = {
   COMPILING: 'compiling',
   EXECUTING: 'executing',
 };
+
+export const GDriveStages = {
+  connect: {
+    STARTED: 'started',
+    FINISHED: 'finished',
+    FAILED: 'failed',
+  },
+  save: {
+    STARTED: 'started',
+    FINISHED: 'finished',
+    FAILED: 'failed',
+
+  },
+  share: {
+    STARTED: 'started',
+    FINISHED: 'finished',
+    FAILED: 'failed',
+  },
+};
