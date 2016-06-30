@@ -77,6 +77,12 @@ describe("The actionCreators'", () => {
       store.dispatch(run(src));
     });
 
+    it("It throws an exception if the runtime has not been loaded", () => {
+      store = mockStore({});
+      expect(() => store.dispatch(run(src)))
+        .toThrowError("Runtime has not been loaded, you can't run anything yet!");
+    });
+
     it("dispatches a START_PARSE action first", () => {
       expect(store.getActions()[0]).toEqual({type: "START_PARSE", stage: 'parsing'});
     });

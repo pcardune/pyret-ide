@@ -23,6 +23,9 @@ export function run(src) {
   return (dispatch, getState) => {
     dispatch({type: actType.START_PARSE, stage: 'parsing'});
     var runtimeApi = getState().runtimeApi;
+    if (!runtimeApi) {
+      throw new Error("Runtime has not been loaded, you can't run anything yet!");
+    }
     runtimeApi
       .parse(src)
       .then(ast => {
