@@ -1,16 +1,15 @@
 import React from 'react';
 import Editor from './Editor';
 import { Provider } from 'react-redux';
-import {createStore} from 'redux';
-import running from '../redux/reducer';
+import createStore from '../redux/createStore';
 
-let store = createStore(running);
+const store = createStore();
 
 export default class PyretIDE extends React.Component {
   render() {
     return (
       <Provider store={store}>
-          <Editor/>
+        <Editor/>
       </Provider>
     );
   }
