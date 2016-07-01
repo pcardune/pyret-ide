@@ -1,7 +1,7 @@
 import * as redux from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import running from './reducer';
+import pyretReducer from './reducer';
 
 export default function createStore() {
   var middleware = [thunkMiddleware];
@@ -10,7 +10,7 @@ export default function createStore() {
   }
 
   return redux.createStore(
-    running,
+    pyretReducer,
     redux.applyMiddleware(...middleware)
   );
 }
