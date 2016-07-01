@@ -1,5 +1,5 @@
 import pyretReducer from '../../src/redux/reducer';
-import {loadRuntimeApi, run} from "../../src/redux/actionCreators";
+import {loadRuntimeApi, run, stop} from "../../src/redux/actionCreators";
 import * as actType from '../../src/redux/action-types';
 import configureStore from "redux-mock-store";
 import thunk from 'redux-thunk';
@@ -24,7 +24,7 @@ describe("The actionCreators'", () => {
     });
 
     it("dispatches a START_LOAD_RUNTIME action first", () => {
-      expect(store.getActions()[0]).toEqual({type: "START_LOAD_RUNTIME"});
+\      expect(store.getActions()[0]).toEqual({type: "START_LOAD_RUNTIME"});
     });
 
     it("dispatches a FINISH_LOAD_RUNTIME after the runtime is loaded", (done) => {
@@ -46,6 +46,14 @@ describe("The actionCreators'", () => {
     });
   });
 
+  describe("stop function", () => {
+    it("returns the STOP_RUN action", () => {
+      var store = mockStore({});
+      store.dispatch(stop());
+      expect(store.getActions()[0]).toEqual({type: actType.STOP_RUN});
+    });
+  });
+
   describe("run function,", () => {
 
     var parseResolve, parseReject, compileResolve, compileReject;
@@ -54,7 +62,7 @@ describe("The actionCreators'", () => {
 
     beforeEach(() => {
 
-      let state = pyretReducer(undefined, {});
+      let state = pyretReducer(undefined, {type: "START_PARSE"});
       state = pyretReducer(state, {
         type: actType.FINISH_LOAD_RUNTIME,
         payload: {
