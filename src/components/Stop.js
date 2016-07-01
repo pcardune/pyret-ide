@@ -9,7 +9,12 @@ export class Stop extends React.Component {
   render() {
     if (this.props.running) {
       return (
-        <Button kind="stop" onClick={this.props.onStop} style={{backgroundColor: "#FF0000", color: "white"}}>Stop</Button>
+        <Button
+            kind="stop"
+            onClick={this.props.onStop}
+            style={{backgroundColor: "#FF0000", color: "white"}}>
+            Stop
+        </Button>
       );
     } else {
       return (
@@ -26,7 +31,7 @@ Stop.propTypes = {
 
 export default connect(
   state => ({
-    running: state.running
+    running: ['parsing', 'compiling','executing'].includes(state.runCode.stage),
   }),
   dispatch => bindActionCreators({
     onStop: stop
