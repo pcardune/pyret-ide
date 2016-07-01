@@ -1,5 +1,6 @@
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import * as constants from '../redux/constants';
 import React from "react";
 import Radium from "radium";
 import Button from "./Button";
@@ -31,7 +32,7 @@ Stop.propTypes = {
 
 export default connect(
   state => ({
-    running: ['parsing', 'compiling','executing'].includes(state.runCode.stage),
+    running: Object.values(constants.runtimeStages).includes(state.runCode.stage),
   }),
   dispatch => bindActionCreators({
     onStop: stop
