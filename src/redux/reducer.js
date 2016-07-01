@@ -19,6 +19,13 @@ const initialState = {
   editor: {
     source: '// Code',
   },
+  googleDrive: {
+    stage: undefined,
+    drive: undefined,
+    save: undefined,
+    share: undefined,
+    error: undefined,
+  },
 };
 
 function editor(state = initialState.editor, action) {
@@ -77,10 +84,60 @@ function runCode(state = initialState.runCode, action) {
   }
 }
 
+function googleDrive(state = initialState.googleDrive, action) {
+  switch (action.type) {
+    case actType.START_CONNECT_DRIVE:
+      return Object.assign({}, state, {
+        stage: constants.GDriveStages.connect.STARTED
+      });
+    case actType.FINISH_CONNECT_DRIVE:
+      return Object.assign({}, state, {
+        stage: constants.GDriveStages.connect.FINISHED,
+        drive: action.payload
+      });
+    case actType.FAIL_CONNECT_DRIVE:
+      return Object.assign({}, state, {
+        stage: constants.GDriveStages.connect.FAILED,
+        error: action.payload});
+    case actType.START_SAVE_DRIVE:
+      return Object.assign({}, state, {
+        stage: constants.GDriveStages.save.STARTED
+      });
+    case actType.FINISH_SAVE_DRIVE:
+      return Object.assign({}, state, {
+        stage: constants.GDriveStages.save.FINISHED,
+        save: action.payload
+      });
+    case actType.FAIL_SAVE_DRIVE:
+      return Object.assign({}, state, {
+        stage: constants.GDriveStages.save.FAILED,
+        error: action.payload
+      });
+    case actType.START_SHARE_DRIVE:
+      return Object.assign({}, state, {
+        stage: constants.GDriveStages.share.STARTED
+      });
+    case actType.FINISH_SHARE_DRIVE:
+      return Object.assign({}, state, {
+        stage: constants.GDriveStages.share.FINISHED,
+        share: action.payload
+      });
+    case actType.FAIL_SHARE_DRIVE:
+      return Object.assign({}, state, {
+        stage: constants.GDriveStages.share.FAILED,
+        error: action.payload
+      });
+    default:
+      return state;
+  }
+}
+
+
 const pyretReducer = combineReducers({
   loadApi,
   runCode,
   editor,
+  googleDrive,
 });
 
 export default pyretReducer;

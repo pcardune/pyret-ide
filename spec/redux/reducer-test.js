@@ -108,4 +108,77 @@ describe("The reducer", () => {
       });
     });
   });
+
+  describe("handles googleDrive calls", () => {
+
+    it("and returns a state object ", () => {
+      expect(state.googleDrive).toEqual(jasmine.any(Object));
+    });
+
+    describe("and returns a state change", () => {
+
+      const startConnect = {type: actType.START_CONNECT_DRIVE};
+      const finishConnect = {type: actType.FINISH_CONNECT_DRIVE, payload: "drive"};
+      const failConnect = {type: actType.FAIL_CONNECT_DRIVE, payload: "reason"};
+
+      const startSave = {type: actType.START_SAVE_DRIVE};
+      const finishSave = {type: actType.FINISH_SAVE_DRIVE, payload: "save"};
+      const failSave = {type: actType.FAIL_SAVE_DRIVE, payload: "reason"};
+
+      const startShare = {type: actType.START_SHARE_DRIVE};
+      const finishShare = {type: actType.FINISH_SHARE_DRIVE, payload: "share"};
+      const failShare = {type: actType.FAIL_SHARE_DRIVE, payload: "reason"};
+
+      it("for action type START_CONNECT_DRIVE", () => {
+        var nextState = pyretReducer(state, startConnect).googleDrive;
+        expect(nextState.stage).toEqual('started');
+      });
+
+      it("for action type FINISH_CONNECT_DRIVE", () => {
+        var nextState = pyretReducer(state, finishConnect).googleDrive;
+        expect(nextState.stage).toEqual('finished');
+        expect(nextState.drive).toEqual('drive');
+      });
+
+      it("for action type FAIL_CONNECT_DRIVE", () => {
+        var nextState = pyretReducer(state, failConnect).googleDrive;
+        expect(nextState.stage).toEqual('failed');
+        expect(nextState.error).toEqual('reason');
+      });
+
+      it("for action type START_SAVE_DRIVE", () => {
+        var nextState = pyretReducer(state, startSave).googleDrive;
+        expect(nextState.stage).toEqual('started');
+      });
+
+      it("for action type FINISH_SAVE_DRIVE", () => {
+        var nextState = pyretReducer(state, finishSave).googleDrive;
+        expect(nextState.stage).toEqual('finished');
+        expect(nextState.save).toEqual('save');
+      });
+
+      it("for action type FAIL_SAVE_DRIVE", () => {
+        var nextState = pyretReducer(state, failSave).googleDrive;
+        expect(nextState.stage).toEqual('failed');
+        expect(nextState.error).toEqual('reason');
+      });
+
+      it("for action type START_SHARE_DRIVE", () => {
+        var nextState = pyretReducer(state, startShare).googleDrive;
+        expect(nextState.stage).toEqual('started');
+      });
+
+      it("for action type FINISH_SHARE_DRIVE", () => {
+        var nextState = pyretReducer(state, finishShare).googleDrive;
+        expect(nextState.stage).toEqual('finished');
+        expect(nextState.share).toEqual('share');
+      });
+
+      it("for action type FAIL_SHARE_DRIVE", () => {
+        var nextState = pyretReducer(state, failShare).googleDrive;
+        expect(nextState.stage).toEqual('failed');
+        expect(nextState.error).toEqual('reason');
+      });
+    });
+  });
 });
