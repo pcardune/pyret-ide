@@ -24,7 +24,7 @@ describe("The actionCreators'", () => {
     });
 
     it("dispatches a START_LOAD_RUNTIME action first", () => {
-\      expect(store.getActions()[0]).toEqual({type: "START_LOAD_RUNTIME"});
+      expect(store.getActions()[0]).toEqual({type: "START_LOAD_RUNTIME"});
     });
 
     it("dispatches a FINISH_LOAD_RUNTIME after the runtime is loaded", (done) => {

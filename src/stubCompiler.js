@@ -110,6 +110,6 @@ export default {
   },
 
   stop() {
-    new Error("stop");
+    console.warn("Not Implemented yet");
   }
 };
