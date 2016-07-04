@@ -40,7 +40,8 @@ function editor(state = initialState.editor, action) {
 function loadApi(state = initialState.loadApi, action) {
   switch (action.type) {
     case actType.START_LOAD_RUNTIME:
-      return Object.assign({}, state, {stage: constants.loadApiStages.STARTED});
+      return Object.assign({}, state, {stage: constants.LoadApiStages.STARTED,
+                                       error: undefined});
     case actType.FINISH_LOAD_RUNTIME:
       return Object.assign({}, state, {stage: constants.loadApiStages.FINISHED,
                                        runtime: action.payload});
@@ -55,7 +56,8 @@ function loadApi(state = initialState.loadApi, action) {
 function runCode(state = initialState.runCode, action) {
   switch (action.type) {
     case actType.START_PARSE:
-      return Object.assign({}, state, {stage: constants.runtimeStages.PARSING});
+      return Object.assign({}, state, {stage: constants.runtimeStages.PARSING,
+                                       error: undefined});
     case actType.FINISH_PARSE:
       return Object.assign({}, state, {stage: null, ast: action.payload});
     case actType.FAIL_PARSE:
@@ -88,7 +90,8 @@ function googleDrive(state = initialState.googleDrive, action) {
   switch (action.type) {
     case actType.START_CONNECT_DRIVE:
       return Object.assign({}, state, {
-        stage: constants.driveStages.connect.STARTED
+        stage: constants.GDriveStages.connect.STARTED,
+        error: undefined,
       });
     case actType.FINISH_CONNECT_DRIVE:
       return Object.assign({}, state, {
@@ -131,7 +134,6 @@ function googleDrive(state = initialState.googleDrive, action) {
       return state;
   }
 }
-
 
 const pyretReducer = combineReducers({
   loadApi,

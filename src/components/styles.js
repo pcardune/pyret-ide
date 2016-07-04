@@ -1,4 +1,16 @@
 export var styles = {
+  errorBox: {
+    fontFamily: "sans-serif",
+    border: 1,
+    borderColor: "#FF3131",
+    borderStyle: "dashed",
+    padding: 3,
+    borderRadius: 3,
+    background: "#FFF2F2",
+    position: "relative",
+    top: 8,
+    left: 6,
+  },
   logo: {
     height: "80%",
     paddingLeft: 15,
