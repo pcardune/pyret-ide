@@ -5,6 +5,7 @@ import React from "react";
 import Radium from "radium";
 import Button from "./Button";
 import {stop} from "../redux/actionCreators";
+import {isRunning} from "../redux/selectors";
 
 export class Stop extends React.Component {
   render() {
@@ -32,7 +33,7 @@ Stop.propTypes = {
 
 export default connect(
   state => ({
-    running: Object.values(constants.runtimeStages).includes(state.runCode.stage),
+    running: isRunning(state),
   }),
   dispatch => bindActionCreators({
     onStop: stop
