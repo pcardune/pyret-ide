@@ -40,12 +40,12 @@ function editor(state = initialState.editor, action) {
 function loadApi(state = initialState.loadApi, action) {
   switch (action.type) {
     case actType.START_LOAD_RUNTIME:
-      return Object.assign({}, state, {stage: constants.LoadApiStages.STARTED});
+      return Object.assign({}, state, {stage: constants.loadApiStages.STARTED});
     case actType.FINISH_LOAD_RUNTIME:
-      return Object.assign({}, state, {stage: constants.LoadApiStages.FINISHED,
+      return Object.assign({}, state, {stage: constants.loadApiStages.FINISHED,
                                        runtime: action.payload});
     case actType.FAIL_LOAD_RUNTIME:
-      return Object.assign({}, state, {stage: constants.LoadApiStages.FAILED,
+      return Object.assign({}, state, {stage: constants.loadApiStages.FAILED,
                                        error: action.payload});
     default:
       return state;
@@ -88,43 +88,43 @@ function googleDrive(state = initialState.googleDrive, action) {
   switch (action.type) {
     case actType.START_CONNECT_DRIVE:
       return Object.assign({}, state, {
-        stage: constants.GDriveStages.connect.STARTED
+        stage: constants.driveStages.connect.STARTED
       });
     case actType.FINISH_CONNECT_DRIVE:
       return Object.assign({}, state, {
-        stage: constants.GDriveStages.connect.FINISHED,
+        stage: constants.driveStages.connect.FINISHED,
         drive: action.payload
       });
     case actType.FAIL_CONNECT_DRIVE:
       return Object.assign({}, state, {
-        stage: constants.GDriveStages.connect.FAILED,
+        stage: constants.driveStages.connect.FAILED,
         error: action.payload});
     case actType.START_SAVE_DRIVE:
       return Object.assign({}, state, {
-        stage: constants.GDriveStages.save.STARTED
+        stage: constants.driveStages.save.STARTED
       });
     case actType.FINISH_SAVE_DRIVE:
       return Object.assign({}, state, {
-        stage: constants.GDriveStages.save.FINISHED,
+        stage: constants.driveStages.save.FINISHED,
         save: action.payload
       });
     case actType.FAIL_SAVE_DRIVE:
       return Object.assign({}, state, {
-        stage: constants.GDriveStages.save.FAILED,
+        stage: constants.driveStages.save.FAILED,
         error: action.payload
       });
     case actType.START_SHARE_DRIVE:
       return Object.assign({}, state, {
-        stage: constants.GDriveStages.share.STARTED
+        stage: constants.driveStages.share.STARTED
       });
     case actType.FINISH_SHARE_DRIVE:
       return Object.assign({}, state, {
-        stage: constants.GDriveStages.share.FINISHED,
+        stage: constants.driveStages.share.FINISHED,
         share: action.payload
       });
     case actType.FAIL_SHARE_DRIVE:
       return Object.assign({}, state, {
-        stage: constants.GDriveStages.share.FAILED,
+        stage: constants.driveStages.share.FAILED,
         error: action.payload
       });
     default:

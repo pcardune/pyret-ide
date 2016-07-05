@@ -39,7 +39,7 @@ export default connect(
   state => {
     return {
       isLoadingRuntime: selectors.isLoadingRuntime(state),
-      hasLoadedRuntime: selectors.hadLoadedRuntime(state),
+      hasLoadedRuntime: selectors.hasLoadedRuntime(state),
       result: state.runCode.result,
     };
   }

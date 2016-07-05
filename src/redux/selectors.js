@@ -9,7 +9,7 @@ export function isLoadingRuntime(state) {
 }
 
 export function hasLoadedRuntime(state) {
-  return (state.loadAPi.stage === constants.LoadApiStages.FINISHED);
+  return (state.loadApi.stage === constants.loadApiStages.FINISHED);
 }
 
 export function getError(state) {
