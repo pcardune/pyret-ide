@@ -1,4 +1,4 @@
-export const LoadApiStages = {
+export const loadApiStages = {
   STARTED: 'started',
   FINISHED: 'finished',
   FAILED: 'failed',
@@ -10,7 +10,7 @@ export const runtimeStages = {
   EXECUTING: 'executing',
 };
 
-export const GDriveStages = {
+export const driveStages = {
   connect: {
     STARTED: 'started',
     FINISHED: 'finished',
