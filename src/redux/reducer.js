@@ -40,8 +40,8 @@ function editor(state = initialState.editor, action) {
 function loadApi(state = initialState.loadApi, action) {
   switch (action.type) {
     case actType.START_LOAD_RUNTIME:
-      return Object.assign({}, state, {stage: constants.LoadApiStages.STARTED,
-                                       error: undefined});
+      return Object.assign({}, state, {stage: constants.loadApiStages.STARTED,
+                                       error: null});
     case actType.FINISH_LOAD_RUNTIME:
       return Object.assign({}, state, {stage: constants.loadApiStages.FINISHED,
                                        runtime: action.payload});
@@ -57,7 +57,7 @@ function runCode(state = initialState.runCode, action) {
   switch (action.type) {
     case actType.START_PARSE:
       return Object.assign({}, state, {stage: constants.runtimeStages.PARSING,
-                                       error: undefined});
+                                       error: null});
     case actType.FINISH_PARSE:
       return Object.assign({}, state, {stage: null, ast: action.payload});
     case actType.FAIL_PARSE:
@@ -90,8 +90,8 @@ function googleDrive(state = initialState.googleDrive, action) {
   switch (action.type) {
     case actType.START_CONNECT_DRIVE:
       return Object.assign({}, state, {
-        stage: constants.GDriveStages.connect.STARTED,
-        error: undefined,
+        stage: constants.driveStages.connect.STARTED,
+        error: null,
       });
     case actType.FINISH_CONNECT_DRIVE:
       return Object.assign({}, state, {

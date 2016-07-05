@@ -5,7 +5,7 @@ export function isRunning(state) {
 }
 
 export function isLoadingRuntime(state) {
-  return (Object.values(constants.loadApiStages).includes(state.loadApi.stage));
+  return (state.loadApi.stage === constants.loadApiStages.STARTED);
 }
 
 export function hasLoadedRuntime(state) {
