@@ -1,6 +1,6 @@
 import React from 'react';
 import SplitPane from '@mnmtanish/react-split-pane';
-import * as constant from '../redux/constants';
+import * as selectors from '../redux/selectors';
 import {connect} from 'react-redux';
 import {styles} from './styles';
 import Toolbar from './Toolbar';
@@ -38,8 +38,8 @@ Editor.propTypes = {
 export default connect(
   state => {
     return {
-      isLoadingRuntime: state.loadApi.stage === constant.LoadApiStages.STARTED,
-      hasLoadedRuntime: state.loadApi.stage === constant.LoadApiStages.FINISHED,
+      isLoadingRuntime: selectors.isLoadingRuntime(state),
+      hasLoadedRuntime: selectors.hadLoadedRuntime(state),
       result: state.runCode.result,
     };
   }
