@@ -14,7 +14,7 @@ class Editor extends React.Component {
       <div>
         <Toolbar/>
         {this.props.isLoadingRuntime &&
-         <Spinner style={styles.spinners.window} />
+         <Spinner style={styles.spinners.window}/>
         }
         {this.props.hasLoadedRuntime &&
          <div>
