@@ -42,6 +42,15 @@ export var styles = {
     width: "100%",
     height: 40,
   },
+  forms: {
+    base: {
+      width: 194,
+      height: "100%"
+    },
+    program: {
+      float: "left",
+    }
+  },
   buttons: {
     base: {
       height: "100%",
@@ -51,8 +60,8 @@ export var styles = {
       fontFamily: "sans-serif",
       color: "white"
     },
-    more: {
-      width: 75.88,
+    toolbar: {
+      width: 120,
       float: "left",
       backgroundColor: "gray",
       marginLeft: "3px"

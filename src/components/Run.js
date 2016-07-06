@@ -13,8 +13,7 @@ export class Run extends React.Component {
     if (this.props.isRunning && this.props.hasLoadedRuntime) {
       return (
         <Button kind="run" style={{color: "gray", paddingTop: 12}}>
-          <Spinner style={styles.spinners.toolbar}>
-          </Spinner>
+          <Spinner style={styles.spinners.toolbar}/>
           Running...
         </Button>
       );
