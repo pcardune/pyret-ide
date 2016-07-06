@@ -31,7 +31,7 @@ export function run(src) {
     runtimeApi
       .parse(src)
       .then(ast => {
-        if (!selectors.isRunning(state)) {
+        if (!selectors.isRunning(getState())) {
           return;
         }
         dispatch({type: actType.FINISH_PARSE, payload: ast});
@@ -39,7 +39,7 @@ export function run(src) {
         runtimeApi
           .compile(ast)
           .then(bytecode => {
-            if (!selectors.isRunning(state)) {
+            if (!selectors.isRunning(getState())) {
               return;
             }
             dispatch({type: actType.FINISH_COMPILE, payload: bytecode});
@@ -47,7 +47,7 @@ export function run(src) {
             runtimeApi
               .execute(bytecode)
               .then(result => {
-                if (!selectors.isRunning(state)) {
+                if (!selectors.isRunning(getState())) {
                   return;
                 }
                 dispatch({
