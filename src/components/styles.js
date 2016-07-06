@@ -12,22 +12,20 @@ export var styles = {
     left: 6,
   },
   logos: {
+    container: {
+      display: "flex",
+      height: "inherit",
+    },
     toolbar: {
       height: "80%",
+      alignSelf: "center",
       paddingLeft: 15,
       paddingRight: 15,
-      paddingTop: 5,
-      float: "left"
     },
   },
   spinners: {
     toolbar: {
-      height: "90%",
-      paddingLeft: 5,
-      float: "left",
-      position: "relative",
-      top: -4,
-      right: -13,
+      height: 30,
     },
     window: {
       margin: "auto",
@@ -35,57 +33,63 @@ export var styles = {
     },
   },
   toolbar: {
-    display: "flex",
-    zIndex: 10,
-    backgroundColor: "#C0C0C0",
-    height: 40,
+    base: {
+      display: "flex",
+      justifyContent: "space-between",
+      backgroundColor: "#C0C0C0",
+      height: 40,
+    },
+    tools: {
+      height: "inherit",
+      display: "flex",
+      justifyContent: "flex-start",
+    },
+    controls: {
+      height: "inherit",
+      display: "flex",
+      justifyContent: "flex-end",
+    },
   },
   forms: {
-    base: {
-      width: 194,
-      height: "100%"
-    },
-    program: {
-      float: "left",
-    }
+    width: 194,
   },
   buttons: {
     base: {
-      height: "100%",
+      display: "flex",
+      justifyContent: "space-around",
+      alignItems: "center",
       width: 150,
       border: "none",
       fontSize:"15px",
       fontFamily: "sans-serif",
-      color: "white"
+      color: "white",
+      marginLeft: 3,
     },
     toolbar: {
       width: 120,
-      float: "left",
       backgroundColor: "gray",
-      marginLeft: "3px"
     },
     run: {
-      float: "right"
+      waiting: {
+        backgroundColor: "#317BCF"
+      },
+      running: {
+        color: "gray",
+      },
     },
     stop: {
-      float: "right",
-      color: "gray"
+      stopping: {
+        backgroundColor: "#FF0000",
+        color: "white",
+      },
+      waiting: {
+        color: "gray",
+      },
     },
     googleDrive: {
       float: "left",
       width: 194,
       backgroundColor: "gray"
     },
-    userInput:{
-      width: 210,
-      backgroundColor: "white",
-      color:  "gray"
-    },
-    save:{
-      backgroundColor: "gray"
-    },
-    share:{
-      backgroundColor: "gray"
-    }
   }
 };
