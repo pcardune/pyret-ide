@@ -12,18 +12,18 @@ export const runtimeStages = {
 
 export const driveStages = {
   connect: {
-    STARTED: 'started',
-    FINISHED: 'finished',
-    FAILED: 'failed',
+    STARTED: 'startedConnect',
+    FINISHED: 'finishedConnect',
+    FAILED: 'failedConnect',
   },
   save: {
-    STARTED: 'started',
-    FINISHED: 'finished',
-    FAILED: 'failed',
+    STARTED: 'startedSave',
+    FINISHED: 'finishedSave',
+    FAILED: 'failedSave',
   },
   share: {
-    STARTED: 'started',
-    FINISHED: 'finished',
-    FAILED: 'failed',
+    STARTED: 'startedShare',
+    FINISHED: 'finishedShare',
+    FAILED: 'failedShare',
   },
 };
