@@ -102,13 +102,12 @@ export function connectGoogleDrive() {
   };
 }
 
-export function saveGoogleDrive() {
+export function saveGoogleDrive(file) {
   return dispatch => {
     dispatch({type: actType.START_SAVE_DRIVE});
     var promise = new Promise((resolve, reject) => {
-      var savedFile = "Saved file";
-      window.setTimeout(() => resolve(savedFile), 1000);
-      if (!savedFile) {
+      window.setTimeout(() => resolve(file), 1000);
+      if (!file) {
         reject(new Error("File not saved"));
       }
     });
