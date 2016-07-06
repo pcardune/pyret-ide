@@ -1,4 +1,5 @@
 import * as actType from './action-types';
+import * as selectors from './selectors';
 
 /**
  * @param function runtimeApiLoader - a function that asynchronously
@@ -30,16 +31,25 @@ export function run(src) {
     runtimeApi
       .parse(src)
       .then(ast => {
+        if (!selectors.isRunning(state)) {
+          return;
+        }
         dispatch({type: actType.FINISH_PARSE, payload: ast});
         dispatch({type: actType.START_COMPILE, stage: 'compiling'});
         runtimeApi
           .compile(ast)
           .then(bytecode => {
+            if (!selectors.isRunning(state)) {
+              return;
+            }
             dispatch({type: actType.FINISH_COMPILE, payload: bytecode});
             dispatch({type: actType.START_EXECUTE, stage: 'executing'});
             runtimeApi
               .execute(bytecode)
               .then(result => {
+                if (!selectors.isRunning(state)) {
+                  return;
+                }
                 dispatch({
                   type: actType.FINISH_EXECUTE,
                   payload: result
@@ -66,7 +76,6 @@ export function changeSource(source) {
   };
 }
 
-//TODO: implement the stop action creator synchronously
 export function stop() {
   return {
     type: actType.STOP_RUN,

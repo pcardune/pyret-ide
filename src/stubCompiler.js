@@ -107,5 +107,9 @@ export default {
       var result = bytecode();
       window.setTimeout(() => resolve(result), 1000);
     });
+  },
+
+  stop() {
+    console.warn("Not Implemented yet");
   }
 };
