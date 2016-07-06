@@ -11,13 +11,14 @@ export var styles = {
     top: 8,
     left: 6,
   },
-  logo: {
-    height: "80%",
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingTop: 5,
-    display: "block",
-    float: "left"
+  logos: {
+    toolbar: {
+      height: "80%",
+      paddingLeft: 15,
+      paddingRight: 15,
+      paddingTop: 5,
+      float: "left"
+    },
   },
   spinners: {
     toolbar: {
@@ -30,16 +31,13 @@ export var styles = {
     },
     window: {
       margin: "auto",
-      display: "block",
+      display: "flex",
     },
   },
   toolbar: {
+    display: "flex",
     zIndex: 10,
-    margin: 0,
-    padding: 0,
-    color: "white",
     backgroundColor: "#C0C0C0",
-    width: "100%",
     height: 40,
   },
   forms: {

@@ -12,7 +12,7 @@ class Editor extends React.Component {
   render() {
     return (
       <div>
-        <Toolbar logo="https://code.pyret.org/img/pyret-logo.png" />
+        <Toolbar/>
         {this.props.isLoadingRuntime &&
          <Spinner style={styles.spinners.window} />
         }

@@ -1,18 +1,17 @@
-import React from "react";
-import Radium from "radium";
-import Stop from "./Stop";
-import GoogleDrive from "./GoogleDrive";
-import More from "./More";
-import Run from "./Run";
-import {styles} from "./styles";
+import React from 'react';
+import Radium from 'radium';
+import Logo from './Logo';
+import Stop from './Stop';
+import GoogleDrive from './GoogleDrive';
+import More from './More';
+import Run from './Run';
+import {styles} from './styles';
 
 class Toolbar extends React.Component {
   render() {
     return (
       <div style={styles.toolbar}>
-        <a href="https://code.pyret.org/">
-          <img style={styles.logo} src={this.props.logo}/>
-        </a>
+        <Logo kind="toolbar"/>
         <GoogleDrive/>
         <More/>
         <Stop/>
