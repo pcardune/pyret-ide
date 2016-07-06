@@ -6,6 +6,7 @@ import {styles} from './styles';
 import Toolbar from './Toolbar';
 import CodeWindow from './CodeWindow';
 import Spinner from './Spinner';
+import ErrorBox from './ErrorBox';
 
 class Editor extends React.Component {
   render() {
@@ -19,7 +20,10 @@ class Editor extends React.Component {
          <div>
            <SplitPane defaultSize="50%" split="vertical">
              <div><CodeWindow/></div>
-             <div><p>{this.props.result}</p></div>
+             <div>
+               <ErrorBox/>
+               <p>{this.props.result}</p>
+             </div>
            </SplitPane>
          </div>
         }
@@ -33,7 +37,6 @@ Editor.propTypes = {
   hasLoadedRuntime: React.PropTypes.bool,
   result: React.PropTypes.any,
 };
-
 
 export default connect(
   state => {
