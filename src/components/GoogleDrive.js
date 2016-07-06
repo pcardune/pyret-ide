@@ -1,27 +1,19 @@
 import React from "react";
-import Radium from "radium";
-import Button from "./Button";
+import Connect from './Connect';
+import Save from './Save';
+import Share from './Share';
 
 //TODO
 //research google APIs
 //implement correct behavior
-export class GoogleDrive extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {connecting: false};
-  }
+export default class GoogleDrive extends React.Component {
   render() {
-    if (this.state.connecting) {
-      return (
-        <Button kind="googleDrive" style={{color: "#33331a"}}>Connecting</Button>
-      );
-    }
-    else {
-      return (
-        <Button kind="googleDrive">Connect to Google Drive</Button>
-      );
-    }
+    return (
+      <span>
+        <Connect/>
+        <Save/>
+        <Share/>
+      </span>
+    );
   }
 }
-
-export default Radium(GoogleDrive);
