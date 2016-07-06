@@ -2,25 +2,33 @@ import React from 'react';
 import Radium from 'radium';
 import Logo from './Logo';
 import Stop from './Stop';
-import GoogleDrive from './GoogleDrive';
+import Connect from './Connect';
+import Save from './Save';
+import Share from './Share';
 import More from './More';
 import Run from './Run';
+import Name from './Name';
 import {styles} from './styles';
 
 class Toolbar extends React.Component {
   render() {
     return (
-      <div style={styles.toolbar}>
-        <Logo kind="toolbar"/>
-        <GoogleDrive/>
-        <More/>
-        <Stop/>
-        <Run gif="https://code.pyret.org/img/pyret-spin.gif"/>
+      <div style={styles.toolbar.base}>
+        <div style={styles.toolbar.tools}>
+          <Logo kind="toolbar"/>
+          <Connect/>
+          <Name/>
+          <Save/>
+          <Share/>
+          <More/>
+        </div>
+        <div style={styles.toolbar.controls}>
+          <Stop/>
+          <Run/>
+        </div>
       </div>
     );
   }
 }
-
-Toolbar.propTypes = {logo: React.PropTypes.string};
 
 export default Radium(Toolbar);

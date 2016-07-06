@@ -1,13 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {saveGoogleDrive} from '../redux/actionCreators';
-import {bindActionCreators} from 'redux';
-import {styles} from './styles';
-import Button from './Button';
-import Spinner from './Spinner';
+import Input from './Input';
 import * as selectors from '../redux/selectors';
 
-//TODO: Link argument of saveGoogleDrive() to Input Value
 export class Save extends React.Component {
   render() {
     if (!this.props.hasConnectedDrive) {
@@ -15,20 +10,16 @@ export class Save extends React.Component {
     }
     if (this.props.isSavingDrive) {
       return (
-        <Button kind="toolbar">
-          <Spinner style={styles.spinners.toolbar}/>
-          Saving...
-        </Button>
+        <Input placeholder="Program Name"/>
       );
     }
     return (
-      <Button kind="toolbar"
-              onClick={() => this.props.saveGoogleDrive("File")}>
-        Save
-      </Button>
+      <Input placeholder="Program Name"/>
     );
   }
 }
+
+
 
 Save.propTypes = {
   hasConnectedDrive: React.PropTypes.bool,
@@ -42,8 +33,5 @@ export default connect(
     hasConnectedDrive: selectors.hasConnectedDrive(state),
     isSavingDrive: selectors.isSavingDrive(state),
     hasSavedDrive: selectors.hasSavedDrive(state),
-  }),
-  dispatch => bindActionCreators({
-    saveGoogleDrive: saveGoogleDrive,
-  }, dispatch)
+  })
 )(Save);
