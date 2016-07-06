@@ -131,52 +131,52 @@ describe("The reducer", () => {
 
       it("for action type START_CONNECT_DRIVE", () => {
         var nextState = pyretReducer(state, startConnect).googleDrive;
-        expect(nextState.stage).toEqual('started');
+        expect(nextState.stage).toEqual('startedConnect');
       });
 
       it("for action type FINISH_CONNECT_DRIVE", () => {
         var nextState = pyretReducer(state, finishConnect).googleDrive;
-        expect(nextState.stage).toEqual('finished');
+        expect(nextState.stage).toEqual('finishedConnect');
         expect(nextState.drive).toEqual('drive');
       });
 
       it("for action type FAIL_CONNECT_DRIVE", () => {
         var nextState = pyretReducer(state, failConnect).googleDrive;
-        expect(nextState.stage).toEqual('failed');
+        expect(nextState.stage).toEqual('failedConnect');
         expect(nextState.error).toEqual('reason');
       });
 
       it("for action type START_SAVE_DRIVE", () => {
         var nextState = pyretReducer(state, startSave).googleDrive;
-        expect(nextState.stage).toEqual('started');
+        expect(nextState.stage).toEqual('startedSave');
       });
 
       it("for action type FINISH_SAVE_DRIVE", () => {
         var nextState = pyretReducer(state, finishSave).googleDrive;
-        expect(nextState.stage).toEqual('finished');
+        expect(nextState.stage).toEqual('finishedSave');
         expect(nextState.save).toEqual('save');
       });
 
       it("for action type FAIL_SAVE_DRIVE", () => {
         var nextState = pyretReducer(state, failSave).googleDrive;
-        expect(nextState.stage).toEqual('failed');
+        expect(nextState.stage).toEqual('failedSave');
         expect(nextState.error).toEqual('reason');
       });
 
       it("for action type START_SHARE_DRIVE", () => {
         var nextState = pyretReducer(state, startShare).googleDrive;
-        expect(nextState.stage).toEqual('started');
+        expect(nextState.stage).toEqual('startedShare');
       });
 
       it("for action type FINISH_SHARE_DRIVE", () => {
         var nextState = pyretReducer(state, finishShare).googleDrive;
-        expect(nextState.stage).toEqual('finished');
+        expect(nextState.stage).toEqual('finishedShare');
         expect(nextState.share).toEqual('share');
       });
 
       it("for action type FAIL_SHARE_DRIVE", () => {
         var nextState = pyretReducer(state, failShare).googleDrive;
-        expect(nextState.stage).toEqual('failed');
+        expect(nextState.stage).toEqual('failedShare');
         expect(nextState.error).toEqual('reason');
       });
     });
