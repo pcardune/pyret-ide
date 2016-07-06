@@ -17,7 +17,7 @@ export function isConnectingDrive(state) {
 }
 
 export function hasConnectedDrive(state) {
-  return (state.googleDrive.drive);
+  return (state.googleDrive.drive !== null);
 }
 
 export function isSavingDrive(state) {
@@ -25,7 +25,7 @@ export function isSavingDrive(state) {
 }
 
 export function hasSavedDrive(state) {
-  return (state.googleDrive.save);
+  return (state.googleDrive.save !== null);
 }
 
 export function isSharingDrive(state) {
@@ -33,7 +33,7 @@ export function isSharingDrive(state) {
 }
 
 export function hasSharedDrive(state) {
-  return (state.googleDrive.share);
+  return (state.googleDrive.share !== null);
 }
 
 export function getError(state) {

@@ -4,27 +4,27 @@ import { combineReducers } from 'redux';
 
 const initialState = {
   loadApi: {
-    stage: undefined,
-    runtime: undefined,
-    error: undefined,
+    stage: null,
+    runtime: null,
+    error: null,
   },
   runCode: {
-    stage: undefined,
-    ast: undefined,
-    bytecode: undefined,
-    result: undefined,
-    error: undefined,
-    pausing: false
+    stage: null,
+    ast: null,
+    bytecode: null,
+    result: null,
+    error: null,
+    pausing: null,
   },
   editor: {
     source: '// Code',
   },
   googleDrive: {
-    stage: undefined,
-    drive: undefined,
-    save: undefined,
-    share: undefined,
-    error: undefined,
+    stage: null,
+    drive: null,
+    save: null,
+    share: null,
+    error: null,
   },
 };
 

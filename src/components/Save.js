@@ -11,35 +11,36 @@ import * as selectors from '../redux/selectors';
 //TODO: Link argument of saveGoogleDrive() to Input Value
 export class Save extends React.Component {
   render() {
+    if (!this.props.hasConnectedDrive) {
+      return null;
+    }
+    if (this.props.isSavingDrive) {
+      return (
+        <span>
+          <Input kind="program" placeholder="Program Name"/>
+          <Button kind="toolbar">
+            <Spinner style={styles.spinners.toolbar}/>
+            Saving...
+          </Button>
+        </span>
+      );
+    }
     return (
       <span>
-        {this.props.hasConnectedDrive && !this.props.isSavingDrive &&
-         <span>
-           <Input kind="program" defaultValue="Program Name"></Input>
-           <Button kind="toolbar"
-                   onClick={() => this.props.saveGoogleDrive("File")}>
-             Save
-           </Button>
-         </span>
-        }
-        {this.props.hasConnectedDrive && this.props.isSavingDrive &&
-         <span>
-           <Input kind="program" defaultValue="Program Name"></Input>
-           <Button kind="toolbar">
-             <Spinner style={styles.spinners.toolbar}/>
-             Saving...
-           </Button>
-         </span>
-        }
+        <Input kind="program" placeholder="Program Name"/>
+        <Button kind="toolbar"
+                onClick={() => this.props.saveGoogleDrive("File")}>
+          Save
+        </Button>
       </span>
-    );
+      );
   }
 }
 
 Save.propTypes = {
-  hasConnectedDrive: React.PropTypes.any,
+  hasConnectedDrive: React.PropTypes.bool,
   isSavingDrive: React.PropTypes.bool,
-  hasSavedDrive: React.PropTypes.any,
+  hasSavedDrive: React.PropTypes.bool,
   saveGoogleDrive: React.PropTypes.func,
 };
 

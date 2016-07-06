@@ -9,29 +9,30 @@ import * as selectors from '../redux/selectors';
 
 export class Share extends React.Component {
   render() {
+    if (!this.props.hasSavedDrive) {
+      return null;
+    }
+    if (this.props.isSharingDrive) {
+      return (
+        <Button kind="toolbar">
+          <Spinner style={styles.spinners.toolbar}/>
+          Sharing...
+        </Button>
+      );
+    }
     return (
-      <span>
-        {this.props.hasSavedDrive && !this.props.isSharingDrive &&
-          <Button kind="toolbar"
-                  onClick={() => this.props.shareGoogleDrive()}>
-            Share
-          </Button>
-        }
-        {this.props.hasSavedDrive && this.props.isSharingDrive &&
-          <Button kind="toolbar">
-            <Spinner style={styles.spinners.toolbar}/>
-            Sharing...
-          </Button>
-        }
-      </span>
+      <Button kind="toolbar"
+              onClick={() => this.props.shareGoogleDrive()}>
+        Share
+      </Button>
     );
   }
 }
 
 Share.propTypes = {
-  hasSavedDrive: React.PropTypes.any,
+  hasSavedDrive: React.PropTypes.bool,
   isSharingDrive: React.PropTypes.bool,
-  hasSharedDrive: React.PropTypes.any,
+  hasSharedDrive: React.PropTypes.bool,
   shareGoogleDrive: React.PropTypes.func,
 };
 

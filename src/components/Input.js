@@ -5,16 +5,13 @@ import {styles} from "./styles";
 export class Input extends React.Component {
   render () {
     return (
-      <input
-        placeholder={this.props.defaultValue}
+      <input {...this.props}
+        type="text"
         style={[
           styles.forms.base,
           styles.forms[this.props.kind],
           this.props.style
         ]}
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
       />
     );
   }
@@ -22,7 +19,6 @@ export class Input extends React.Component {
 
 Input.propTypes = {
   kind: React.PropTypes.string,
-  defaultValue: React.PropTypes.string,
   style: React.PropTypes.object
 };
 
