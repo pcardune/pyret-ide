@@ -4,7 +4,6 @@ import {saveGoogleDrive} from '../redux/actionCreators';
 import {bindActionCreators} from 'redux';
 import {styles} from './styles';
 import Button from './Button';
-import Input from './Input';
 import Spinner from './Spinner';
 import * as selectors from '../redux/selectors';
 
@@ -16,24 +15,18 @@ export class Save extends React.Component {
     }
     if (this.props.isSavingDrive) {
       return (
-        <span>
-          <Input kind="program" placeholder="Program Name"/>
-          <Button kind="toolbar">
-            <Spinner style={styles.spinners.toolbar}/>
-            Saving...
-          </Button>
-        </span>
+        <Button kind="toolbar">
+          <Spinner style={styles.spinners.toolbar}/>
+          Saving...
+        </Button>
       );
     }
     return (
-      <span>
-        <Input kind="program" placeholder="Program Name"/>
-        <Button kind="toolbar"
-                onClick={() => this.props.saveGoogleDrive("File")}>
-          Save
-        </Button>
-      </span>
-      );
+      <Button kind="toolbar"
+              onClick={() => this.props.saveGoogleDrive("File")}>
+        Save
+      </Button>
+    );
   }
 }
 

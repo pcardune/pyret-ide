@@ -12,16 +12,15 @@ export class Run extends React.Component {
   render() {
     if (this.props.isRunning && this.props.hasLoadedRuntime) {
       return (
-        <Button kind="run" style={{color: "gray", paddingTop: 12}}>
+        <Button style={styles.buttons.run.running}>
           <Spinner style={styles.spinners.toolbar}/>
           Running...
         </Button>
       );
     } else {
       return (
-        <Button kind="run"
-                onClick={() => this.props.onRun(this.props.source)}
-                style={{backgroundColor: "#317BCF"}}>
+        <Button style={styles.buttons.run.waiting}
+                onClick={() => this.props.onRun(this.props.source)}>
           Run
         </Button>
       );
@@ -30,7 +29,6 @@ export class Run extends React.Component {
 }
 
 Run.propTypes = {
-  gif: React.PropTypes.string,
   isRunning: React.PropTypes.bool,
   onRun: React.PropTypes.func,
   source: React.PropTypes.string,

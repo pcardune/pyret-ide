@@ -3,8 +3,10 @@ import Radium from 'radium';
 
 export class Spinner extends React.Component {
   render() {
-    return (<img style={this.props.style}
-                 src="https://code.pyret.org/img/pyret-spin.gif" />);
+    return (
+      <img style={this.props.style}
+           src="https://code.pyret.org/img/pyret-spin.gif"/>
+    );
   }
 }
 
