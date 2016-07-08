@@ -20,13 +20,6 @@ export function loadRuntimeApi(runtimeApiLoader) {
   };
 }
 
-function makeError(error) {
-  if (typeof error === "string") {
-    error = new Error(error);
-  }
-  return error;
-}
-
 export function run(src) {
   return (dispatch, getState) => {
     dispatch({type: actType.START_PARSE, stage: 'parsing'});
@@ -66,15 +59,15 @@ export function run(src) {
                 });
               })
               .catch(reason => {
-                dispatch({type: actType.FAIL_EXECUTE, payload: makeError(reason)});
+                dispatch({type: actType.FAIL_EXECUTE, payload: reason});
               });
           })
           .catch(reason => {
-            dispatch({type: actType.FAIL_COMPILE, payload: makeError(reason)});
+            dispatch({type: actType.FAIL_COMPILE, payload: reason});
           });
       })
       .catch(reason => {
-        dispatch({type: actType.FAIL_PARSE, payload: makeError(reason)});
+        dispatch({type: actType.FAIL_PARSE, payload: reason});
       });
   };
 }

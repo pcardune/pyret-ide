@@ -1,5 +1,7 @@
 import stubCompiler from '../src/stubCompiler';
 
+var noop = () => null;
+
 describe("The stubCompiler's", () => {
 
   describe("parse function", () => {
@@ -9,9 +11,9 @@ describe("The stubCompiler's", () => {
     });
 
     it("returns a Promise that resolves to some fake ast", (done) => {
-      var promise = stubCompiler.parse("(13+252)*10");
+      var promise = stubCompiler.parse("(13+252)*10\n1+2");
       promise.then(ast => {
-        expect(ast).toEqual(['13', '252', '+', '10', '*']);
+        expect(ast).toEqual([['13', '252', '+', '10', '*'], ['1', '2', '+']]);
         done();
       }).catch(error => {
         done.fail(error);
@@ -26,9 +28,10 @@ describe("The stubCompiler's", () => {
     });
 
     it("returns a Promise that resolves to some fake bytecode", (done) => {
-      var promise = stubCompiler.compile(['13', '252', '+', '10', '*']);
+      var promise = stubCompiler.compile([['13', '252', '+', '10', '*'],
+                                          ['1', '2', '+']]);
       promise.then(bytecode => {
-        expect(bytecode).toEqual(jasmine.any(Function));
+        expect(bytecode).toEqual([jasmine.any(Function), jasmine.any(Function)]);
         done();
       }).catch(error => {
         done.fail(error);
@@ -43,7 +46,7 @@ describe("The stubCompiler's", () => {
     });
 
     it("returns a Promise that resolves to some fake result", (done) => {
-      var promise = stubCompiler.execute(() => 'some result');
+      var promise = stubCompiler.execute([() => 'some result'], noop, noop, noop);
       promise.then(result => {
         expect(result).toBe('some result');
         done();
@@ -57,9 +60,9 @@ describe("The stubCompiler's", () => {
         .parse("3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 2")
         .then(
           ast => stubCompiler.compile(ast).then(
-            bytecode => stubCompiler.execute(bytecode).then(
+            bytecode => stubCompiler.execute(bytecode, noop, noop, noop).then(
               result => {
-                expect(result).toEqual(3.03125);
+                expect(result).toEqual('3.03125');
                 done();
               }
             )));

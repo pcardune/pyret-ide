@@ -74,7 +74,7 @@ function parseLine(src) {
 
 // how long to "wait" at each step of the execution process
 // to simulate asyncrhonous execution
-const FAKE_TIMEOUT = 500;
+const FAKE_TIMEOUT = 0;
 
 export default {
 
