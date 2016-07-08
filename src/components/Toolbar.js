@@ -23,8 +23,8 @@ class Toolbar extends React.Component {
           <More/>
         </div>
         <div style={styles.toolbar.controls}>
-          <Stop/>
           <Run/>
+          <Stop/>
         </div>
       </div>
     );
