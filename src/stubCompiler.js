@@ -8,6 +8,74 @@ const OPS = {
   '^': (a,b) => Math.pow(a(), b()),
 };
 
+function parseLine(src) {
+  var infix = src.replace(/\s+/g, ''); // remove spaces, so infix[i]!=" "
+
+  var stack = [];
+  const PRECEDENCE = {"^":4, "*":3, "/":3, "+":2, "-":2};
+  const ASSOCIATIVITY = {
+    "^":"Right",
+    "*":"Left",
+    "/":"Left",
+    "+":"Left",
+    "-":"Left"
+  };
+  var token;
+  var postfix = [];
+  var o1, o2;
+
+  function isNum(token) {
+    return token >= "0" && token <= "9" || token == '.';
+  }
+
+  for (var i = 0; i < infix.length; i++) {
+    token = infix[i];
+    if (isNum(token)) {
+      // token is part of an operand
+      var prev = infix[i - 1];
+      if (prev && isNum(prev[0])) {
+        postfix[postfix.length - 1] += token;
+      } else {
+        postfix.push(token);
+      }
+    } else if (OPS[token]) {
+      // token is an operator
+      o1 = token;
+      o2 = stack[stack.length - 1];
+      while (OPS[o2] && (
+        // while operator token, o2, on top of the stack
+        // and o1 is left-associative and its precedence is
+        // less than or equal to that of o2
+        (ASSOCIATIVITY[o1] == "Left" && (PRECEDENCE[o1] <= PRECEDENCE[o2])) ||
+        // or o1 is right-associative and its precedence is less than that of o2
+        (ASSOCIATIVITY[o1] == "Right" && (PRECEDENCE[o1] < PRECEDENCE[o2]))
+      )){
+        postfix.push(o2);
+        stack.pop();
+        o2 = stack[stack.length - 1];
+      }
+      stack.push(o1);
+    } else if (token == "(") {
+      stack.push(token);
+    } else if (token == ")") {
+      while (stack[stack.length - 1] != "("){
+        // move token from top of stack to output queue until we hit (
+        postfix.push(stack.pop());
+      }
+      stack.pop(); // pop (, but not onto the output queue
+    }
+  }
+  while (stack.length > 0){
+    postfix.push(stack.pop());
+  }
+
+  return postfix;
+}
+
+// how long to "wait" at each step of the execution process
+// to simulate asyncrhonous execution
+const FAKE_TIMEOUT = 500;
+
 export default {
 
   parse(src) {
@@ -15,97 +83,53 @@ export default {
       if (!src) {
         return reject(new Error("no source code provided"));
       }
-      var infix = src.replace(/\s+/g, ''); // remove spaces, so infix[i]!=" "
 
-      var stack = [];
-      const PRECEDENCE = {"^":4, "*":3, "/":3, "+":2, "-":2};
-      const ASSOCIATIVITY = {
-        "^":"Right",
-        "*":"Left",
-        "/":"Left",
-        "+":"Left",
-        "-":"Left"
-      };
-      var token;
-      var postfix = [];
-      var o1, o2;
-
-      function isNum(token) {
-        return token >= "0" && token <= "9" || token == '.';
-      }
-
-      for (var i = 0; i < infix.length; i++) {
-        token = infix[i];
-        if (isNum(token)) {
-          // token is part of an operand
-          var prev = infix[i - 1];
-          if (prev && isNum(prev[0])) {
-            postfix[postfix.length - 1] += token;
-          } else {
-            postfix.push(token);
-          }
-        } else if (OPS[token]) {
-          // token is an operator
-          o1 = token;
-          o2 = stack[stack.length - 1];
-          while (OPS[o2] && (
-            // while operator token, o2, on top of the stack
-            // and o1 is left-associative and its precedence is
-            // less than or equal to that of o2
-            (ASSOCIATIVITY[o1] == "Left" && (PRECEDENCE[o1] <= PRECEDENCE[o2])) ||
-            // or o1 is right-associative and its precedence is less than that of o2
-            (ASSOCIATIVITY[o1] == "Right" && (PRECEDENCE[o1] < PRECEDENCE[o2]))
-          )){
-            postfix.push(o2);
-            stack.pop();
-            o2 = stack[stack.length - 1];
-          }
-          stack.push(o1);
-        } else if (token == "(") {
-          stack.push(token);
-        } else if (token == ")") {
-          while (stack[stack.length - 1] != "("){
-            // move token from top of stack to output queue until we hit (
-            postfix.push(stack.pop());
-          }
-          stack.pop(); // pop (, but not onto the output queue
-        }
-      }
-      while (stack.length > 0){
-        postfix.push(stack.pop());
-      }
-
-      window.setTimeout(() => resolve(postfix), 1000);
+      var lines = src.split('\n').map(parseLine).filter(ast => ast.length > 0);
+      window.setTimeout(() => resolve(lines), FAKE_TIMEOUT);
     });
   },
 
-  compile(ast) {
+  compile(astLines) {
     return new Promise((resolve, reject) => {
-      if (!ast) {
+      if (!astLines) {
         reject(new Error("no ast provided"));
       }
-      ast = ast.slice();
-      function comp() {
-        var next = ast.pop();
-        if (OPS[next]) {
-          var b = comp(ast);
-          var a = comp(ast);
-          return OPS[next].bind(null, a, b);
-        } else {
-          return () => parseFloat(next);
+      var compiledLines = astLines.map(ast => {
+        ast = ast.slice();
+        function comp() {
+          var next = ast.pop();
+          if (OPS[next]) {
+            var b = comp(ast);
+            var a = comp(ast);
+            return OPS[next].bind(null, a, b);
+          } else {
+            return () => parseFloat(next);
+          }
         }
-      }
-      window.setTimeout(() => resolve(comp(ast)), 1000);
+        return comp(ast);
+      });
+      window.setTimeout(() => resolve(compiledLines), FAKE_TIMEOUT);
     });
   },
 
-  execute(bytecode) {
+  execute(bytecodeLines, stdout, stderr, onResult) {
     return new Promise((resolve, reject) => {
-      if (!bytecode) {
+      if (!bytecodeLines) {
         reject(new Error("No bytecode provided"));
       }
-      var result = bytecode();
-      window.setTimeout(() => resolve(result), 1000);
+      const allResults = [];
+      function runNextLine(lines) {
+        if (lines.length == 0) {
+          resolve(allResults.join('\n'));
+          return;
+        }
+        var bytecode = lines[0];
+        var result = bytecode();
+        stdout('' + result);
+        allResults.push(result);
+        window.setTimeout(() => runNextLine(lines.slice(1)), FAKE_TIMEOUT);
+      }
+      runNextLine(bytecodeLines);
     });
   },
 

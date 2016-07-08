@@ -20,6 +20,13 @@ export function loadRuntimeApi(runtimeApiLoader) {
   };
 }
 
+function makeError(error) {
+  if (typeof error === "string") {
+    error = new Error(error);
+  }
+  return error;
+}
+
 export function run(src) {
   return (dispatch, getState) => {
     dispatch({type: actType.START_PARSE, stage: 'parsing'});
@@ -28,6 +35,9 @@ export function run(src) {
     if (!runtimeApi) {
       throw new Error("Runtime has not been loaded, you can't run anything yet!");
     }
+    var stdout = (s) => dispatch(recieveREPLResult(s));
+    var stderr = (s) => dispatch(recieveREPLResult(s));
+    var onResult = (s) => dispatch(recieveREPLResult(s));
     runtimeApi
       .parse(src)
       .then(ast => {
@@ -45,7 +55,7 @@ export function run(src) {
             dispatch({type: actType.FINISH_COMPILE, payload: bytecode});
             dispatch({type: actType.START_EXECUTE, stage: 'executing'});
             runtimeApi
-              .execute(bytecode)
+              .execute(bytecode, stdout, stderr, onResult)
               .then(result => {
                 if (!selectors.isRunning(getState())) {
                   return;
@@ -56,15 +66,15 @@ export function run(src) {
                 });
               })
               .catch(reason => {
-                dispatch({type: actType.FAIL_EXECUTE, payload: reason});
+                dispatch({type: actType.FAIL_EXECUTE, payload: makeError(reason)});
               });
           })
           .catch(reason => {
-            dispatch({type: actType.FAIL_COMPILE, payload: reason});
+            dispatch({type: actType.FAIL_COMPILE, payload: makeError(reason)});
           });
       })
       .catch(reason => {
-        dispatch({type: actType.FAIL_PARSE, payload: reason});
+        dispatch({type: actType.FAIL_PARSE, payload: makeError(reason)});
       });
   };
 }
@@ -154,4 +164,3 @@ export function recieveREPLResult(result) {
     payload: result,
   };
 }
-

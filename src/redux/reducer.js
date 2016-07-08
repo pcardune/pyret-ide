@@ -17,7 +17,7 @@ const initialState = {
     pausing: null,
   },
   editor: {
-    source: '// Code',
+    source: '',
   },
   googleDrive: {
     stage: null,
@@ -37,10 +37,12 @@ function REPL(state = initialState.REPL, action) {
     case actType.CHANGE_REPL_CODE:
       return Object.assign({}, state, {code: action.payload});
     case actType.RECEIVE_REPL_RESULT:
-      return Object
-        .assign({}, state, {history: state.history
-                                          .concat(
-                                            {code: state.code, result: action.payload})});
+      return Object.assign({}, state, {
+        history: state.history.concat({
+          code: state.code,
+          result: action.payload
+        })
+      });
     default:
       return state;
   }
