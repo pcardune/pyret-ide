@@ -140,3 +140,18 @@ export function shareGoogleDrive() {
       });
   };
 }
+
+export function changeREPLCode(code) {
+  return {
+    type: actType.CHANGE_REPL_CODE,
+    payload: code,
+  };
+}
+
+export function recieveREPLResult(result) {
+  return {
+    type: actType.RECEIVE_REPL_RESULT,
+    payload: result,
+  };
+}
+
