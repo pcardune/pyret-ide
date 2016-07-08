@@ -27,3 +27,24 @@ export const driveStages = {
     FAILED: 'failedShare',
   },
 };
+
+export const loadTexts = [
+  "Raising the masts...",
+  "Securing the oarlocks...",
+  "Hoisting the anchor...",
+  "Swabbing the decks...",
+  "Debarnacling the keel...",
+  "Checking the cargo manifest...",
+  "Assembling the crew...",
+  "Inspecting the turnbuckles...",
+  "Furling the rollers...",
+  "Lashing the jib-boom...",
+  "Tying the rigging...",
+  "Reinforcing the hull...",
+  "Bailing the bilge...",
+  "Feeding the parrot...",
+  "Consulting the map...",
+  "Calibrating the compass...",
+  "Polishing the spyglass...",
+  "Latching the portholes..."
+];
