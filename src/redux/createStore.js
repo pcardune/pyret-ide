@@ -3,9 +3,9 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import pyretReducer from './reducer';
 
-export default function createStore() {
+export default function createStore({debug}) {
   var middleware = [thunkMiddleware];
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production' || debug) {
     middleware.push(createLogger());
   }
 

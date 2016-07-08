@@ -10,8 +10,8 @@ import reducer from './redux/reducer';
 import {loadRuntimeApi} from './redux/actionCreators';
 
 export default {
-  init({rootEl, runtimeApiLoader}) {
-    const store = createStore(reducer, {});
+  init({rootEl, runtimeApiLoader, debug}) {
+    const store = createStore({debug});
     store.dispatch(loadRuntimeApi(runtimeApiLoader));
     ReactDOM.render(
       <Provider store={store}>

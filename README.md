@@ -21,6 +21,7 @@ import PyretIDE from 'pyret-ide';
 import yourRuntimeApiLoader from './yourRuntimeApiLoader';
 
 PyretIDE.init({
+  debug: true,
   rootEl: document.getElementById('pyret-ide-root-element'),
   runtimeApiLoader: yourRuntimeApiLoader
 });
