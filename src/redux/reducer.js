@@ -26,7 +26,25 @@ const initialState = {
     share: null,
     error: null,
   },
+  REPL: {
+    code: '',
+    history: [],
+  },
 };
+
+function REPL(state = initialState.REPL, action) {
+  switch (action.type) {
+    case actType.CHANGE_REPL_CODE:
+      return Object.assign({}, state, {code: action.payload});
+    case actType.RECEIVE_REPL_RESULT:
+      return Object
+        .assign({}, state, {history: state.history
+                                          .concat(
+                                            {code: state.code, result: action.payload})});
+    default:
+      return state;
+  }
+}
 
 function editor(state = initialState.editor, action) {
   switch (action.type) {
@@ -139,6 +157,7 @@ const pyretReducer = combineReducers({
   loadApi,
   runCode,
   editor,
+  REPL,
   googleDrive,
 });
 

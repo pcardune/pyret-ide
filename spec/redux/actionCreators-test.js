@@ -1,5 +1,5 @@
 import pyretReducer from '../../src/redux/reducer';
-import {loadRuntimeApi, run, stop} from "../../src/redux/actionCreators";
+import * as actCreators from "../../src/redux/actionCreators";
 import * as actType from '../../src/redux/action-types';
 import configureStore from "redux-mock-store";
 import thunk from 'redux-thunk';
@@ -20,7 +20,7 @@ describe("The actionCreators'", () => {
         });
       };
       store = mockStore({}); //initial state of the store
-      store.dispatch(loadRuntimeApi(runtimeApiLoader));
+      store.dispatch(actCreators.loadRuntimeApi(runtimeApiLoader));
     });
 
     it("dispatches a START_LOAD_RUNTIME action first", () => {
@@ -46,10 +46,28 @@ describe("The actionCreators'", () => {
     });
   });
 
+  describe("changeREPLCode", () => {
+    var store = mockStore({});
+    store.dispatch(actCreators.changeREPLCode("some code"));
+    it("returns the CHANGE_REPL_CODE action", () => {
+      expect(store.getActions()[0])
+        .toEqual({type: actType.CHANGE_REPL_CODE, payload: "some code"});
+    });
+  });
+
+  describe("recieveREPLResult", () => {
+    it("returns the RECEIVE_REPL_RESULT action", () => {
+      var store = mockStore({});
+      store.dispatch(actCreators.recieveREPLResult("some result"));
+      expect(store.getActions()[0])
+        .toEqual({type: actType.RECEIVE_REPL_RESULT, payload: "some result"});
+    });
+  });
+
   describe("stop function", () => {
     it("returns the STOP_RUN action", () => {
       var store = mockStore({});
-      store.dispatch(stop());
+      store.dispatch(actCreators.stop());
       expect(store.getActions()[0]).toEqual({type: actType.STOP_RUN});
     });
   });
@@ -88,12 +106,12 @@ describe("The actionCreators'", () => {
       });
 
       store = mockStore(state);
-      store.dispatch(run(src));
+      store.dispatch(actCreators.run(src));
     });
 
     it("It throws an exception if the runtime has not been loaded", () => {
       store = mockStore({});
-      expect(() => store.dispatch(run(src)))
+      expect(() => store.dispatch(actCreators.run(src)))
         .toThrowError("Runtime has not been loaded, you can't run anything yet!");
     });
 

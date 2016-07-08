@@ -42,6 +42,35 @@ describe("The reducer", () => {
     });
   });
 
+  describe("handles REPL calls", ()=> {
+
+    const changeREPLCode = {type: actType.CHANGE_REPL_CODE, payload: "code"};
+    const receiveREPLResult = {type: actType.RECEIVE_REPL_RESULT, payload: "result"};
+
+    it("and returns a state object ", () => {
+      expect(state.REPL).toEqual(jasmine.any(Object));
+    });
+
+    it("and returns an object key history whose value is an array", () => {
+      expect(state.REPL.history).toEqual(jasmine.any(Array));
+    });
+
+    describe("and returns a state change", () => {
+
+      it("for action CHANGE_REPL_CODE", () => {
+        var nextState = pyretReducer(state, changeREPLCode).REPL;
+        expect(nextState.code).toEqual("code");
+      });
+
+      it(`for the first index of the array history after RECEIVE_REPL_RESULT
+          is dispatched`, () => {
+        var nextState = pyretReducer(state, receiveREPLResult).REPL;
+        expect(nextState.history[0].result).toEqual("result");
+      });
+
+    });
+  });
+
   describe("handles runCode calls", () => {
 
     it("and returns a state object ", () => {
