@@ -5,6 +5,8 @@ import {Run} from "../Run";
 import {Connect} from '../Connect';
 import {Save} from '../Save';
 import {Share} from '../Share';
+import {More} from '../More';
+import {MoreMenu} from '../MoreMenu';
 
 
 storiesOf("RunButton", module)
@@ -42,4 +44,11 @@ storiesOf("GoogleDriveButton", module)
   ))
   .add("Sharing", () => (
     <Share hasSavedDrive={true} isSharingDrive={true}/>
+  ));
+storiesOf("MoreButton", module)
+  .add("Button", () => (
+    <More/>
+  ))
+  .add("MoreMenu", () => (
+    <MoreMenu expanded={true}/>
   ));

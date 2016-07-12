@@ -85,6 +85,18 @@ export function stop() {
   };
 }
 
+export function expandMoreMenu() {
+  return {
+    type: actType.EXPAND_MORE_MENU,
+  };
+}
+
+export function collapseMoreMenu() {
+  return {
+    type: actType.COLLAPSE_MORE_MENU,
+  };
+}
+
 export function connectGoogleDrive() {
   return dispatch => {
     dispatch({type: actType.START_CONNECT_DRIVE});

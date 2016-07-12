@@ -30,6 +30,9 @@ const initialState = {
     code: '',
     history: [],
   },
+  moreMenu: {
+    expanded: false,
+  },
 };
 
 function REPL(state = initialState.REPL, action) {
@@ -155,12 +158,24 @@ function googleDrive(state = initialState.googleDrive, action) {
   }
 }
 
+function moreMenu(state = initialState.moreMenu, action) {
+  switch (action.type) {
+    case actType.EXPAND_MORE_MENU:
+      return Object.assign({}, state, {expanded: true});
+    case actType.COLLAPSE_MORE_MENU:
+      return Object.assign({}, state, {expanded: false});
+    default:
+      return state;
+  }
+}
+
 const pyretReducer = combineReducers({
   loadApi,
   runCode,
   editor,
   REPL,
   googleDrive,
+  moreMenu,
 });
 
 export default pyretReducer;
