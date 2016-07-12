@@ -5,8 +5,7 @@ import Spinner from './Spinner';
 import * as selectors from '../redux/selectors';
 import {styles} from './styles';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {run} from '../redux/actionCreators';
+import {run, clear} from '../redux/actionCreators';
 
 export class Run extends React.Component {
   render() {
@@ -41,7 +40,10 @@ export default connect(
     isRunning: selectors.isRunning(state),
     hasLoadedRuntime: selectors.hasLoadedRuntime(state),
   }),
-  dispatch => bindActionCreators( {
-    onRun: run,
-  }, dispatch)
+  dispatch => ({
+    onRun(src) {
+      dispatch(clear());
+      dispatch(run(src));
+    }
+  })
 )(Radium(Run));

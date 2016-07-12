@@ -131,8 +131,14 @@ describe("The actionCreators'", () => {
         .toThrowError("Runtime has not been loaded, you can't run anything yet!");
     });
 
+    it("dispatches a STORE_SOURCE action first", () => {
+      expect(store.getActions()[0]).toEqual(
+        {type: "STORE_SOURCE", payload: "some source code"}
+      );
+    });
+
     it("dispatches a START_PARSE action first", () => {
-      expect(store.getActions()[0]).toEqual({type: "START_PARSE", stage: 'parsing'});
+      expect(store.getActions()[1]).toEqual({type: "START_PARSE", stage: 'parsing'});
     });
 
     describe("after calling the parse function,", () => {
@@ -140,7 +146,7 @@ describe("The actionCreators'", () => {
       it("dispatches a FINISH_PARSE action once the source code is parsed", (done) => {
         parseResolve("the ast");
         window.setTimeout(() => {
-          expect(store.getActions()[1])
+          expect(store.getActions()[2])
             .toEqual({type: "FINISH_PARSE", payload: "the ast"});
           done();
         }, 0);
@@ -149,7 +155,7 @@ describe("The actionCreators'", () => {
       it("dispatches a START_COMPILE action once the source code is parsed", (done) => {
         parseResolve("the src");
         window.setTimeout(() => {
-          expect(store.getActions()[2])
+          expect(store.getActions()[3])
             .toEqual({type: "START_COMPILE", stage: 'compiling'});
           done();
         }, 0);
@@ -158,7 +164,7 @@ describe("The actionCreators'", () => {
       it("dispatches a FAIL_PARSE action once the first promise is rejected", (done) => {
         parseReject("some error");
         window.setTimeout(() => {
-          expect(store.getActions()[1])
+          expect(store.getActions()[2])
             .toEqual({type: "FAIL_PARSE", payload: "some error"});
           done();
         }, 0);
@@ -174,7 +180,7 @@ describe("The actionCreators'", () => {
         it("dispatches a FINISH_COMPILE action once the ast is compiled", (done) => {
           compileResolve("the byte code");
           window.setTimeout(() => {
-            expect(store.getActions()[3])
+            expect(store.getActions()[4])
               .toEqual({type: "FINISH_COMPILE", payload: 'the byte code'});
             done();
           }, 0);
@@ -183,7 +189,7 @@ describe("The actionCreators'", () => {
         it("dispatches a START_EXECUTE action once the ast is compiled", (done) => {
           compileResolve("the bytecode");
           window.setTimeout(() => {
-            expect(store.getActions()[4])
+            expect(store.getActions()[5])
               .toEqual({type: "START_EXECUTE", stage: 'executing'});
             done();
           }, 0);
@@ -193,7 +199,7 @@ describe("The actionCreators'", () => {
            (done) => {
              compileReject("some error");
              window.setTimeout(() => {
-               expect(store.getActions()[3])
+               expect(store.getActions()[4])
                  .toEqual({type: "FAIL_COMPILE", payload: "some error"});
                done();
              }, 0);
@@ -206,12 +212,16 @@ describe("The actionCreators'", () => {
             window.setTimeout(done, 0);
           });
 
-          it("dispatches a FINISH_EXECUTE action once the bytecode is executed",
+          it(`dispatches a FINISH_EXECUTE and STORE_EDITOR_RESULT
+              action once the bytecode is executed`,
              (done) => {
                executeResolve("some result");
                window.setTimeout(() => {
-                 expect(store.getActions()[5])
+                 expect(store.getActions()[6])
                    .toEqual({type: "FINISH_EXECUTE", payload: "some result"});
+                 expect(store.getActions()[7])
+                   .toEqual({type: "STORE_EDITOR_RESULT", payload: "some result"});
+
                  done();
                }, 0);
              });
@@ -220,7 +230,7 @@ describe("The actionCreators'", () => {
              (done) => {
                executeReject("some error");
                window.setTimeout(() => {
-                 expect(store.getActions()[5])
+                 expect(store.getActions()[6])
                    .toEqual({type: "FAIL_EXECUTE", payload: "some error"});
                  done();
                }, 0);

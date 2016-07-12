@@ -43,3 +43,7 @@ export function getError(state) {
 export function isMoreMenuExpanded(state) {
   return state.moreMenu.expanded;
 }
+
+export function hasHistory(state) {
+  return (state.REPL.history !== []);
+}

@@ -22,6 +22,7 @@ export function loadRuntimeApi(runtimeApiLoader) {
 
 export function run(src) {
   return (dispatch, getState) => {
+    dispatch({type: actType.STORE_SOURCE, payload: src});
     dispatch({type: actType.START_PARSE, stage: 'parsing'});
     const state = getState();
     const runtimeApi = state.loadApi && state.loadApi.runtime;
@@ -56,6 +57,10 @@ export function run(src) {
                 dispatch({
                   type: actType.FINISH_EXECUTE,
                   payload: result
+                });
+                dispatch({
+                  type: actType.STORE_EDITOR_RESULT,
+                  payload: result,
                 });
               })
               .catch(reason => {
@@ -94,6 +99,12 @@ export function expandMoreMenu() {
 export function collapseMoreMenu() {
   return {
     type: actType.COLLAPSE_MORE_MENU,
+  };
+}
+
+export function clear() {
+  return {
+    type: actType.CLEAR_STATE,
   };
 }
 
