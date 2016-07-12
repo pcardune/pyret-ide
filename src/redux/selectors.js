@@ -39,3 +39,7 @@ export function hasSharedDrive(state) {
 export function getError(state) {
   return (state.loadApi.error || state.runCode.error || state.googleDrive.error);
 }
+
+export function isMoreMenuExpanded(state) {
+  return state.moreMenu.expanded;
+}

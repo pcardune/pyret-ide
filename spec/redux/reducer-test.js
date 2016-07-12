@@ -42,6 +42,29 @@ describe("The reducer", () => {
     });
   });
 
+  describe("handles moreMenu calls", ()=> {
+
+    const expandMoreMenu = {type: actType.EXPAND_MORE_MENU, expanded: true};
+    const collapseMoreMenu = {type: actType.COLLAPSE_MORE_MENU, expanded: false};
+
+    it("and returns a state object ", () => {
+      expect(state.moreMenu).toEqual(jasmine.any(Object));
+    });
+
+    describe("and returns a state change", () => {
+
+      it("for action EXPAND_MORE_MENU", () => {
+        var nextState = pyretReducer(state, expandMoreMenu).moreMenu;
+        expect(nextState.expanded).toEqual(true);
+      });
+
+      it("for action COLLAPSE_MORE_MENU", () => {
+        var nextState = pyretReducer(state, collapseMoreMenu).moreMenu;
+        expect(nextState.expanded).toEqual(false);
+      });
+    });
+  });
+
   describe("handles REPL calls", ()=> {
 
     const changeREPLCode = {type: actType.CHANGE_REPL_CODE, payload: "code"};

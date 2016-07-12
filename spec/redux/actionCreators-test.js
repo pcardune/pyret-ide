@@ -64,6 +64,22 @@ describe("The actionCreators'", () => {
     });
   });
 
+  describe("expandMoreMenu", () => {
+    it("returns the EXPAND_MORE_MENU action", () => {
+      var store = mockStore({});
+      store.dispatch(actCreators.expandMoreMenu());
+      expect(store.getActions()[0]).toEqual({type: actType.EXPAND_MORE_MENU});
+    });
+  });
+
+  describe("collapseMoreMenu", () => {
+    it("returns the COLLAPSE_MORE_MENU action", () => {
+      var store = mockStore({});
+      store.dispatch(actCreators.collapseMoreMenu());
+      expect(store.getActions()[0]).toEqual({type: actType.COLLAPSE_MORE_MENU});
+    });
+  });
+
   describe("stop function", () => {
     it("returns the STOP_RUN action", () => {
       var store = mockStore({});

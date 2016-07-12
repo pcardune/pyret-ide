@@ -9,6 +9,7 @@ import More from './More';
 import Run from './Run';
 import Name from './Name';
 import {styles} from './styles';
+import MoreMenu from "./MoreMenu";
 
 class Toolbar extends React.Component {
   render() {
@@ -21,6 +22,7 @@ class Toolbar extends React.Component {
           <Save/>
           <Share/>
           <More/>
+          <MoreMenu/>
         </div>
         <div style={styles.toolbar.controls}>
           <Run/>

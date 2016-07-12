@@ -67,7 +67,6 @@ export var styles = {
       fontSize:"15px",
       fontFamily: "sans-serif",
       color: "white",
-      marginLeft: 3,
     },
     toolbar: {
       width: 120,
@@ -90,10 +89,36 @@ export var styles = {
         color: "gray",
       },
     },
+    more: {
+      moreButton:{
+        height: 40,
+        position: "absolute",
+        marginLeft: 3,
+        justifyContent: "center",
+      },
+      menuContainer: {
+        display: "flex",
+        flexDirection: "column",
+        position: "absolute",
+        marginTop: 40,
+        marginLeft: 3,
+        zIndex: 1,
+      },
+      menuItems: {
+        height: 40,
+        color: "black",
+        backgroundColor: "#EFEFEF",
+        textDecoration: "none",
+      },
+    },
     googleDrive: {
       float: "left",
       width: 194,
       backgroundColor: "gray"
     },
-  }
+  },
+  linkStyle: {
+    textDecoration: "none",
+    color: "black",
+  },
 };
