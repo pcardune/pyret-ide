@@ -67,7 +67,6 @@ export var styles = {
       fontSize:"15px",
       fontFamily: "sans-serif",
       color: "white",
-      marginLeft: 3,
     },
     toolbar: {
       width: 120,
