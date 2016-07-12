@@ -9,24 +9,17 @@ import {styles} from './styles';
 
 export class More extends React.Component {
   render() {
-    if (this.props.expanded) {
-      return(
-        <Button kind="toolbar"
-                style={styles.buttons.more.moreButton}
-                onClick={()=> this.props.collapse()}>
-          More
-        </Button>
-      );
-    }
     return(
       <Button kind="toolbar"
               style={styles.buttons.more.moreButton}
-              onClick={()=> this.props.expand()}>
-        More
+              onClick={() =>
+                this.props.expanded ? this.props.collapse() : this.props.expand()}>
+              More
       </Button>
     );
   }
 }
+
 
 More.propTypes = {
   expanded: React.PropTypes.bool,
