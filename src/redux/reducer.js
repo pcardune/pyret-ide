@@ -9,6 +9,7 @@ const initialState = {
     error: null,
   },
   runCode: {
+    source: null,
     stage: null,
     ast: null,
     bytecode: null,
@@ -18,6 +19,7 @@ const initialState = {
   },
   editor: {
     source: '',
+    result: null,
   },
   googleDrive: {
     stage: null,
@@ -46,6 +48,10 @@ function REPL(state = initialState.REPL, action) {
           result: action.payload
         })
       });
+    case actType.CLEAR_STATE:
+      return initialState.REPL;
+    case actType.FINISH_EXECUTE:
+      return Object.assign({}, state, {code: ''});
     default:
       return state;
   }
@@ -55,6 +61,8 @@ function editor(state = initialState.editor, action) {
   switch (action.type) {
     case actType.CHANGE_SOURCE:
       return Object.assign({}, state, {source: action.payload});
+    case actType.STORE_EDITOR_RESULT:
+      return Object.assign({}, state, {result: action.payload});
     default:
       return state;
   }
@@ -78,6 +86,8 @@ function loadApi(state = initialState.loadApi, action) {
 
 function runCode(state = initialState.runCode, action) {
   switch (action.type) {
+    case actType.STORE_SOURCE:
+      return Object.assign({}, state, {source: action.payload});
     case actType.START_PARSE:
       return Object.assign({}, state, {stage: constants.runtimeStages.PARSING,
                                        error: null});

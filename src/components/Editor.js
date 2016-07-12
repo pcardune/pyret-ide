@@ -8,6 +8,8 @@ import CodeWindow from './CodeWindow';
 import Spinner from './Spinner';
 import ErrorBox from './ErrorBox';
 import {loadTexts} from '../redux/constants';
+import REPLHistoryList from './REPLHistoryList';
+import REPLInput from './REPLInput';
 
 class Editor extends React.Component {
   render() {
@@ -27,7 +29,10 @@ class Editor extends React.Component {
                </div>
               }
               <ErrorBox/>
-              <p>{this.props.result}</p>
+              <div style={{position: 'absolute', bottom: 5}}>
+                <REPLHistoryList/>
+                <REPLInput/>
+              </div>
             </div>
           </SplitPane>
         </div>
@@ -37,17 +42,19 @@ class Editor extends React.Component {
 }
 
 Editor.propTypes = {
+  result: React.PropTypes.any,
+  hasHistory: React.PropTypes.bool,
   isLoadingRuntime: React.PropTypes.bool,
   hasLoadedRuntime: React.PropTypes.bool,
-  result: React.PropTypes.any,
 };
 
 export default connect(
   state => {
     return {
+      result: state.editor.result,
+      hasHistory: selectors.hasHistory(state),
       isLoadingRuntime: selectors.isLoadingRuntime(state),
       hasLoadedRuntime: selectors.hasLoadedRuntime(state),
-      result: state.runCode.result,
     };
   }
 )(Editor);
