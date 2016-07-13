@@ -28,8 +28,7 @@ export var styles = {
       height: 30,
     },
     window: {
-      paddingTop: 110,
-      paddingBottom: 80,
+      paddingTop: 200,
       height: 50,
       width: "auto",
       margin: "auto",
