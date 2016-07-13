@@ -34,6 +34,7 @@ const initialState = {
   },
   moreMenu: {
     expanded: false,
+    fontSize: 12,
   },
 };
 
@@ -174,6 +175,14 @@ function moreMenu(state = initialState.moreMenu, action) {
       return Object.assign({}, state, {expanded: true});
     case actType.COLLAPSE_MORE_MENU:
       return Object.assign({}, state, {expanded: false});
+    case actType.INCREMENT_FONT_SIZE:
+      return Object.assign({}, state, {
+        fontSize: Math.min(constants.fontBoundary.max, state.fontSize + 4)
+      });
+    case actType.DECREMENT_FONT_SIZE:
+      return Object.assign({}, state, {
+        fontSize: Math.max(constants.fontBoundary.min, state.fontSize - 4)
+      });
     default:
       return state;
   }

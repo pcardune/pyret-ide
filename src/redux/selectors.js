@@ -44,6 +44,10 @@ export function isMoreMenuExpanded(state) {
   return state.moreMenu.expanded;
 }
 
+export function getFontSize(state) {
+  return state.moreMenu.fontSize;
+}
+
 export function hasHistory(state) {
   return (state.REPL.history !== []);
 }

@@ -48,3 +48,8 @@ export const loadTexts = [
   "Polishing the spyglass...",
   "Latching the portholes..."
 ];
+
+export const fontBoundary = {
+  max: 56,
+  min: 8,
+};
