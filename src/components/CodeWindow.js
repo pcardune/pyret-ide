@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Codemirror from 'react-codemirror';
 import {changeSource} from '../redux/actionCreators';
+import {getSource} from '../redux/selectors';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
@@ -29,7 +30,7 @@ CodeWindow.propTypes = {
 
 export default connect(
   state => ({
-    source: state.editor.source,
+    source: getSource(state),
   }),
   dispatch => bindActionCreators(
     {

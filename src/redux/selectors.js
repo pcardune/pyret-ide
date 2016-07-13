@@ -38,6 +38,16 @@ export function hasSharedDrive(state) {
 
 export function getError(state) {
   return (state.loadApi.error || state.runCode.error || state.googleDrive.error);
+export function getResult(state) {
+  return state.getIn(['editor', 'result']);
+}
+
+export function getSource(state) {
+  return state.getIn(['editor', 'source']);
+}
+
+export function getCode(state) {
+  return (state.getIn(['REPL', 'code']));
 }
 
 export function isMoreMenuExpanded(state) {
@@ -50,4 +60,6 @@ export function getFontSize(state) {
 
 export function hasHistory(state) {
   return (state.REPL.history !== []);
+export function getHistory(state) {
+  return (state.getIn(['REPL', 'history']));
 }

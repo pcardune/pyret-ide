@@ -29,7 +29,7 @@ export default connect(
   state => {
     return {
       hasHistory: selectors.hasHistory(state),
-      REPLHistory: state.REPL.history,
+      REPLHistory: selectors.getHistory(state),
     };
   }
 )(REPLHistoryList);

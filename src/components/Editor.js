@@ -70,7 +70,7 @@ Editor.propTypes = {
 export default connect(
   state => {
     return {
-      result: state.editor.result,
+      result: selectors.getResult(state),
       hasHistory: selectors.hasHistory(state),
       isLoadingRuntime: selectors.isLoadingRuntime(state),
       hasLoadedRuntime: selectors.hasLoadedRuntime(state),
