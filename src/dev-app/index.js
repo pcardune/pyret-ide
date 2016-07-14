@@ -11,5 +11,5 @@ var app = document.createElement('div');
 document.body.appendChild(app);
 PyretIDE.init({
   rootEl: app,
-  runtimeApiLoader
+  runtimeApiLoader,
 });
