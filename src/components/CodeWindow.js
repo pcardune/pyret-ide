@@ -7,13 +7,16 @@ import {changeSource} from '../redux/actionCreators';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 
+require('./CodeWindow.css');
+
 class CodeWindow extends React.Component {
   render() {
     var options = {
       lineNumbers: true,
     };
     return (
-      <Codemirror value={this.props.source}
+      <Codemirror className="PyretIDE-CodeWindow"
+                  value={this.props.source}
                   onChange={this.props.changeSource}
                   options={options} />
     );

@@ -1,8 +1,8 @@
 import React from 'react';
+import Radium from 'radium';
 import SplitPane from '@mnmtanish/react-split-pane';
 import * as selectors from '../redux/selectors';
 import {connect} from 'react-redux';
-import {styles} from './styles';
 import Toolbar from './Toolbar';
 import CodeWindow from './CodeWindow';
 import Spinner from './Spinner';
@@ -11,18 +11,38 @@ import {loadTexts} from '../redux/constants';
 import REPLHistoryList from './REPLHistoryList';
 import REPLInput from './REPLInput';
 
+const styles = {
+  editor: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+    alignItems: 'stretch',
+  },
+  spinner: {
+    paddingTop: 200,
+    height: 50,
+    width: "auto",
+    margin: "auto",
+    display: "flex",
+  },
+  splitPaneWrapper: {
+    flexBasis: '100%',
+    position: 'relative',
+  },
+};
+
 class Editor extends React.Component {
   render() {
     return (
-      <div>
+      <div style={styles.editor}>
         <Toolbar logo="https://code.pyret.org/img/pyret-logo.png" />
-        <div style={{fontSize: this.props.fontSize}}>
+        <div style={[styles.splitPaneWrapper, {fontSize: this.props.fontSize}]}>
           <SplitPane defaultSize="50%" split="vertical">
-            <div><CodeWindow/></div>
+            <CodeWindow/>
             <div>
               {this.props.isLoadingRuntime &&
                <div>
-                 <Spinner style={styles.spinners.window}/>
+                 <Spinner style={styles.spinner}/>
                  <p style={{textAlign: "center"}}>
                    {loadTexts[Math.floor(Math.random() * loadTexts.length)]}
                  </p>
@@ -59,4 +79,4 @@ export default connect(
       fontSize: selectors.getFontSize(state),
     };
   }
-)(Editor);
+)(Radium(Editor));

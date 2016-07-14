@@ -12,12 +12,9 @@ export var styles = {
     left: 6,
   },
   logos: {
-    container: {
-      display: "flex",
-      height: "inherit",
-    },
     toolbar: {
-      height: "80%",
+      height: 36,
+      marginTop: 2,
       alignSelf: "center",
       paddingLeft: 15,
       paddingRight: 15,
@@ -28,11 +25,6 @@ export var styles = {
       height: 30,
     },
     window: {
-      paddingTop: 200,
-      height: 50,
-      width: "auto",
-      margin: "auto",
-      display: "flex",
     },
   },
   toolbar: {
@@ -40,10 +32,10 @@ export var styles = {
       display: "flex",
       justifyContent: "space-between",
       backgroundColor: "#C0C0C0",
-      height: 40,
+      flexBasis: 40,
+      flexShrink: 0,
     },
     tools: {
-      height: "inherit",
       display: "flex",
       justifyContent: "flex-start",
     },
