@@ -14,7 +14,7 @@ export class More extends React.Component {
               style={styles.buttons.more.moreButton}
               onClick={() =>
                 this.props.expanded ? this.props.collapse() : this.props.expand()}>
-              More
+        More ▾
       </Button>
     );
   }

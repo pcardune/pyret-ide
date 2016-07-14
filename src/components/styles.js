@@ -91,6 +91,7 @@ export var styles = {
     more: {
       moreButton:{
         height: 40,
+        width: 75,
         position: "absolute",
         marginLeft: 3,
         justifyContent: "center",
