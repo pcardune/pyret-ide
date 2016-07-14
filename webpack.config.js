@@ -42,6 +42,11 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.css$/, loaders: ["style", "css"] },
+      {test:/.png|.jpg|.jpeg|.gif|.svg/, loader: "url-loader?limit=10000"},
+      {test:/.woff|.woff2/, loader: "url-loader?limit=10000"},
+      {test:/.woff|.woff2/, loader: "url-loader?limit=10000"},
+      {test:/.ttf|.eot/, loader: "file-loader"},
+      {test: /\.less$/, loader:'style!css!less'},
     ].concat(IS_PRODUCTION ? [] : [
       {
         test: /\.js$/,

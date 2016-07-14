@@ -9,15 +9,20 @@
   "dependencies": {
     "@mnmtanish/react-split-pane": "^0.1.31",
     "babel-polyfill": "^6.9.1",
+    "bootstrap": "^3.3.6",
     "codemirror": "^5.15.2",
+    "file-loader": "^0.9.0",
     "immutable": "^3.8.1",
+    "less-loader": "^2.2.3",
     "radium": "^0.17.1",
+    "react-bootstrap": "^0.29.5",
     "react-codemirror": "^0.2.6",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-mock-store": "^1.1.1",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "url-loader": "^0.5.7"
   },
   "devDependencies": {
     "@kadira/storybook": "^1.34.0",
