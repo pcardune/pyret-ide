@@ -3,6 +3,7 @@ import * as actCreators from "../../src/redux/actionCreators";
 import * as actType from '../../src/redux/action-types';
 import configureStore from "redux-mock-store";
 import thunk from 'redux-thunk';
+import Immutable from 'immutable';
 
 describe("The actionCreators'", () => {
 
@@ -142,7 +143,7 @@ describe("The actionCreators'", () => {
     });
 
     it("It throws an exception if the runtime has not been loaded", () => {
-      store = mockStore({});
+      store = mockStore(Immutable.Map());
       expect(() => store.dispatch(actCreators.run(src)))
         .toThrowError("Runtime has not been loaded, you can't run anything yet!");
     });

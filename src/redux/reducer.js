@@ -1,14 +1,15 @@
 import * as actType from './action-types';
 import * as constants from './constants';
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux-immutable';
+import Immutable from 'immutable';
 
-const initialState = {
-  loadApi: {
+const initialState = Immutable.Map({
+  loadApi: Immutable.Map({
     stage: null,
     runtime: null,
     error: null,
-  },
-  runCode: {
+  }),
+  runCode: Immutable.Map({
     source: null,
     stage: null,
     ast: null,
@@ -16,173 +17,167 @@ const initialState = {
     result: null,
     error: null,
     pausing: null,
-  },
-  editor: {
+  }),
+  editor: Immutable.Map({
     source: '',
     result: null,
-  },
-  googleDrive: {
+  }),
+  googleDrive: Immutable.Map({
     stage: null,
     drive: null,
     save: null,
     share: null,
     error: null,
-  },
-  REPL: {
+  }),
+  REPL: Immutable.Map({
     code: '',
-    history: [],
-  },
-  moreMenu: {
+    history: Immutable.List(),
+  }),
+  moreMenu: Immutable.Map({
     expanded: false,
     fontSize: 12,
-  },
-};
+  }),
+});
 
-function REPL(state = initialState.REPL, action) {
+function REPL(state = initialState.get('REPL'), action) {
   switch (action.type) {
     case actType.CHANGE_REPL_CODE:
-      return Object.assign({}, state, {code: action.payload});
+      return state.set('code', action.payload);
     case actType.RECEIVE_REPL_RESULT:
-      return Object.assign({}, state, {
-        history: state.history.concat({
-          code: state.code,
-          result: action.payload
-        })
-      });
+      return state.set('history', state.get('history').push({
+        code: state.code,
+        result: action.payload
+      }));
     case actType.CLEAR_STATE:
-      return initialState.REPL;
+      return initialState.get('REPL');
     case actType.FINISH_EXECUTE:
-      return Object.assign({}, state, {code: ''});
+      return state.set('code', '');
     default:
       return state;
   }
 }
 
-function editor(state = initialState.editor, action) {
+function editor(state = initialState.get('editor'), action) {
   switch (action.type) {
     case actType.CHANGE_SOURCE:
-      return Object.assign({}, state, {source: action.payload});
+      return state.set('source', action.payload);
     case actType.STORE_EDITOR_RESULT:
-      return Object.assign({}, state, {result: action.payload});
+      return state.set('result', action.payload);
     default:
       return state;
   }
 }
 
-function loadApi(state = initialState.loadApi, action) {
+function loadApi(state = initialState.get('loadApi'), action) {
   switch (action.type) {
     case actType.START_LOAD_RUNTIME:
-      return Object.assign({}, state, {stage: constants.loadApiStages.STARTED,
-                                       error: null});
+      return state.merge({stage: constants.loadApiStages.STARTED, error: null});
     case actType.FINISH_LOAD_RUNTIME:
-      return Object.assign({}, state, {stage: constants.loadApiStages.FINISHED,
-                                       runtime: action.payload});
+      return state.merge({stage: constants.loadApiStages.FINISHED,
+                          runtime: action.payload});
     case actType.FAIL_LOAD_RUNTIME:
-      return Object.assign({}, state, {stage: constants.loadApiStages.FAILED,
+      return state.merge({stage: constants.loadApiStages.FAILED,
                                        error: action.payload});
     default:
       return state;
   }
 }
 
-function runCode(state = initialState.runCode, action) {
+function runCode(state = initialState.get('runCode'), action) {
   switch (action.type) {
     case actType.STORE_SOURCE:
-      return Object.assign({}, state, {source: action.payload});
+      return state.set('source', action.payload);
     case actType.START_PARSE:
-      return Object.assign({}, state, {stage: constants.runtimeStages.PARSING,
-                                       error: null});
+      return state.merge({stage: constants.runtimeStages.PARSING, error: null});
     case actType.FINISH_PARSE:
-      return Object.assign({}, state, {stage: null, ast: action.payload});
+      return state.merge({stage: null, ast: action.payload});
     case actType.FAIL_PARSE:
-      console.error(action.payload);
-      return Object.assign({}, state, {stage: null, error: action.payload});
+      return state.merge({stage: null, error: action.payload});
     case actType.START_COMPILE:
-      return Object.assign({}, state, {stage: constants.runtimeStages.COMPILING});
+      return state.set('stage', constants.runtimeStages.COMPILING);
     case actType.FINISH_COMPILE:
-      return Object.assign({}, state, {stage: null, bytecode: action.payload});
+      return state.merge({stage: null, bytecode: action.payload});
     case actType.FAIL_COMPILE:
-      return Object.assign({}, state, {stage: null, error: action.payload});
+      return state.merge({stage: null, error: action.payload});
     case actType.START_EXECUTE:
-      return Object.assign({}, state, {stage: constants.runtimeStages.EXECUTING});
+      return state.set('stage', constants.runtimeStages.EXECUTING);
     case actType.FINISH_EXECUTE:
-      return Object.assign({}, state, {stage: null, result: action.payload});
+      return state.merge({stage: null, result: action.payload});
     case actType.FAIL_EXECUTE:
-      return Object.assign({}, state, {stage: null, error: action.payload});
+      return state.merge({stage: null, error: action.payload});
     case actType.STOP_RUN:
-      return Object.assign({}, state, {stage: null});
+      return state.set('stage', null);
     case actType.PAUSE_RUN:
-      return Object.assign({}, state, {pausing: true});
+      return state.set('pausing', true);
     case actType.CLEAR_STATE:
-      return Object.assign({}, state.runCode);
+      return state.set({}, state.runCode); //should this be intialState?
     default:
       return state;
   }
 }
 
-function googleDrive(state = initialState.googleDrive, action) {
+function googleDrive(state = initialState.get('googleDrive'), action) {
   switch (action.type) {
     case actType.START_CONNECT_DRIVE:
-      return Object.assign({}, state, {
+      return state.merge({
         stage: constants.driveStages.connect.STARTED,
         error: null,
       });
     case actType.FINISH_CONNECT_DRIVE:
-      return Object.assign({}, state, {
+      return state.merge({
         stage: constants.driveStages.connect.FINISHED,
-        drive: action.payload
+        drive: action.payload,
       });
     case actType.FAIL_CONNECT_DRIVE:
-      return Object.assign({}, state, {
+      return state.merge({
         stage: constants.driveStages.connect.FAILED,
-        error: action.payload});
+        error: action.payload,
+      });
     case actType.START_SAVE_DRIVE:
-      return Object.assign({}, state, {
-        stage: constants.driveStages.save.STARTED
+      return state.merge({
+        stage: constants.driveStages.save.STARTED,
       });
     case actType.FINISH_SAVE_DRIVE:
-      return Object.assign({}, state, {
+      return state.merge({
         stage: constants.driveStages.save.FINISHED,
-        save: action.payload
+        save: action.payload,
       });
     case actType.FAIL_SAVE_DRIVE:
-      return Object.assign({}, state, {
+      return state.merge({
         stage: constants.driveStages.save.FAILED,
-        error: action.payload
+        error: action.payload,
       });
     case actType.START_SHARE_DRIVE:
-      return Object.assign({}, state, {
-        stage: constants.driveStages.share.STARTED
+      return state.merge({
+        stage: constants.driveStages.share.STARTED,
       });
     case actType.FINISH_SHARE_DRIVE:
-      return Object.assign({}, state, {
+      return state.merge({
         stage: constants.driveStages.share.FINISHED,
-        share: action.payload
+        share: action.payload,
       });
     case actType.FAIL_SHARE_DRIVE:
-      return Object.assign({}, state, {
+      return state.merge({
         stage: constants.driveStages.share.FAILED,
-        error: action.payload
+        error: action.payload,
       });
     default:
       return state;
   }
 }
 
-function moreMenu(state = initialState.moreMenu, action) {
+function moreMenu(state = initialState.get('moreMenu'), action) {
   switch (action.type) {
     case actType.EXPAND_MORE_MENU:
-      return Object.assign({}, state, {expanded: true});
+      return state.set('expanded', true);
     case actType.COLLAPSE_MORE_MENU:
-      return Object.assign({}, state, {expanded: false});
+      return state.set('expanded', false);
     case actType.INCREMENT_FONT_SIZE:
-      return Object.assign({}, state, {
-        fontSize: Math.min(constants.fontBoundary.max, state.fontSize + 4)
-      });
+      return state.set('fontSize',
+                       Math.min(constants.fontBoundary.max, state.get('fontSize') + 4));
     case actType.DECREMENT_FONT_SIZE:
-      return Object.assign({}, state, {
-        fontSize: Math.max(constants.fontBoundary.min, state.fontSize - 4)
-      });
+      return state.set('fontSize',
+                       Math.max(constants.fontBoundary.min, state.get('fontSize') - 4));
     default:
       return state;
   }

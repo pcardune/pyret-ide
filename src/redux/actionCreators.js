@@ -25,7 +25,7 @@ export function run(src) {
     dispatch({type: actType.STORE_SOURCE, payload: src});
     dispatch({type: actType.START_PARSE, stage: 'parsing'});
     const state = getState();
-    const runtimeApi = state.loadApi && state.loadApi.runtime;
+    const runtimeApi = state.get('loadApi') && state.getIn(['loadApi', 'runtime']);
     if (!runtimeApi) {
       throw new Error("Runtime has not been loaded, you can't run anything yet!");
     }
@@ -33,7 +33,7 @@ export function run(src) {
     var stderr = (s) => dispatch(recieveREPLResult(s));
     var onResult = (s) => dispatch(recieveREPLResult(s));
     runtimeApi
-      .parse(src)
+      .get('parse')(src)
       .then(ast => {
         if (!selectors.isRunning(getState())) {
           return;
@@ -41,7 +41,7 @@ export function run(src) {
         dispatch({type: actType.FINISH_PARSE, payload: ast});
         dispatch({type: actType.START_COMPILE, stage: 'compiling'});
         runtimeApi
-          .compile(ast)
+          .get('compile')(ast)
           .then(bytecode => {
             if (!selectors.isRunning(getState())) {
               return;
@@ -49,7 +49,7 @@ export function run(src) {
             dispatch({type: actType.FINISH_COMPILE, payload: bytecode});
             dispatch({type: actType.START_EXECUTE, stage: 'executing'});
             runtimeApi
-              .execute(bytecode, stdout, stderr, onResult)
+              .get('execute')(bytecode, stdout, stderr, onResult)
               .then(result => {
                 if (!selectors.isRunning(getState())) {
                   return;
