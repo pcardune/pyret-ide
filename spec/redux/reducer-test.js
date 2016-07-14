@@ -46,6 +46,8 @@ describe("The reducer", () => {
 
     const expandMoreMenu = {type: actType.EXPAND_MORE_MENU, expanded: true};
     const collapseMoreMenu = {type: actType.COLLAPSE_MORE_MENU, expanded: false};
+    const incrementFontSize = {type: actType.INCREMENT_FONT_SIZE};
+    const decrementFontSize = {type: actType.DECREMENT_FONT_SIZE};
 
     it("and returns a state object ", () => {
       expect(state.moreMenu).toEqual(jasmine.any(Object));
@@ -61,6 +63,16 @@ describe("The reducer", () => {
       it("for action COLLAPSE_MORE_MENU", () => {
         var nextState = pyretReducer(state, collapseMoreMenu).moreMenu;
         expect(nextState.expanded).toEqual(false);
+      });
+
+      it("for action INCREMENT_FONT_SIZE", () => {
+        var nextState = pyretReducer(state, incrementFontSize).moreMenu;
+        expect(nextState.fontSize).toEqual(16);
+      });
+
+      it("for action DECREMENT_FONT_SIZE", () => {
+        var nextState = pyretReducer(state, decrementFontSize).moreMenu;
+        expect(nextState.fontSize).toEqual(8);
       });
     });
   });

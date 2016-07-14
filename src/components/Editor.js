@@ -16,7 +16,7 @@ class Editor extends React.Component {
     return (
       <div>
         <Toolbar logo="https://code.pyret.org/img/pyret-logo.png" />
-        <div>
+        <div style={{fontSize: this.props.fontSize}}>
           <SplitPane defaultSize="50%" split="vertical">
             <div><CodeWindow/></div>
             <div>
@@ -46,6 +46,7 @@ Editor.propTypes = {
   hasHistory: React.PropTypes.bool,
   isLoadingRuntime: React.PropTypes.bool,
   hasLoadedRuntime: React.PropTypes.bool,
+  fontSize: React.PropTypes.number,
 };
 
 export default connect(
@@ -55,6 +56,7 @@ export default connect(
       hasHistory: selectors.hasHistory(state),
       isLoadingRuntime: selectors.isLoadingRuntime(state),
       hasLoadedRuntime: selectors.hasLoadedRuntime(state),
+      fontSize: selectors.getFontSize(state),
     };
   }
 )(Editor);

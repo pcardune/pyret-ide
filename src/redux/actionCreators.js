@@ -102,6 +102,18 @@ export function collapseMoreMenu() {
   };
 }
 
+export function incrementFontSize() {
+  return {
+    type: actType.INCREMENT_FONT_SIZE,
+  };
+}
+
+export function decrementFontSize() {
+  return {
+    type: actType.DECREMENT_FONT_SIZE,
+  };
+}
+
 export function clear() {
   return {
     type: actType.CLEAR_STATE,

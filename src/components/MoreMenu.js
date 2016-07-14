@@ -4,6 +4,7 @@ import {isMoreMenuExpanded} from "../redux/selectors";
 import {connect} from 'react-redux';
 import {styles} from './styles';
 import Button from './Button';
+import FontSizeButton from './FontSizeButton';
 
 //TODO:
 //implement google drive functionality with "Download this File" button
@@ -19,7 +20,7 @@ export class MoreMenu extends React.Component {
               Documentation
             </a>
           </Button>
-          <Button style={styles.buttons.more.menuItems}>Font</Button>
+          <FontSizeButton/>
           <Button style={styles.buttons.more.menuItems}>
             <a href="https://github.com/brownplt/pyret-lang/issues/new" style={styles.linkStyle}>
                Report an Issue

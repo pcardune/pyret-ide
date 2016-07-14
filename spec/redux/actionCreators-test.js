@@ -80,6 +80,22 @@ describe("The actionCreators'", () => {
     });
   });
 
+  describe("incrementFontSize", () => {
+    it("returns the INCREMENT_FONT_SIZE action", () => {
+      var store = mockStore({});
+      store.dispatch(actCreators.incrementFontSize());
+      expect(store.getActions()[0]).toEqual({type: actType.INCREMENT_FONT_SIZE});
+    });
+  });
+
+  describe("expandMoreMenu", () => {
+    it("returns the DECREMENT FONT SIZE action", () => {
+      var store = mockStore({});
+      store.dispatch(actCreators.decrementFontSize());
+      expect(store.getActions()[0]).toEqual({type: actType.DECREMENT_FONT_SIZE});
+    });
+  });
+
   describe("stop function", () => {
     it("returns the STOP_RUN action", () => {
       var store = mockStore({});
