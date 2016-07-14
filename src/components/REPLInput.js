@@ -4,18 +4,39 @@ import {bindActionCreators} from 'redux';
 import {changeREPLCode, run} from '../redux/actionCreators';
 import * as selectors from '../redux/selectors';
 
+const styles = {
+  wrapper: {
+    margin: 5,
+    fontFamily: 'monospace',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+  input: {
+    backgroundColor: '#eee',
+    border: 0,
+    flexBasis: '100%',
+  },
+  inputChevron: {
+    paddingRight: 10,
+  },
+};
+
 export default class REPLInput extends React.Component {
   render() {
     if (this.props.isLoadingRuntime) {
       return (null);
     }
     return (
-      <div style={{margin: 5, fontFamily: 'monospace'}}>
-        {'> '}
-        <input style={{width: "90%", border: 0}}
+      <div style={styles.wrapper}>
+        <span style={styles.inputChevron}>
+          {'> '}
+        </span>
+        <input style={styles.input}
                value={this.props.code}
                onChange={event => this.props.changeREPLCode(event.target.value)}
-               onKeyPress={event => event.key === "Enter" && this.props.onRun(this.props.code)} />
+               onKeyPress={event =>
+                 event.key === "Enter" && this.props.onRun(this.props.code)} />
       </div>
     );
   }

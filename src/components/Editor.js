@@ -49,10 +49,8 @@ class Editor extends React.Component {
                </div>
               }
               <ErrorBox/>
-              <div style={{position: 'absolute', bottom: 5}}>
-                <REPLHistoryList/>
-                <REPLInput/>
-              </div>
+              <REPLHistoryList/>
+              <REPLInput/>
             </div>
           </SplitPane>
         </div>
