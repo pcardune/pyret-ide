@@ -36,7 +36,7 @@ Run.propTypes = {
 
 export default connect(
   state => ({
-    source: state.editor.source,
+    source: selectors.getSource(state),
     isRunning: selectors.isRunning(state),
     hasLoadedRuntime: selectors.hasLoadedRuntime(state),
   }),

@@ -52,7 +52,7 @@ REPLInput.propTypes = {
 
 export default connect(
   state => ({
-    code: state.REPL.code,
+    code: selectors.getCode(state),
     isLoadingRuntime: selectors.isLoadingRuntime(state),
   }),
   dispatch => bindActionCreators(

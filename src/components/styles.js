@@ -54,7 +54,7 @@ export var styles = {
       justifyContent: "space-around",
       alignItems: "center",
       width: 150,
-      border: "none",
+      borderWidth: 0,
       fontSize:"15px",
       fontFamily: "sans-serif",
       color: "white",
@@ -115,10 +115,8 @@ export var styles = {
         borderStyle: "solid",
         borderWidth: "1.5px",
         borderColor: "rgba(0,0,0,0.1)",
-        borderRight: "none",
-        borderLeft: "none",
-      },
-      text: {
+        borderRightWidth: 0,
+        borderLeftWidth: 0,
       },
       fontSizeButtons: {
         color: "black",
@@ -127,8 +125,8 @@ export var styles = {
         borderStyle: "solid",
         borderWidth: "1.5px",
         borderColor: "rgba(0,0,0,0.1)",
-        borderTop: "none",
-        borderBottom: "none",
+        borderTopWidth: 0,
+        borderBottomWidth: 0,
       },
     },
     googleDrive: {

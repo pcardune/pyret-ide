@@ -2,6 +2,7 @@ import React from 'react';
 import REPLHistoryItem from './REPLHistoryItem';
 import * as selectors from '../redux/selectors';
 import {connect} from 'react-redux';
+import Immutable from 'immutable';
 
 export default class REPLHistoryList extends React.Component {
   render() {
@@ -21,7 +22,7 @@ export default class REPLHistoryList extends React.Component {
 }
 
 REPLHistoryList.propTypes = {
-  REPLHistory: React.PropTypes.array,
+  REPLHistory: React.PropTypes.instanceOf(Immutable.List),
   hasHistory: React.PropTypes.bool,
 };
 
@@ -29,7 +30,7 @@ export default connect(
   state => {
     return {
       hasHistory: selectors.hasHistory(state),
-      REPLHistory: state.REPL.history,
+      REPLHistory: selectors.getHistory(state),
     };
   }
 )(REPLHistoryList);

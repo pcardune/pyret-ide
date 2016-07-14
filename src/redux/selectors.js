@@ -1,53 +1,74 @@
 import * as constants from './constants';
 
 export function isRunning(state) {
-  return (Object.values(constants.runtimeStages).includes(state.runCode.stage));
+  return (Object.values(constants.runtimeStages)
+                .includes(state.getIn(['runCode', 'stage'])));
 }
 
 export function isLoadingRuntime(state) {
-  return (state.loadApi.stage === constants.loadApiStages.STARTED);
+  return state.getIn(['loadApi', 'stage']) === constants.loadApiStages.STARTED;
 }
 
 export function hasLoadedRuntime(state) {
-  return (state.loadApi.stage === constants.loadApiStages.FINISHED);
+  return state.getIn(['loadApi', 'stage']) === constants.loadApiStages.FINISHED;
 }
 
 export function isConnectingDrive(state) {
-  return (state.googleDrive.stage === constants.driveStages.connect.STARTED);
+  return state.getIn(['googleDrive', 'stage']) ===
+    constants.driveStages.connect.STARTED;
 }
 
 export function hasConnectedDrive(state) {
-  return (state.googleDrive.drive !== null);
+  return state.getIn(['googleDrive', 'drive']) !== null;
 }
 
 export function isSavingDrive(state) {
-  return (state.googleDrive.stage === constants.driveStages.save.STARTED);
+  return state.getIn(['googleDrive', 'stage']) === constants.driveStages.save.STARTED;
 }
 
 export function hasSavedDrive(state) {
-  return (state.googleDrive.save !== null);
+  return state.getIn(['googleDrive', 'save']) !== null;
 }
 
 export function isSharingDrive(state) {
-  return (state.googleDrive.stage === constants.driveStages.share.STARTED);
+  return state.getIn(['googleDrive', 'stage']) === constants.driveStages.share.STARTED;
 }
 
 export function hasSharedDrive(state) {
-  return (state.googleDrive.share !== null);
+  return state.getIn(['googleDrive', 'share']) !== null;
 }
 
 export function getError(state) {
-  return (state.loadApi.error || state.runCode.error || state.googleDrive.error);
+  return (state.getIn(['loadApi', 'error']) ||
+          state.getIn(['runCode', 'error']) ||
+          state.getIn(['googleDrive', 'error'])
+  );
+}
+
+export function getResult(state) {
+  return state.getIn(['editor', 'result']);
+}
+
+export function getSource(state) {
+  return state.getIn(['editor', 'source']);
+}
+
+export function getCode(state) {
+  return state.getIn(['REPL', 'code']);
 }
 
 export function isMoreMenuExpanded(state) {
-  return state.moreMenu.expanded;
+  return state.getIn(['moreMenu', 'expanded']);
 }
 
 export function getFontSize(state) {
-  return state.moreMenu.fontSize;
+  return state.getIn(['moreMenu', 'fontSize']);
 }
 
 export function hasHistory(state) {
-  return (state.REPL.history !== []);
+  return state.getIn(['REPL', 'history']) !== [];
+}
+
+export function getHistory(state) {
+  return state.getIn(['REPL', 'history']);
 }

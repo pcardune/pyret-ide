@@ -1,5 +1,6 @@
 import pyretReducer from '../../src/redux/reducer';
 import * as actType from '../../src/redux/action-types';
+import Immutable from 'immutable';
 
 describe("The reducer", () => {
   var state;
@@ -11,7 +12,7 @@ describe("The reducer", () => {
   describe("handles loadApi calls", () => {
 
     it("and returns a state object", () => {
-      expect(state.loadApi).toEqual(jasmine.any(Object));
+      expect(state.get('loadApi')).toEqual(jasmine.any(Object));
     });
 
     describe("and returns a state change", () => {
@@ -24,20 +25,20 @@ describe("The reducer", () => {
       const fail = {type: actType.FAIL_LOAD_RUNTIME, payload: "reason"};
 
       it("for action type START_LOAD_RUNTIME", () => {
-        var nextState = pyretReducer(state, start).loadApi;
-        expect(nextState.stage).toEqual('started');
+        var nextState = pyretReducer(state, start).get('loadApi');
+        expect(nextState.get('stage')).toEqual('started');
       });
 
       it("for action type FINISH_LOAD_RUNTIME", () => {
-        var nextState = pyretReducer(state, finish).loadApi;
-        expect(nextState.stage).toEqual('finished');
-        expect(nextState.runtime).toEqual(finish.payload);
+        var nextState = pyretReducer(state, finish).get('loadApi');
+        expect(nextState.get('stage')).toEqual('finished');
+        expect(nextState.get('runtime')).toEqual(finish.payload);
       });
 
       it("for action type FAIL_LOAD_RUNTIME", () => {
-        var nextState = pyretReducer(state, fail).loadApi;
-        expect(nextState.stage).toEqual('failed');
-        expect(nextState.error).toEqual(fail.payload);
+        var nextState = pyretReducer(state, fail).get('loadApi');
+        expect(nextState.get('stage')).toEqual('failed');
+        expect(nextState.get('error')).toEqual(fail.payload);
       });
     });
   });
@@ -50,29 +51,29 @@ describe("The reducer", () => {
     const decrementFontSize = {type: actType.DECREMENT_FONT_SIZE};
 
     it("and returns a state object ", () => {
-      expect(state.moreMenu).toEqual(jasmine.any(Object));
+      expect(state.get('moreMenu')).toEqual(jasmine.any(Object));
     });
 
     describe("and returns a state change", () => {
 
       it("for action EXPAND_MORE_MENU", () => {
-        var nextState = pyretReducer(state, expandMoreMenu).moreMenu;
-        expect(nextState.expanded).toEqual(true);
+        var nextState = pyretReducer(state, expandMoreMenu).get('moreMenu');
+        expect(nextState.get('expanded')).toEqual(true);
       });
 
       it("for action COLLAPSE_MORE_MENU", () => {
-        var nextState = pyretReducer(state, collapseMoreMenu).moreMenu;
-        expect(nextState.expanded).toEqual(false);
+        var nextState = pyretReducer(state, collapseMoreMenu).get('moreMenu');
+        expect(nextState.get('expanded')).toEqual(false);
       });
 
       it("for action INCREMENT_FONT_SIZE", () => {
-        var nextState = pyretReducer(state, incrementFontSize).moreMenu;
-        expect(nextState.fontSize).toEqual(16);
+        var nextState = pyretReducer(state, incrementFontSize).get('moreMenu');
+        expect(nextState.get('fontSize')).toEqual(16);
       });
 
       it("for action DECREMENT_FONT_SIZE", () => {
-        var nextState = pyretReducer(state, decrementFontSize).moreMenu;
-        expect(nextState.fontSize).toEqual(8);
+        var nextState = pyretReducer(state, decrementFontSize).get('moreMenu');
+        expect(nextState.get('fontSize')).toEqual(8);
       });
     });
   });
@@ -83,24 +84,24 @@ describe("The reducer", () => {
     const receiveREPLResult = {type: actType.RECEIVE_REPL_RESULT, payload: "result"};
 
     it("and returns a state object ", () => {
-      expect(state.REPL).toEqual(jasmine.any(Object));
+      expect(state.get('REPL')).toEqual(jasmine.any(Object));
     });
 
-    it("and returns an object key history whose value is an array", () => {
-      expect(state.REPL.history).toEqual(jasmine.any(Array));
+    it("and returns an object key history whose value is an empty Immutable List", () => {
+      expect(state.getIn(['REPL', 'history'])).toEqual(Immutable.List());
     });
 
     describe("and returns a state change", () => {
 
       it("for action CHANGE_REPL_CODE", () => {
-        var nextState = pyretReducer(state, changeREPLCode).REPL;
-        expect(nextState.code).toEqual("code");
+        var nextState = pyretReducer(state, changeREPLCode).get('REPL');
+        expect(nextState.get('code')).toEqual("code");
       });
 
-      it(`for the first index of the array history after RECEIVE_REPL_RESULT
-          is dispatched`, () => {
-        var nextState = pyretReducer(state, receiveREPLResult).REPL;
-        expect(nextState.history[0].result).toEqual("result");
+      it(`for the first index of the Immutable List history
+         after RECEIVE_REPL_RESULT is dispatched`, () => {
+        var nextState = pyretReducer(state, receiveREPLResult).get('REPL');
+        expect(nextState.get('history').first().result).toEqual("result");
       });
 
     });
@@ -109,7 +110,7 @@ describe("The reducer", () => {
   describe("handles runCode calls", () => {
 
     it("and returns a state object ", () => {
-      expect(state.runCode).toEqual(jasmine.any(Object));
+      expect(state.get('runCode')).toEqual(jasmine.any(Object));
     });
 
     describe("and returns a state change", () => {
@@ -127,48 +128,48 @@ describe("The reducer", () => {
       const failExecute = {type: actType.FAIL_EXECUTE, payload: "reason"};
 
       it("for action type START_PARSE", () => {
-        var nextState = pyretReducer(state, startParse).runCode;
-        expect(nextState.stage).toEqual('parsing');
+        var nextState = pyretReducer(state, startParse).get('runCode');
+        expect(nextState.get('stage')).toEqual('parsing');
       });
 
       it("for action type FINISH_PARSE", () => {
-        var nextState = pyretReducer(state, finishParse).runCode;
-        expect(nextState.ast).toEqual('ast');
+        var nextState = pyretReducer(state, finishParse).get('runCode');
+        expect(nextState.get('ast')).toEqual('ast');
       });
 
       it("for action type FAIL_PARSE", () => {
-        var nextState = pyretReducer(state, failParse).runCode;
-        expect(nextState.error).toEqual('reason');
+        var nextState = pyretReducer(state, failParse).get('runCode');
+        expect(nextState.get('error')).toEqual('reason');
       });
 
       it("for action type START_COMPILE", () => {
-        var nextState = pyretReducer(state, startCompile).runCode;
-        expect(nextState.stage).toEqual('compiling');
+        var nextState = pyretReducer(state, startCompile).get('runCode');
+        expect(nextState.get('stage')).toEqual('compiling');
       });
 
       it("for action type FINISH_COMPILE", () => {
-        var nextState = pyretReducer(state, finishCompile).runCode;
-        expect(nextState.bytecode).toEqual('bytecode');
+        var nextState = pyretReducer(state, finishCompile).get('runCode');
+        expect(nextState.get('bytecode')).toEqual('bytecode');
       });
 
       it("for action type FAIL_COMPILE", () => {
-        var nextState = pyretReducer(state, failCompile).runCode;
-        expect(nextState.error).toEqual('reason');
+        var nextState = pyretReducer(state, failCompile).get('runCode');
+        expect(nextState.get('error')).toEqual('reason');
       });
 
       it("for action type START_EXECUTE", () => {
-        var nextState = pyretReducer(state, startExecute).runCode;
-        expect(nextState.stage).toEqual('executing');
+        var nextState = pyretReducer(state, startExecute).get('runCode');
+        expect(nextState.get('stage')).toEqual('executing');
       });
 
       it("for action type FINISH_EXECUTE", () => {
-        var nextState = pyretReducer(state, finishExecute).runCode;
-        expect(nextState.result).toEqual('result');
+        var nextState = pyretReducer(state, finishExecute).get('runCode');
+        expect(nextState.get('result')).toEqual('result');
       });
 
       it("for action type FAIL_EXECUTE", () => {
-        var nextState = pyretReducer(state, failExecute).runCode;
-        expect(nextState.error).toEqual('reason');
+        var nextState = pyretReducer(state, failExecute).get('runCode');
+        expect(nextState.get('error')).toEqual('reason');
       });
     });
   });
@@ -176,7 +177,7 @@ describe("The reducer", () => {
   describe("handles googleDrive calls", () => {
 
     it("and returns a state object ", () => {
-      expect(state.googleDrive).toEqual(jasmine.any(Object));
+      expect(state.get('googleDrive')).toEqual(jasmine.any(Object));
     });
 
     describe("and returns a state change", () => {
@@ -194,54 +195,54 @@ describe("The reducer", () => {
       const failShare = {type: actType.FAIL_SHARE_DRIVE, payload: "reason"};
 
       it("for action type START_CONNECT_DRIVE", () => {
-        var nextState = pyretReducer(state, startConnect).googleDrive;
-        expect(nextState.stage).toEqual('startedConnect');
+        var nextState = pyretReducer(state, startConnect).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('startedConnect');
       });
 
       it("for action type FINISH_CONNECT_DRIVE", () => {
-        var nextState = pyretReducer(state, finishConnect).googleDrive;
-        expect(nextState.stage).toEqual('finishedConnect');
-        expect(nextState.drive).toEqual('drive');
+        var nextState = pyretReducer(state, finishConnect).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('finishedConnect');
+        expect(nextState.get('drive')).toEqual('drive');
       });
 
       it("for action type FAIL_CONNECT_DRIVE", () => {
-        var nextState = pyretReducer(state, failConnect).googleDrive;
-        expect(nextState.stage).toEqual('failedConnect');
-        expect(nextState.error).toEqual('reason');
+        var nextState = pyretReducer(state, failConnect).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('failedConnect');
+        expect(nextState.get('error')).toEqual('reason');
       });
 
       it("for action type START_SAVE_DRIVE", () => {
-        var nextState = pyretReducer(state, startSave).googleDrive;
-        expect(nextState.stage).toEqual('startedSave');
+        var nextState = pyretReducer(state, startSave).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('startedSave');
       });
 
       it("for action type FINISH_SAVE_DRIVE", () => {
-        var nextState = pyretReducer(state, finishSave).googleDrive;
-        expect(nextState.stage).toEqual('finishedSave');
-        expect(nextState.save).toEqual('save');
+        var nextState = pyretReducer(state, finishSave).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('finishedSave');
+        expect(nextState.get('save')).toEqual('save');
       });
 
       it("for action type FAIL_SAVE_DRIVE", () => {
-        var nextState = pyretReducer(state, failSave).googleDrive;
-        expect(nextState.stage).toEqual('failedSave');
-        expect(nextState.error).toEqual('reason');
+        var nextState = pyretReducer(state, failSave).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('failedSave');
+        expect(nextState.get('error')).toEqual('reason');
       });
 
       it("for action type START_SHARE_DRIVE", () => {
-        var nextState = pyretReducer(state, startShare).googleDrive;
-        expect(nextState.stage).toEqual('startedShare');
+        var nextState = pyretReducer(state, startShare).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('startedShare');
       });
 
       it("for action type FINISH_SHARE_DRIVE", () => {
-        var nextState = pyretReducer(state, finishShare).googleDrive;
-        expect(nextState.stage).toEqual('finishedShare');
-        expect(nextState.share).toEqual('share');
+        var nextState = pyretReducer(state, finishShare).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('finishedShare');
+        expect(nextState.get('share')).toEqual('share');
       });
 
       it("for action type FAIL_SHARE_DRIVE", () => {
-        var nextState = pyretReducer(state, failShare).googleDrive;
-        expect(nextState.stage).toEqual('failedShare');
-        expect(nextState.error).toEqual('reason');
+        var nextState = pyretReducer(state, failShare).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('failedShare');
+        expect(nextState.get('error')).toEqual('reason');
       });
     });
   });
