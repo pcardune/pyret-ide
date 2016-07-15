@@ -36,6 +36,13 @@ export function changeREPLCode(code) {
   };
 }
 
+export function changeProgramName(name) {
+  return {
+    type: actType.CHANGE_PROGRAM_NAME,
+    payload: name
+  };
+}
+
 export function recieveREPLResult(result) {
   return {
     type: actType.RECEIVE_REPL_RESULT,
