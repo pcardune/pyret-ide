@@ -10,9 +10,9 @@ var runtimeApiLoader = function() {
 
 var app = document.createElement('div');
 var firebaseConfig = {
-  apiKey: "AIzaSyBP5OkygUw0RS4q8YaZNsasIHz9xLOgkWk",
-  authDomain: "pyret-ide-d8e06.firebaseapp.com",
-  databaseURL: "https://pyret-ide-d8e06.firebaseio.com",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
   storageBucket: "",
 };
 
