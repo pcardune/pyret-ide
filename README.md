@@ -155,6 +155,10 @@ function runtimeApiLoader() {
 
 ## Development ##
 
+### Firebase Config ###
+
+To connect your webapp to Firebase for authentication, create a project at https://console.firebase.google.com/. Then select 'Add Firebase to your web app', and add the apiKey, authDomain, and databaseURL fields to a .env file in your root folder, following './env.example' as the template. Now you are connected to Firebase!
+
 ### Running Tests ###
 
 Automated tests can be run using this command:

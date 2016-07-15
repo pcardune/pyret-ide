@@ -80,6 +80,17 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.FIREBASE_API_KEY': JSON.stringify(
+        process.env.FIREBASE_API_KEY
+      ),
+      'process.env.FIREBASE_AUTH_DOMAIN': JSON.stringify(
+        process.env.FIREBASE_AUTH_DOMAIN
+      ),
+      'process.env.FIREBASE_DATABASE_URL': JSON.stringify(
+        process.env.FIREBASE_DATABASE_URL
+      ),
+    }),
   ]),
   babel: {
     presets: ['es2015', 'react'],

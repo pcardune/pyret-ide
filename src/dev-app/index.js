@@ -9,6 +9,13 @@ var runtimeApiLoader = function() {
 };
 
 var app = document.createElement('div');
+var firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  storageBucket: "",
+};
+
 document.body.appendChild(app);
 PyretIDE.init({
   rootEl: app,
@@ -16,4 +23,5 @@ PyretIDE.init({
   codemirrorOptions: {
     mode: 'javascript',
   },
+  firebaseConfig,
 });
