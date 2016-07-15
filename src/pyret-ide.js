@@ -29,7 +29,8 @@ export default {
    *                                                  of CSS used by pyret-ide
    * @param {Object} [config.codemirrorOptions] - Config object passed to codemirror
    */
-  init({rootEl, runtimeApiLoader, debug, skipCSSLoading, codemirrorOptions, firebaseConfig}) {
+  init({rootEl, runtimeApiLoader, debug, skipCSSLoading,
+        codemirrorOptions, firebaseConfig}) {
     if (!skipCSSLoading) {
       require('bootstrap/less/bootstrap.less');
     }
