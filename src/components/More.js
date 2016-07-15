@@ -6,8 +6,12 @@ import {expandMoreMenu, collapseMoreMenu} from '../redux/actionCreators';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {styles} from './styles';
+import ClickOutside from 'react-click-outside';
 
 export class More extends React.Component {
+  handleClickOutside() {
+    this.props.collapse();
+  }
   render() {
     return(
       <Button kind="toolbar"
@@ -35,4 +39,4 @@ export default connect(
     expand: expandMoreMenu,
     collapse: collapseMoreMenu,
   }, dispatch)
-)(Radium(More));
+)(ClickOutside(Radium(More)));
