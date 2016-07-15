@@ -10,7 +10,9 @@ import ClickOutside from 'react-click-outside';
 
 export class More extends React.Component {
   handleClickOutside() {
-    this.props.collapse();
+    if (this.props.expanded) {
+      this.props.collapse();
+    }
   }
   render() {
     return(
