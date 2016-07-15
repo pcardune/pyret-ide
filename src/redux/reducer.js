@@ -45,7 +45,7 @@ function REPL(state = initialState.get('REPL'), action) {
       return state.set('code', action.payload);
     case actType.RECEIVE_REPL_RESULT:
       return state.set('history', state.get('history').push({
-        code: state.code,
+        code: state.get('code'),
         result: action.payload
       }));
     case actType.CLEAR_STATE:
