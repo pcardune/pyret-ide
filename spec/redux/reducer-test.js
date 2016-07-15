@@ -104,6 +104,11 @@ describe("The reducer", () => {
         expect(nextState.get('history').first().result).toEqual("result");
       });
 
+      it("for the REPL history value code", () => {
+        var nextState = pyretReducer(state, changeREPLCode);
+        nextState = pyretReducer(nextState, receiveREPLResult).get('REPL');
+        expect(nextState.get('history').first().code).toEqual("code");
+      });
     });
   });
 
