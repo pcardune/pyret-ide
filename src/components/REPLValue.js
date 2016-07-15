@@ -120,9 +120,9 @@ const RENDERERS = {
 
 
 export default function REPLValue({value}) {
-  var renderer = RENDERERS[value.type];
+  var renderer = typeof value === "object" && RENDERERS[value.type];
   if (!renderer) {
-    return <span>renderless type {value.type} {value.toString()}</span>;
+    return <span>{value.toString()}</span>;
   }
   return React.createElement(renderer, {value});
 }

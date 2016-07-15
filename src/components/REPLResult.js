@@ -1,10 +1,11 @@
 import React from 'react';
+import REPLValue from './REPLValue';
 
 export default class REPLResult extends React.Component {
   render() {
     return (
       <div>
-        {this.props.result}
+        <REPLValue value={this.props.result}/>
       </div>
     );
   }
