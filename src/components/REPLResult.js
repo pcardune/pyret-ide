@@ -5,7 +5,7 @@ export default class REPLResult extends React.Component {
   render() {
     return (
       <div>
-        <REPLValue value={this.props.result}/>
+        <REPLValue reprValue={this.props.result}/>
       </div>
     );
   }

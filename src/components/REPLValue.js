@@ -4,22 +4,22 @@ class Lazy extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: null
+      reprValue: null
     };
     this.expand = this.expand.bind(this);
   }
   expand() {
-    this.setState({value: this.props.value.getValue()});
+    this.setState({reprValue: this.props.reprValue.getValue()});
   }
   render() {
-    if (this.state.value === null) {
+    if (this.state.reprValue === null) {
       return <span onClick={this.expand}>&lt;click to expand&gt;</span>;
     } else {
-      return <REPLValue value={this.state.value}/>;
+      return <REPLValue reprValue={this.state.reprValue}/>;
     }
   }
 }
-Lazy.propTypes = {value: React.PropTypes.object};
+Lazy.propTypes = {reprValue: React.PropTypes.object};
 
 function Opaque() {
   return <span>&lt;opaque&gt;</span>;
@@ -33,25 +33,69 @@ function Image() {
   return <span>Image</span>;
 }
 
-function Number({value}) {
-  return <span>{value.value}</span>;
+class Number extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {showFraction: false};
+    this.toggleFraction = this.toggleFraction.bind(this);
+  }
+
+  toggleFraction() {
+    this.setState({showFraction: !this.state.showFraction});
+  }
+
+  render() {
+    const reprValue = this.props.reprValue;
+    if (typeof reprValue.value === "object") {
+      const {
+        numerator,
+        denominator,
+        whole,
+        fractional,
+        repeating
+      } = reprValue.value;
+      let text = `${whole}.${fractional}${repeating}`;
+      if (this.state.showFraction) {
+        text = `${numerator}/${denominator}`;
+      }
+      return (
+        <span onClick={this.toggleFraction}>
+          {text}
+        </span>
+      );
+    }
+    return <span>{reprValue.value}</span>;
+  }
 }
-Number.propTypes = {value: React.PropTypes.object};
+Number.propTypes = {
+  reprValue: React.PropTypes.shape({
+    type: React.PropTypes.string.isRequired,
+    value: React.PropTypes.oneOfType([
+      React.PropTypes.shape({
+        numerator: React.PropTypes.number,
+        denominator: React.PropTypes.number,
+        whole: React.PropTypes.number,
+        fractional: React.PropTypes.number,
+        repeating: React.PropTypes.number,
+      })
+    ])
+  })
+};
 
 function Nothing() {
   return <span>&lt;nothing&gt;</span>;
 }
-Nothing.propTypes = {value: React.PropTypes.object};
+Nothing.propTypes = {reprValue: React.PropTypes.object};
 
-function Boolean({value}) {
-  return <span>{value.value ? "true" : "false"}</span>;
+function Boolean({reprValue}) {
+  return <span>{reprValue.value ? "true" : "false"}</span>;
 }
-Boolean.propTypes = {value: React.PropTypes.object};
+Boolean.propTypes = {reprValue: React.PropTypes.object};
 
-function String({value}) {
-  return <span>"{value.value}"</span>;
+function String({reprValue}) {
+  return <span>"{reprValue.value}"</span>;
 }
-String.propTypes = {value: React.PropTypes.object};
+String.propTypes = {reprValue: React.PropTypes.object};
 
 function Method() {
   return <span>&lt;method&gt;</span>;
@@ -61,35 +105,35 @@ function Func() {
   return <span>&lt;func&gt;</span>;
 }
 
-function Array({value}) {
+function Array({reprValue}) {
   return (
     <span>
       [
-      {value.values.map((item, index) => (
-         <span><REPLValue value={item}/>{index < value.values.length - 1 && ", "}</span>
+      {reprValue.values.map((item, index) => (
+         <span><REPLValue reprValue={item}/>{index < reprValue.values.length - 1 && ", "}</span>
        ))}
          ]
     </span>
   );
 }
-Array.propTypes = {value: React.PropTypes.object};
+Array.propTypes = {reprValue: React.PropTypes.object};
 
 function Ref() {
   return <span>Ref</span>;
 }
 
-function Tuple({value}) {
+function Tuple({reprValue}) {
   return (
     <span>
       (
-      {value.values.map((item, index) => (
-         <span><REPLValue value={item}/>{index < value.values.length - 1 && ", "}</span>
+      {reprValue.values.map((item, index) => (
+         <span><REPLValue reprValue={item}/>{index < reprValue.values.length - 1 && ", "}</span>
        ))}
          )
     </span>
   );
 }
-Tuple.propTypes = {value: React.PropTypes.object};
+Tuple.propTypes = {reprValue: React.PropTypes.object};
 
 function Obj() {
   return <span>Object</span>;
@@ -119,15 +163,15 @@ const RENDERERS = {
 };
 
 
-export default function REPLValue({value}) {
-  var renderer = typeof value === "object" && RENDERERS[value.type];
+export default function REPLValue({reprValue}) {
+  var renderer = typeof reprValue === "object" && RENDERERS[reprValue.type];
   if (!renderer) {
-    return <span>{value.toString()}</span>;
+    return <span>{JSON.stringify(reprValue)}</span>;
   }
-  return React.createElement(renderer, {value});
+  return React.createElement(renderer, {reprValue});
 }
 REPLValue.propTypes = {
-  value: React.PropTypes.shape({
+  reprValue: React.PropTypes.shape({
     type: React.PropTypes.oneOf([
       'opaque',
       'cyclic',
