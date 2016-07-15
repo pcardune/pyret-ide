@@ -222,6 +222,22 @@ export function shareGoogleDrive() {
   };
 }
 
+export function signoutGoogleDrive() {
+  return dispatch => {
+    dispatch({type: actType.START_SIGNOUT_DRIVE});
+    firebase.auth().signOut()
+            .then(() => {
+              dispatch({type: actType.FINISH_SIGNOUT_DRIVE});
+              console.log("sign out successful");
+            })
+            .catch(reason => {
+              dispatch({type: actType.FAIL_SIGNOUT_DRIVE, payload: reason});
+              console.log("an error happened");
+            });
+  };
+}
+
+
 export function changeREPLCode(code) {
   return {
     type: actType.CHANGE_REPL_CODE,
