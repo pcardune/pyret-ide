@@ -136,7 +136,6 @@ function loadGoogleApi() {
     );
     var callbackName = "googleApiCallback" + Math.random();
     window[callbackName] = () => {
-      console.log("finished loading GoogleApi");
       delete window[callbackName];
       window.clearTimeout(timeout);
       resolve(gapi);
@@ -162,13 +161,12 @@ export function connectGoogleDrive() {
                 var tokenObject = {
                   access_token: result.credential.accessToken
                 };
-                gapi.client.load('drive', 'v2', () => {
+                gapi.client.load('drive', 'v3', () => {
                   // set the authentication token
                   gapi.auth.setToken(tokenObject);
                   dispatch({type: actType.FINISH_CONNECT_DRIVE});
                 });
               });
-              console.log(token, user);
             })
             .catch(error => {
               var errorCode = error.code;
@@ -177,7 +175,6 @@ export function connectGoogleDrive() {
               var credential = error.credential;
               dispatch({type: actType.FAIL_CONNECT_DRIVE,
                         payload: error});
-              console.log(errorCode, errorMessage, email, credential);
             });
 
   };
@@ -228,11 +225,9 @@ export function signoutGoogleDrive() {
     firebase.auth().signOut()
             .then(() => {
               dispatch({type: actType.FINISH_SIGNOUT_DRIVE});
-              console.log("sign out successful");
             })
             .catch(reason => {
               dispatch({type: actType.FAIL_SIGNOUT_DRIVE, payload: reason});
-              console.log("an error happened");
             });
   };
 }

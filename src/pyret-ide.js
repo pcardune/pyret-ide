@@ -36,8 +36,11 @@ export default {
     const store = createStore({debug});
     store.dispatch(configureIDE({codemirrorOptions, runtimeApiLoader}));
     store.dispatch(loadRuntimeApi(runtimeApiLoader));
-    console.log("initializing firebase with", firebaseConfig);
-    firebase.initializeApp(firebaseConfig);
+    if (firebaseConfig) {
+      firebase.initializeApp(firebaseConfig);
+    } else {
+      console.warn("Configure firebase before initializing!");
+    }
     ReactDOM.render(
       <Provider store={store}>
         <PyretIDE/>

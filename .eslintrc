@@ -31,5 +31,8 @@
   },
   "plugins": [
     "react"
-  ]
+  ],
+  "globals": {
+    "gapi": false,
+  }
 }
