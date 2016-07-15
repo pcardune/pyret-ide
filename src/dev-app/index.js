@@ -1,5 +1,5 @@
 import PyretIDE from '../pyret-ide';
-import stubCompiler from '../stubCompiler';
+import stubCompiler from './stubCompiler';
 
 var runtimeApiLoader = function() {
   return new Promise(function(resolve) {

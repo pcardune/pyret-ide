@@ -1,4 +1,4 @@
-import stubCompiler from '../src/stubCompiler';
+import stubCompiler from '../src/dev-app/stubCompiler';
 
 var noop = () => null;
 

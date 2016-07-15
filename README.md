@@ -100,7 +100,7 @@ following functions:
 
 For an example of what a (somewhat contrived) runtime api implementation might
 look like, see the
-[`stubCompiler`](https://github.com/pcardune/pyret-ide/blob/master/src/stubCompiler.js)
+[`stubCompiler`](https://github.com/pcardune/pyret-ide/blob/master/src/dev-app/stubCompiler.js)
 that comes with pyret-ide.
 
 #### Error Handling ####
