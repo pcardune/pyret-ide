@@ -32,6 +32,7 @@ module.exports = {
   externals: IS_PRODUCTION ? [
     'react',
     'react-dom',
+    'codemirror',
   ] : [],
   resolve: {
     root: [path.resolve("./node_modules")],
@@ -41,7 +42,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.css$/, loaders: ["style", "css"] },
+      {test: /\.css$/, loaders: ["style", "css"]},
       {test:/.png|.jpg|.jpeg|.gif|.svg/, loader: "url-loader?limit=10000"},
       {test:/.woff|.woff2/, loader: "url-loader?limit=10000"},
       {test:/.woff|.woff2/, loader: "url-loader?limit=10000"},
