@@ -19,7 +19,9 @@ const initialState = Immutable.Map({
     pausing: null,
   }),
   editor: Immutable.Map({
-    source: '',
+    source: localStorage !== undefined ?
+    localStorage.getItem(constants.LOCAL_STORAGE_SOURCE_KEY) :
+    '',
     result: null,
   }),
   googleDrive: Immutable.Map({

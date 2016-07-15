@@ -54,3 +54,6 @@ export const fontBoundary = {
   max: 56,
   min: 8,
 };
+
+//holds the key for the key value pair of the browser's  local storage object
+export const LOCAL_STORAGE_SOURCE_KEY = 'source';

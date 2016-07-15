@@ -1,6 +1,7 @@
 import * as actType from './action-types';
 import * as selectors from './selectors';
 import firebase from 'firebase';
+import * as constants from './constants';
 
 export function configureIDE({codemirrorOptions, runtimeApiLoader}) {
   return dispatch => {
@@ -43,6 +44,7 @@ export function recieveREPLResult(result) {
 }
 
 export function changeSource(source) {
+  localStorage.setItem(constants.LOCAL_STORAGE_SOURCE_KEY, source);
   return {
     type: actType.CHANGE_SOURCE,
     payload: source,
