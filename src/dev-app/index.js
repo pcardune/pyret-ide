@@ -9,6 +9,13 @@ var runtimeApiLoader = function() {
 };
 
 var app = document.createElement('div');
+var firebaseConfig = {
+  apiKey: "AIzaSyBP5OkygUw0RS4q8YaZNsasIHz9xLOgkWk",
+  authDomain: "pyret-ide-d8e06.firebaseapp.com",
+  databaseURL: "https://pyret-ide-d8e06.firebaseio.com",
+  storageBucket: "",
+};
+
 document.body.appendChild(app);
 PyretIDE.init({
   rootEl: app,
@@ -16,4 +23,5 @@ PyretIDE.init({
   codemirrorOptions: {
     mode: 'javascript',
   },
+  firebaseConfig,
 });

@@ -1,5 +1,6 @@
 import * as actType from './action-types';
 import * as selectors from './selectors';
+import firebase from 'firebase';
 
 export function configureIDE({codemirrorOptions, runtimeApiLoader}) {
   return dispatch => {
@@ -127,23 +128,58 @@ export function clear() {
   };
 }
 
+function loadGoogleApi() {
+  return new Promise((resolve, reject) => {
+    var timeout = window.setTimeout(
+      () => reject(new Error("timeout while loading Google Apis")),
+      30000
+    );
+    var callbackName = "googleApiCallback" + Math.random();
+    window[callbackName] = () => {
+      console.log("finished loading GoogleApi");
+      delete window[callbackName];
+      window.clearTimeout(timeout);
+      resolve(gapi);
+    };
+    var scriptTag = document.createElement('script');
+    scriptTag.src = "https://apis.google.com/js/client.js?onload=" + callbackName;
+    scriptTag.type = "text/javascript";
+    document.body.appendChild(scriptTag);
+  });
+}
+
 export function connectGoogleDrive() {
   return dispatch => {
     dispatch({type: actType.START_CONNECT_DRIVE});
-    var promise = new Promise((resolve, reject) => {
-      var googleDrive = "Google Drive";
-      window.setTimeout(() => resolve(googleDrive), 1000);
-      if (!googleDrive) {
-        reject(new Error("Google Drive not connected"));
-      }
-    });
-    promise
-      .then(drive => {
-        dispatch({type: actType.FINISH_CONNECT_DRIVE, payload: drive});
-      })
-      .catch(reason => {
-        dispatch({type: actType.FAIL_CONNECT_DRIVE, payload: reason});
-      });
+    var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/drive.file');
+    firebase.auth()
+            .signInWithPopup(provider)
+            .then(result => {
+              var token = result.credential.accessToken;
+              var user = result.user;
+              loadGoogleApi().then(() => {
+                var tokenObject = {
+                  access_token: result.credential.accessToken
+                };
+                gapi.client.load('drive', 'v2', () => {
+                  // set the authentication token
+                  gapi.auth.setToken(tokenObject);
+                  dispatch({type: actType.FINISH_CONNECT_DRIVE});
+                });
+              });
+              console.log(token, user);
+            })
+            .catch(error => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              var email = error.email;
+              var credential = error.credential;
+              dispatch({type: actType.FAIL_CONNECT_DRIVE,
+                        payload: error});
+              console.log(errorCode, errorMessage, email, credential);
+            });
+
   };
 }
 

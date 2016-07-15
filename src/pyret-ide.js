@@ -11,6 +11,8 @@ import {Provider} from 'react-redux';
 import PyretIDE from './components/PyretIDE';
 import createStore from './redux/createStore';
 import {configureIDE} from './redux/actionCreators';
+import {loadRuntimeApi} from './redux/actionCreators';
+import firebase from 'firebase';
 
 export default {
 
@@ -27,12 +29,15 @@ export default {
    *                                                  of CSS used by pyret-ide
    * @param {Object} [config.codemirrorOptions] - Config object passed to codemirror
    */
-  init({rootEl, runtimeApiLoader, debug, skipCSSLoading, codemirrorOptions}) {
+  init({rootEl, runtimeApiLoader, debug, skipCSSLoading, codemirrorOptions, firebaseConfig}) {
     if (!skipCSSLoading) {
       require('bootstrap/less/bootstrap.less');
     }
     const store = createStore({debug});
     store.dispatch(configureIDE({codemirrorOptions, runtimeApiLoader}));
+    store.dispatch(loadRuntimeApi(runtimeApiLoader));
+    console.log("initializing firebase with", firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
     ReactDOM.render(
       <Provider store={store}>
         <PyretIDE/>
