@@ -63,6 +63,8 @@ function editor(state = initialState.get('editor'), action) {
       return state.set('source', action.payload);
     case actType.STORE_EDITOR_RESULT:
       return state.set('result', action.payload);
+    case actType.CONFIGURE_CODEMIRROR:
+      return state.set('codemirrorOptions', action.payload);
     default:
       return state;
   }

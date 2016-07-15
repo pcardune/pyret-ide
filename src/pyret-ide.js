@@ -10,7 +10,7 @@ import {Provider} from 'react-redux';
 
 import PyretIDE from './components/PyretIDE';
 import createStore from './redux/createStore';
-import {loadRuntimeApi} from './redux/actionCreators';
+import {configureIDE} from './redux/actionCreators';
 
 export default {
 
@@ -25,13 +25,14 @@ export default {
    * @param {boolean} [config.debug=false] - Whether or not to enable debug logging
    * @param {boolean} [config.skipCSSLoading=false] - Whether or not to skip loading
    *                                                  of CSS used by pyret-ide
+   * @param {Object} [config.codemirrorOptions] - Config object passed to codemirror
    */
-  init({rootEl, runtimeApiLoader, debug, skipCSSLoading}) {
+  init({rootEl, runtimeApiLoader, debug, skipCSSLoading, codemirrorOptions}) {
     if (!skipCSSLoading) {
       require('bootstrap/less/bootstrap.less');
     }
     const store = createStore({debug});
-    store.dispatch(loadRuntimeApi(runtimeApiLoader));
+    store.dispatch(configureIDE({codemirrorOptions, runtimeApiLoader}));
     ReactDOM.render(
       <Provider store={store}>
         <PyretIDE/>

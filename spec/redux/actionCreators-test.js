@@ -10,6 +10,29 @@ describe("The actionCreators'", () => {
   const middlewares = [thunk];
   const mockStore = configureStore(middlewares);
 
+  describe("configureIDE", () => {
+    var store;
+    beforeEach(() => {
+      var runtimeApiLoader = () => new Promise(function(resolve, reject) {});
+      store = mockStore({});
+      store.dispatch(actCreators.configureIDE({
+        codemirrorOptions: {mode: "javascript"},
+        runtimeApiLoader: runtimeApiLoader
+      }));
+    });
+
+    it("dispatches a START_LOAD_RUNTIME action first", () => {
+      expect(store.getActions()[0]).toEqual({type: "START_LOAD_RUNTIME"});
+    });
+
+    it("dispatches a CONFIGURE_CODEMIRROR action", () => {
+      expect(store.getActions()[1]).toEqual({
+        type: "CONFIGURE_CODEMIRROR",
+        payload: {mode: 'javascript'}
+      });
+    });
+  });
+
   describe("loadRuntimeApi function", () => {
     var resolve, reject, store;
 

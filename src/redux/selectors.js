@@ -72,3 +72,12 @@ export function hasHistory(state) {
 export function getHistory(state) {
   return state.getIn(['REPL', 'history']);
 }
+
+export function getCodemirrorOptions(state) {
+  return Object.assign(
+    {
+      lineNumbers: true,
+    },
+    state.getIn(['editor', 'codemirrorOptions'])
+  );
+}

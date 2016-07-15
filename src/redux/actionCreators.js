@@ -1,6 +1,13 @@
 import * as actType from './action-types';
 import * as selectors from './selectors';
 
+export function configureIDE({codemirrorOptions, runtimeApiLoader}) {
+  return dispatch => {
+    dispatch(loadRuntimeApi(runtimeApiLoader));
+    dispatch({type: actType.CONFIGURE_CODEMIRROR, payload: codemirrorOptions});
+  };
+}
+
 /**
  * @param function runtimeApiLoader - a function that asynchronously
  *                                    loads a runtime api. It should return
