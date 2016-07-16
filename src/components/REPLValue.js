@@ -135,13 +135,49 @@ function Tuple({reprValue}) {
 }
 Tuple.propTypes = {reprValue: React.PropTypes.object};
 
-function Obj() {
-  return <span>Object</span>;
+function Obj({reprValue}) {
+  console.log("got repr values keyValues", reprValue.keyValues);
+
+  return (
+    <dl>
+      {reprValue.keyValues.map(
+         ({key, value}) => [
+           <dt key={`dt-${key}`}>{key}</dt>,
+           <dd key={`dd-${key}`}><REPLValue reprValue={value}/></dd>
+         ]
+       )}
+    </dl>
+  );
 }
+Obj.propTypes = {reprValue: React.PropTypes.shape({
+  type: React.PropTypes.string,
+  keyValues: React.PropTypes.arrayOf(React.PropTypes.shape({
+    key: React.PropTypes.string,
+    value: React.PropTypes.object,
+  }))
+})};
 
 function Data() {
   return <span>Data</span>;
 }
+
+function StandardOut({reprValue}) {
+  return <span>stdout: {reprValue.value}</span>;
+}
+StandardOut.propTypes = {
+  reprValue: React.PropTypes.shape({
+    value: React.PropTypes.string,
+  }),
+};
+
+function StandardError({reprValue}) {
+  return <span>stderr: {reprValue.value}</span>;
+}
+StandardError.propTypes = {
+  reprValue: React.PropTypes.shape({
+    value: React.PropTypes.string,
+  }),
+};
 
 
 const RENDERERS = {
@@ -160,34 +196,20 @@ const RENDERERS = {
   object: Obj,
   data: Data,
   lazy: Lazy,
+  stdout: StandardOut,
+  stderr: StandardError,
 };
 
 
 export default function REPLValue({reprValue}) {
   var renderer = typeof reprValue === "object" && RENDERERS[reprValue.type];
   if (!renderer) {
-    return <span>{JSON.stringify(reprValue)}</span>;
+    return <span>{`UNRENDERABLE: ${JSON.stringify(reprValue)}`}</span>;
   }
   return React.createElement(renderer, {reprValue});
 }
 REPLValue.propTypes = {
   reprValue: React.PropTypes.shape({
-    type: React.PropTypes.oneOf([
-      'opaque',
-      'cyclic',
-      'image',
-      'number',
-      'nothing',
-      'text',
-      'boolean',
-      'string',
-      'method',
-      'func',
-      'array',
-      'ref',
-      'tuple',
-      'object',
-      'data'
-    ]),
+    type: React.PropTypes.oneOf(Object.keys(RENDERERS)),
   })
 };

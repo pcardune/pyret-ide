@@ -37,8 +37,8 @@ export function run(src) {
     if (!runtimeApi) {
       throw new Error("Runtime has not been loaded, you can't run anything yet!");
     }
-    var stdout = (s) => dispatch(recieveREPLResult(s));
-    var stderr = (s) => dispatch(recieveREPLResult(s));
+    var stdout = (s) => dispatch(recieveREPLResult({type: 'stdout', value:s}));
+    var stderr = (s) => dispatch(recieveREPLResult({type: 'stderr', value:s}));
     var onResult = (s) => dispatch(recieveREPLResult(s));
     runtimeApi
       .get('parse')(src)
