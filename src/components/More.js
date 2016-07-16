@@ -6,6 +6,7 @@ import {expandMoreMenu, collapseMoreMenu} from '../redux/actionCreators';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {styles} from './styles';
+import MoreMenu from "./MoreMenu";
 import ClickOutside from 'react-click-outside';
 
 export class More extends React.Component {
@@ -16,16 +17,18 @@ export class More extends React.Component {
   }
   render() {
     return(
-      <Button kind="toolbar"
-              style={styles.buttons.more.moreButton}
-              onClick={() =>
-                this.props.expanded ? this.props.collapse() : this.props.expand()}>
-        More ▾
-      </Button>
+      <div>
+        <Button kind="toolbar"
+                style={styles.buttons.more.moreButton}
+                onClick={() =>
+                  this.props.expanded ? this.props.collapse() : this.props.expand()}>
+          More ▾
+        </Button>
+        <MoreMenu/>
+      </div>
     );
   }
 }
-
 
 More.propTypes = {
   expanded: React.PropTypes.bool,
