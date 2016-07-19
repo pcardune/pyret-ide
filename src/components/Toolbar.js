@@ -22,7 +22,6 @@ class Toolbar extends React.Component {
           <Save/>
           <Share/>
           <More/>
-          <MoreMenu/>
         </div>
         <div style={styles.toolbar.controls}>
           <Run/>
