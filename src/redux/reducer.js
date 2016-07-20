@@ -39,6 +39,21 @@ const initialState = Immutable.Map({
   }),
 });
 
+function loadApi(state = initialState.get('loadApi'), action) {
+  switch (action.type) {
+    case actType.START_LOAD_RUNTIME:
+      return state.merge({stage: constants.loadApiStages.STARTED, error: null});
+    case actType.FINISH_LOAD_RUNTIME:
+      return state.merge({stage: constants.loadApiStages.FINISHED,
+                          runtime: action.payload});
+    case actType.FAIL_LOAD_RUNTIME:
+      return state.merge({stage: constants.loadApiStages.FAILED,
+                          error: action.payload});
+    default:
+      return state;
+  }
+}
+
 function REPL(state = initialState.get('REPL'), action) {
   switch (action.type) {
     case actType.CHANGE_REPL_CODE:
@@ -48,10 +63,10 @@ function REPL(state = initialState.get('REPL'), action) {
         code: state.get('code'),
         result: action.payload
       }));
-    case actType.CLEAR_STATE:
-      return initialState.get('REPL');
     case actType.FINISH_EXECUTE:
       return state.set('code', '');
+    case actType.CLEAR_STATE:
+      return initialState.get('REPL');
     default:
       return state;
   }
@@ -65,21 +80,6 @@ function editor(state = initialState.get('editor'), action) {
       return state.set('result', action.payload);
     case actType.CONFIGURE_CODEMIRROR:
       return state.set('codemirrorOptions', action.payload);
-    default:
-      return state;
-  }
-}
-
-function loadApi(state = initialState.get('loadApi'), action) {
-  switch (action.type) {
-    case actType.START_LOAD_RUNTIME:
-      return state.merge({stage: constants.loadApiStages.STARTED, error: null});
-    case actType.FINISH_LOAD_RUNTIME:
-      return state.merge({stage: constants.loadApiStages.FINISHED,
-                          runtime: action.payload});
-    case actType.FAIL_LOAD_RUNTIME:
-      return state.merge({stage: constants.loadApiStages.FAILED,
-                                       error: action.payload});
     default:
       return state;
   }
@@ -110,9 +110,7 @@ function runCode(state = initialState.get('runCode'), action) {
     case actType.STOP_RUN:
       return state.set('stage', null);
     case actType.PAUSE_RUN:
-      return state.set('pausing', true);
-    case actType.CLEAR_STATE:
-      return state.set({}, state.runCode); //should this be intialState?
+      return state.set('stage', constants.runtimeStages.PAUSING);
     default:
       return state;
   }

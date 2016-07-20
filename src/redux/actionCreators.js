@@ -28,6 +28,33 @@ export function loadRuntimeApi(runtimeApiLoader) {
   };
 }
 
+export function changeREPLCode(code) {
+  return {
+    type: actType.CHANGE_REPL_CODE,
+    payload: code,
+  };
+}
+
+export function recieveREPLResult(result) {
+  return {
+    type: actType.RECEIVE_REPL_RESULT,
+    payload: result,
+  };
+}
+
+export function changeSource(source) {
+  return {
+    type: actType.CHANGE_SOURCE,
+    payload: source,
+  };
+}
+
+export function clearState() {
+  return {
+    type: actType.CLEAR_STATE,
+  };
+}
+
 export function run(src) {
   return (dispatch, getState) => {
     dispatch({type: actType.STORE_SOURCE, payload: src});
@@ -85,46 +112,9 @@ export function run(src) {
   };
 }
 
-export function changeSource(source) {
-  return {
-    type: actType.CHANGE_SOURCE,
-    payload: source,
-  };
-}
-
 export function stop() {
   return {
     type: actType.STOP_RUN,
-  };
-}
-
-export function expandMoreMenu() {
-  return {
-    type: actType.EXPAND_MORE_MENU,
-  };
-}
-
-export function collapseMoreMenu() {
-  return {
-    type: actType.COLLAPSE_MORE_MENU,
-  };
-}
-
-export function incrementFontSize() {
-  return {
-    type: actType.INCREMENT_FONT_SIZE,
-  };
-}
-
-export function decrementFontSize() {
-  return {
-    type: actType.DECREMENT_FONT_SIZE,
-  };
-}
-
-export function clear() {
-  return {
-    type: actType.CLEAR_STATE,
   };
 }
 
@@ -232,17 +222,26 @@ export function signoutGoogleDrive() {
   };
 }
 
-
-export function changeREPLCode(code) {
+export function expandMoreMenu() {
   return {
-    type: actType.CHANGE_REPL_CODE,
-    payload: code,
+    type: actType.EXPAND_MORE_MENU,
   };
 }
 
-export function recieveREPLResult(result) {
+export function collapseMoreMenu() {
   return {
-    type: actType.RECEIVE_REPL_RESULT,
-    payload: result,
+    type: actType.COLLAPSE_MORE_MENU,
+  };
+}
+
+export function incrementFontSize() {
+  return {
+    type: actType.INCREMENT_FONT_SIZE,
+  };
+}
+
+export function decrementFontSize() {
+  return {
+    type: actType.DECREMENT_FONT_SIZE,
   };
 }

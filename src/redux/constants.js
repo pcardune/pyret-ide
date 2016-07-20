@@ -8,6 +8,7 @@ export const runtimeStages = {
   PARSING: 'parsing',
   COMPILING: 'compiling',
   EXECUTING: 'executing',
+  PAUSING: 'pausing',
 };
 
 export const driveStages = {
