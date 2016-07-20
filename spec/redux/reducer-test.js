@@ -176,6 +176,11 @@ describe("The reducer", () => {
       const finishSave = {type: actType.FINISH_SAVE_DRIVE, payload: 'save'};
       const failSave = {type: actType.FAIL_SAVE_DRIVE, payload: 'reason'};
 
+
+      const startOpen = {type: actType.START_OPEN_DRIVE};
+      const finishOpen = {type: actType.FINISH_OPEN_DRIVE, payload: 'open'};
+      const failOpen = {type: actType.FAIL_OPEN_DRIVE, payload: 'reason'};
+
       const startShare = {type: actType.START_SHARE_DRIVE};
       const finishShare = {type: actType.FINISH_SHARE_DRIVE, payload: 'share'};
       const failShare = {type: actType.FAIL_SHARE_DRIVE, payload: 'reason'};
@@ -211,6 +216,23 @@ describe("The reducer", () => {
       it("action type FAIL_SAVE_DRIVE", () => {
         var nextState = pyretReducer(state, failSave).get('googleDrive');
         expect(nextState.get('stage')).toEqual('failedSave');
+        expect(nextState.get('error')).toEqual('reason');
+      });
+
+      it("action type START_OPEN_DRIVE", () => {
+        var nextState = pyretReducer(state, startOpen).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('startedOpen');
+      });
+
+      it("action type FINISH_OPEN_DRIVE", () => {
+        var nextState = pyretReducer(state, finishOpen).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('finishedOpen');
+        expect(nextState.get('open')).toEqual('open');
+      });
+
+      it("action type FAIL_OPEN_DRIVE", () => {
+        var nextState = pyretReducer(state, failOpen).get('googleDrive');
+        expect(nextState.get('stage')).toEqual('failedOpen');
         expect(nextState.get('error')).toEqual('reason');
       });
 

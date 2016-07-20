@@ -191,6 +191,25 @@ export function saveGoogleDrive(file) {
   };
 }
 
+export function openGoogleDrive(file) {
+  return dispatch => {
+    dispatch({type: actType.START_OPEN_DRIVE});
+    var promise = new Promise((resolve, reject) => {
+      window.setTimeout(() => resolve(file), 1000);
+      if (!file) {
+        reject(new Error("File not opened"));
+      }
+    });
+    promise
+      .then(file => {
+        dispatch({type: actType.FINISH_OPEN_DRIVE, payload: file});
+      })
+      .catch(reason => {
+        dispatch({type: actType.FAIL_OPEN_DRIVE, payload: reason});
+      });
+  };
+}
+
 export function shareGoogleDrive() {
   return dispatch => {
     dispatch({type: actType.START_SHARE_DRIVE});

@@ -60,7 +60,8 @@ export var styles = {
       color: "white",
     },
     toolbar: {
-      width: 120,
+      width: 100,
+      marginLeft: 2,
       backgroundColor: "gray",
     },
     run: {
