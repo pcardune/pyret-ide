@@ -152,16 +152,16 @@ function googleDrive(state = initialState.get('googleDrive'), action) {
       });
     case actType.START_OPEN_DRIVE:
       return state.merge({
-        stage: constants.driveStages.save.STARTED,
+        stage: constants.driveStages.open.STARTED,
       });
     case actType.FINISH_OPEN_DRIVE:
       return state.merge({
-        stage: constants.driveStages.save.FINISHED,
-        save: action.payload,
+        stage: constants.driveStages.open.FINISHED,
+        open: action.payload,
       });
     case actType.FAIL_OPEN_DRIVE:
       return state.merge({
-        stage: constants.driveStages.save.FAILED,
+        stage: constants.driveStages.open.FAILED,
         error: action.payload,
       });
     case actType.START_SHARE_DRIVE:

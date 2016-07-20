@@ -39,7 +39,8 @@ export function isOpeningDrive(state) {
 }
 
 export function hasOpenedDrive(state) {
-  return state.getIn(['googleDrive', 'open'
+  return state.getIn(['googleDrive', 'stage']) === constants.driveStages.open.FINISHED;
+}
 
 export function hasSharedDrive(state) {
   return state.getIn(['googleDrive', 'share']) !== null;

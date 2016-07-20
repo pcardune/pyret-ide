@@ -22,6 +22,11 @@ export const driveStages = {
     FINISHED: 'finishedSave',
     FAILED: 'failedSave',
   },
+  open: {
+    STARTED: 'startedOpen',
+    FINISHED: 'finishedOpen',
+    FAILED: 'failedOpen',
+  },
   share: {
     STARTED: 'startedShare',
     FINISHED: 'finishedShare',
