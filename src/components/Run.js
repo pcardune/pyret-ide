@@ -5,7 +5,7 @@ import Spinner from './Spinner';
 import * as selectors from '../redux/selectors';
 import {styles} from './styles';
 import {connect} from 'react-redux';
-import {run, clear} from '../redux/actionCreators';
+import {run, clearState} from '../redux/actionCreators';
 
 export class Run extends React.Component {
   render() {
@@ -42,7 +42,7 @@ export default connect(
   }),
   dispatch => ({
     onRun(src) {
-      dispatch(clear());
+      dispatch(clearState());
       dispatch(run(src));
     }
   })
