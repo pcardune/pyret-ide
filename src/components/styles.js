@@ -61,6 +61,7 @@ export var styles = {
     },
     toolbar: {
       width: 100,
+      marginLeft: 2,
       backgroundColor: "gray",
     },
     run: {
