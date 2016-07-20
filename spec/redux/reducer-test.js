@@ -230,9 +230,18 @@ describe("The reducer", () => {
         expect(nextState.get('stage')).toEqual('failedShare');
         expect(nextState.get('error')).toEqual('reason');
       });
+
+      describe("handles changeProgramName calls", () => {
+        const changeProgramName = {type: actType.CHANGE_PROGRAM_NAME, payload: "name"};
+
+        it("and returns a state change for name", () => {
+          var nextState = pyretReducer(state, changeProgramName).get('googleDrive');
+          expect(nextState.get('name')).toEqual("name");
+        });
+      });
     });
 
-    describe("handles moreMenu calls", ()=> {
+    describe("handles moreMenu calls", () => {
       const expandMoreMenu = {type: actType.EXPAND_MORE_MENU, expanded: true};
       const collapseMoreMenu = {type: actType.COLLAPSE_MORE_MENU, expanded: false};
       const incrementFontSize = {type: actType.INCREMENT_FONT_SIZE};

@@ -275,7 +275,7 @@ describe("The actionCreators'", () => {
     });
   });
 
-  describe("expandMoreMenu function", () => {
+  describe("decrementFontSize function", () => {
     it("dispatches a DECREMENT FONT SIZE action", () => {
       store.dispatch(actCreators.decrementFontSize());
       expect(store.getActions()[0]).toEqual({type: actType.DECREMENT_FONT_SIZE});
