@@ -4,12 +4,12 @@ import Logo from './Logo';
 import Stop from './Stop';
 import Connect from './Connect';
 import Save from './Save';
+import Open from './Open';
 import Share from './Share';
 import More from './More';
 import Run from './Run';
 import Name from './Name';
 import {styles} from './styles';
-import MoreMenu from "./MoreMenu";
 
 class Toolbar extends React.Component {
   render() {
@@ -21,6 +21,7 @@ class Toolbar extends React.Component {
           <Name/>
           <Save/>
           <Share/>
+          <Open/>
           <More/>
         </div>
         <div style={styles.toolbar.controls}>
