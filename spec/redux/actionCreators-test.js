@@ -254,6 +254,20 @@ describe("The actionCreators'", () => {
     });
   });
 
+  describe("expandRunDropdown function", () => {
+    it("dispatches a EXPAND_RUN_DROPDOWN action", () => {
+      store.dispatch(actCreators.expandRunDropdown());
+      expect(store.getActions()[0]).toEqual({type: actType.EXPAND_RUN_DROPDOWN});
+    });
+  });
+
+  describe("collapseRunDropdown function", () => {
+    it("dispatches a COLLAPSE_RUN_DROPDOWN action", () => {
+      store.dispatch(actCreators.collapseRunDropdown());
+      expect(store.getActions()[0]).toEqual({type: actType.COLLAPSE_RUN_DROPDOWN});
+    });
+  });
+
   describe("expandMoreMenu function", () => {
     it("dispatches a EXPAND_MORE_MENU action", () => {
       store.dispatch(actCreators.expandMoreMenu());
