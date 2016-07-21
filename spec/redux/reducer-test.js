@@ -269,7 +269,7 @@ describe("The reducer", () => {
       const incrementFontSize = {type: actType.INCREMENT_FONT_SIZE};
       const decrementFontSize = {type: actType.DECREMENT_FONT_SIZE};
 
-      it("and returns a state object ", () => {
+      it("and returns a state object", () => {
         expect(state.get('moreMenu')).toEqual(jasmine.any(Object));
       });
 
