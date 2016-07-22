@@ -80,6 +80,38 @@ describe("The actionCreators'", () => {
       });
     });
 
+    describe("getPrevREPLCode function", () => {
+      it("dispatches a GET_PREV_REPL_CODE action", () => {
+        store.dispatch(actCreators.getPrevREPLCode());
+        expect(store.getActions()[0])
+          .toEqual({type: actType.GET_PREV_REPL_CODE});
+      });
+    });
+
+    describe("getNextREPLCode function", () => {
+      it("dispatches a GET_NEXT_REPL_CODE action", () => {
+        store.dispatch(actCreators.getNextREPLCode());
+        expect(store.getActions()[0])
+          .toEqual({type: actType.GET_NEXT_REPL_CODE});
+      });
+    });
+
+    describe("displayNewREPLHistoryCode function", () => {
+      it("dispatches a DISPLAY_NEW_REPL_HISTORY_CODE action", () => {
+        store.dispatch(actCreators.displayNewREPLHistoryCode());
+        expect(store.getActions()[0])
+          .toEqual({type: actType.DISPLAY_NEW_REPL_HISTORY_CODE});
+      });
+    });
+
+    describe("clearREPLCode function", () => {
+      it("dispatches a CLEAR_REPL_CODE action", () => {
+        store.dispatch(actCreators.clearREPLCode());
+        expect(store.getActions()[0])
+          .toEqual({type: actType.CLEAR_REPL_CODE});
+      });
+    });
+
     describe("changeSource function", () => {
       it("dispatches a CHANGE_SOURCE action", () => {
         store.dispatch(actCreators.changeSource('some code'));
