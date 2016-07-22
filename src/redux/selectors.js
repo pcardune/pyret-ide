@@ -107,6 +107,16 @@ export function getHighlightsFor(state, uri) {
   } else {
     return [];
   }
+
+export function getCode(state) {
+  if (state.getIn(['REPL', 'codeIndex']) === 0) {
+    return state.getIn(['REPL', 'code']);
+  }
+  return state.getIn(['REPL', 'REPLHistoryCodeCopy']);
+}
+
+export function getCodeIndex(state) {
+  return state.getIn(['REPL', 'codeIndex']);
 }
 
 export const REPL = state => state.get('REPL');

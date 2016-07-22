@@ -102,8 +102,8 @@ describe("The reducer", () => {
          () => {
            var nextState = pyretReducer(state, changeREPLCode);
            nextState = pyretReducer(nextState, receiveREPLResult).get('REPL');
-           expect(nextState.get('history').first().result).toEqual('result');
-           expect(nextState.get('history').first().code).toEqual('code');
+           expect(nextState.getIn(['history', 0, 'result'])).toEqual('result');
+           expect(nextState.getIn(['history', 0, 'code'])).toEqual('code');
          });
 
       it("for action CLEAR_STATE", () => {

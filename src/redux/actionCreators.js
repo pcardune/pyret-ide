@@ -44,6 +44,30 @@ export function receiveREPLResult(result) {
   };
 }
 
+export function getPrevREPLCode() {
+  return {
+    type: actType.GET_PREV_REPL_CODE,
+  };
+}
+
+export function getNextREPLCode() {
+  return {
+    type: actType.GET_NEXT_REPL_CODE,
+  };
+}
+
+export function displayNewREPLHistoryCode() {
+  return {
+    type: actType.DISPLAY_NEW_REPL_HISTORY_CODE,
+  };
+}
+
+export function clearREPLCode() {
+  return {
+    type: actType.CLEAR_REPL_CODE,
+  };
+}
+
 export function changeSource(source) {
   localStorage.setItem(constants.LOCAL_STORAGE_SOURCE_KEY, source);
   return {
@@ -94,12 +118,13 @@ export function run(src) {
                 }
                 dispatch({
                   type: actType.FINISH_EXECUTE,
-                  payload: result
+                  payload: result,
                 });
                 dispatch({
                   type: actType.STORE_EDITOR_RESULT,
                   payload: result,
                 });
+                dispatch(clearREPLCode());
               })
               .catch(reason => {
                 dispatch({type: actType.FAIL_EXECUTE, payload: reason});

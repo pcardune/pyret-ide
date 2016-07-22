@@ -8,15 +8,13 @@ export class REPLHistoryList extends React.Component {
   render() {
     if (!this.props.hasHistory) {
       return (null);
-    }
+    }h
     return (
       <div>
         {this.props.REPLHistory.map((item, index) => (
-          <REPLHistoryItem
-            key={index}
-            input={item.code}
-            result={item.result}
-          />
+           <REPLHistoryItem key={index}
+                            input={item.get('code')}
+                            result={item.get('result')}/>
          ))}
       </div>
     );
