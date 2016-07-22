@@ -74,7 +74,7 @@ describe("The actionCreators'", () => {
 
     describe("recieveREPLResult function", () => {
       it("dispatches a RECEIVE_REPL_RESULT action", () => {
-        store.dispatch(actCreators.recieveREPLResult('some result'));
+        store.dispatch(actCreators.receiveREPLResult('some result'));
         expect(store.getActions()[0])
           .toEqual({type: actType.RECEIVE_REPL_RESULT, payload: 'some result'});
       });

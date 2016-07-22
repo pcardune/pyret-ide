@@ -37,7 +37,7 @@ export function changeREPLCode(code) {
   };
 }
 
-export function recieveREPLResult(result) {
+export function receiveREPLResult(result) {
   return {
     type: actType.RECEIVE_REPL_RESULT,
     payload: result,
@@ -67,9 +67,9 @@ export function run(src) {
     if (!runtimeApi) {
       throw new Error("Runtime has not been loaded, you can't run anything yet!");
     }
-    var stdout = (s) => dispatch(recieveREPLResult({type: 'stdout', value:s}));
-    var stderr = (s) => dispatch(recieveREPLResult({type: 'stderr', value:s}));
-    var onResult = (s) => dispatch(recieveREPLResult(s));
+    var stdout = (s) => dispatch(receiveREPLResult({type: 'stdout', value:s}));
+    var stderr = (s) => dispatch(receiveREPLResult({type: 'stderr', value:s}));
+    var onResult = (s) => dispatch(receiveREPLResult(s));
     runtimeApi
       .get('parse')(src)
       .then(ast => {
