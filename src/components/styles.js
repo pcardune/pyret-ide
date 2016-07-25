@@ -63,10 +63,18 @@ export var styles = {
       width: 100,
       marginLeft: 2,
       backgroundColor: "gray",
+      ':hover': {
+        backgroundColor: "#595959",
+        boxShadow: "0px 0px 5px 3px rgba(0,0,0,0.2)",
+      },
     },
     run: {
       waiting: {
-        backgroundColor: "#317BCF"
+        backgroundColor: "#317BCF",
+        ':hover': {
+          backgroundColor: "#2c6eba",
+          boxShadow: "0px 0px 5px 3px rgba(0,0,0,0.2)",
+        },
       },
       running: {
         color: "gray",
@@ -76,6 +84,10 @@ export var styles = {
       stopping: {
         backgroundColor: "#FF0000",
         color: "white",
+        ':hover': {
+          backgroundColor: "#e50000",
+          boxShadow: "0px 0px 5px 3px rgba(0,0,0,0.2)",
+        },
       },
       waiting: {
         color: "gray",
@@ -105,6 +117,9 @@ export var styles = {
         color: "black",
         backgroundColor: "#EFEFEF",
         textDecoration: "none",
+        ':hover': {
+          backgroundColor: "#D7D7D7",
+        },
       },
       fontButtonContainer: {
         display: "flex",
@@ -128,12 +143,20 @@ export var styles = {
         borderColor: "rgba(0,0,0,0.1)",
         borderTopWidth: 0,
         borderBottomWidth: 0,
+        ':hover': {
+          backgroundColor: "#b0b0b0",
+          boxShadow: "0px 0px 5px 3px rgba(0,0,0,0.2)",
+        },
       },
     },
     googleDrive: {
       float: "left",
       width: 194,
-      backgroundColor: "gray"
+      backgroundColor: "gray",
+      ':hover': {
+        backgroundColor: "#595959",
+        boxShadow: "0px 0px 5px 3px rgba(0,0,0,0.2)",
+      },
     },
   },
   linkStyle: {
