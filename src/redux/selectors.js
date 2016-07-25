@@ -109,14 +109,14 @@ export function getHighlightsFor(state, uri) {
   }
 
 export function getCode(state) {
-  if (state.getIn(['REPL', 'codeIndex']) === 0) {
+  if (getREPLCodePosition(state) === 0) {
     return state.getIn(['REPL', 'code']);
   }
   return state.getIn(['REPL', 'REPLHistoryCodeCopy']);
 }
 
-export function getCodeIndex(state) {
-  return state.getIn(['REPL', 'codeIndex']);
+export function getREPLCodePosition(state) {
+  return state.getIn(['REPL', 'REPLCodePosition']);
 }
 
 export const REPL = state => state.get('REPL');

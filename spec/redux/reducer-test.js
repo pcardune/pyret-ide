@@ -84,7 +84,6 @@ describe("The reducer", () => {
     const getPrevREPLCode = {type: actType.GET_PREV_REPL_CODE};
     const getNextREPLCode = {type: actType.GET_NEXT_REPL_CODE};
     const clearREPLCode  = {type: actType.CLEAR_REPL_CODE};
-    const displayNewREPLHistoryCode = {type: actType.DISPLAY_NEW_REPL_HISTORY_CODE};
 
     it("returns a state object ", () => {
       expect(state.get('REPL')).toEqual(jasmine.any(Object));
@@ -120,7 +119,7 @@ describe("The reducer", () => {
         var nextState = pyretReducer(state, changeREPLCode);
         nextState = pyretReducer(nextState, receiveREPLResult);
         nextState = pyretReducer(nextState, getPrevREPLCode).get('REPL');
-        expect(nextState.get('codeIndex')).toEqual(1);
+        expect(nextState.get('REPLCodePosition')).toEqual(1);
       });
 
       it("for action GET_NEXT_REPL_CODE", () => {
@@ -128,21 +127,13 @@ describe("The reducer", () => {
         nextState = pyretReducer(nextState, receiveREPLResult);
         nextState = pyretReducer(nextState, getPrevREPLCode);
         nextState = pyretReducer(nextState, getNextREPLCode).get('REPL');
-        expect(nextState.get('codeIndex')).toEqual(0);
+        expect(nextState.get('REPLCodePosition')).toEqual(0);
       });
 
       it("for action CLEAR_REPL_CODE", () => {
         var nextState = pyretReducer(state, changeREPLCode);
         nextState = pyretReducer(nextState, clearREPLCode).get('REPL');
         expect(nextState.get('code')).toEqual('');
-      });
-
-      it("for action DISPLAY_NEW_REPL_HISTORY_CODE", () => {
-        var nextState = pyretReducer(state, changeREPLCode);
-        nextState = pyretReducer(nextState, receiveREPLResult);
-        nextState = pyretReducer(nextState, getPrevREPLCode);
-        nextState = pyretReducer(nextState, displayNewREPLHistoryCode).get('REPL');
-        expect(nextState.get('REPLHistoryCodeCopy')).toEqual('code');
       });
     });
   });

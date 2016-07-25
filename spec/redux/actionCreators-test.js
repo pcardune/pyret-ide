@@ -96,14 +96,6 @@ describe("The actionCreators'", () => {
       });
     });
 
-    describe("displayNewREPLHistoryCode function", () => {
-      it("dispatches a DISPLAY_NEW_REPL_HISTORY_CODE action", () => {
-        store.dispatch(actCreators.displayNewREPLHistoryCode());
-        expect(store.getActions()[0])
-          .toEqual({type: actType.DISPLAY_NEW_REPL_HISTORY_CODE});
-      });
-    });
-
     describe("clearREPLCode function", () => {
       it("dispatches a CLEAR_REPL_CODE action", () => {
         store.dispatch(actCreators.clearREPLCode());

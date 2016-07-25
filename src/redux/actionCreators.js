@@ -56,12 +56,6 @@ export function getNextREPLCode() {
   };
 }
 
-export function displayNewREPLHistoryCode() {
-  return {
-    type: actType.DISPLAY_NEW_REPL_HISTORY_CODE,
-  };
-}
-
 export function clearREPLCode() {
   return {
     type: actType.CLEAR_REPL_CODE,
