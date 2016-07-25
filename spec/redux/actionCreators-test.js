@@ -247,6 +247,13 @@ describe("The actionCreators'", () => {
     });
   });
 
+  describe("changeProgramName function", () => {
+    it("dispatches a CHANGE_PROGRAM_NAME action", () => {
+      store.dispatch(actCreators.changeProgramName("name"));
+      expect(store.getActions()[0]).toEqual({type: actType.CHANGE_PROGRAM_NAME, payload: "name"});
+    });
+  });
+
   describe("expandMoreMenu function", () => {
     it("dispatches a EXPAND_MORE_MENU action", () => {
       store.dispatch(actCreators.expandMoreMenu());
@@ -268,7 +275,7 @@ describe("The actionCreators'", () => {
     });
   });
 
-  describe("expandMoreMenu function", () => {
+  describe("decrementFontSize function", () => {
     it("dispatches a DECREMENT FONT SIZE action", () => {
       store.dispatch(actCreators.decrementFontSize());
       expect(store.getActions()[0]).toEqual({type: actType.DECREMENT_FONT_SIZE});

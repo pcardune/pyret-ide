@@ -26,6 +26,7 @@ const initialState = Immutable.Map({
   }),
   googleDrive: Immutable.Map({
     stage: null,
+    name: null,
     drive: null,
     save: null,
     open: null,
@@ -177,6 +178,10 @@ function googleDrive(state = initialState.get('googleDrive'), action) {
       return state.merge({
         stage: constants.driveStages.share.FAILED,
         error: action.payload,
+      });
+    case actType.CHANGE_PROGRAM_NAME:
+      return state.merge({
+        name: action.payload
       });
     default:
       return state;

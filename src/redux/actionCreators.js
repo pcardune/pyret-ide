@@ -243,6 +243,13 @@ export function signoutGoogleDrive() {
   };
 }
 
+export function changeProgramName(name) {
+  return {
+    type: actType.CHANGE_PROGRAM_NAME,
+    payload: name
+  };
+}
+
 export function expandMoreMenu() {
   return {
     type: actType.EXPAND_MORE_MENU,
