@@ -28,6 +28,7 @@ const styles = {
   splitPaneWrapper: {
     flexBasis: '100%',
     position: 'relative',
+    zIndex: 0,
   },
 };
 
