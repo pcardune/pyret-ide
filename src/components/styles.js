@@ -1,7 +1,7 @@
 export var styles = {
   errorBox: {
     fontFamily: "sans-serif",
-    border: 1,
+    borderWidth: 1,
     borderColor: "#FF3131",
     borderStyle: "dashed",
     padding: 3,
