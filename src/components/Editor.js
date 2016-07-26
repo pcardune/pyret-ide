@@ -19,11 +19,13 @@ const styles = {
     alignItems: 'stretch',
   },
   spinner: {
-    paddingTop: 200,
+    display: "block",
+    marginTop: 120,
+    marginBottom: 100,
     height: 50,
     width: "auto",
-    margin: "auto",
-    display: "flex",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   splitPaneWrapper: {
     flexBasis: '100%',
