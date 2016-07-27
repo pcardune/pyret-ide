@@ -5,6 +5,10 @@ export function isRunning(state) {
                 .includes(state.getIn(['runCode', 'stage'])));
 }
 
+export function isRunDropdownExpanded (state) {
+  return state.getIn(['runDropdown', 'expanded']);
+}
+
 export function isLoadingRuntime(state) {
   return state.getIn(['loadApi', 'stage']) === constants.loadApiStages.STARTED;
 }
