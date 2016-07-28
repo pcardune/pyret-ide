@@ -96,14 +96,6 @@ describe("The actionCreators'", () => {
       });
     });
 
-    describe("clearREPLCode function", () => {
-      it("dispatches a CLEAR_REPL_CODE action", () => {
-        store.dispatch(actCreators.clearREPLCode());
-        expect(store.getActions()[0])
-          .toEqual({type: actType.CLEAR_REPL_CODE});
-      });
-    });
-
     describe("changeSource function", () => {
       it("dispatches a CHANGE_SOURCE action", () => {
         store.dispatch(actCreators.changeSource('some code'));

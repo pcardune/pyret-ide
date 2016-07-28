@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -5,7 +6,6 @@ import {changeREPLCode,
         run,
         getPrevREPLCode,
         getNextREPLCode,
-        clearREPLCode,
 }
 from '../redux/actionCreators';
 import * as selectors from '../redux/selectors';
@@ -45,14 +45,14 @@ export class REPLInput extends React.Component {
                onKeyPress={event =>
                  event.key === "Enter" && this.props.onRun(this.props.code)}
                onKeyDown={event => {
-                 if (event.key === "ArrowUp") {
-                   this.props.prevREPLCode();
-                 } else {
-                   if (event.key === "ArrowDown") {
-                     this.props.nextREPLCode();
+                   if (event.key === "ArrowUp") {
+                     this.props.prevREPLCode();
+                   } else {
+                     if (event.key === "ArrowDown") {
+                       this.props.nextREPLCode();
+                     }
                    }
-                 }
-               }} />
+                 }} />
       </div>
     );
   }
@@ -65,7 +65,6 @@ REPLInput.propTypes = {
   onRun: React.PropTypes.func,
   prevREPLCode: React.PropTypes.func,
   nextREPLCode: React.PropTypes.func,
-  clearREPLCode: React.PropTypes.func,
 };
 
 export default connect(
@@ -79,6 +78,5 @@ export default connect(
       onRun: run,
       prevREPLCode: getPrevREPLCode,
       nextREPLCode: getNextREPLCode,
-      clearREPLCode: clearREPLCode,
     }, dispatch)
 )(REPLInput);

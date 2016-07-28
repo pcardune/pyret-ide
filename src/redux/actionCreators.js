@@ -56,12 +56,6 @@ export function getNextREPLCode() {
   };
 }
 
-export function clearREPLCode() {
-  return {
-    type: actType.CLEAR_REPL_CODE,
-  };
-}
-
 export function changeSource(source) {
   localStorage.setItem(constants.LOCAL_STORAGE_SOURCE_KEY, source);
   return {
@@ -118,7 +112,6 @@ export function run(src) {
                   type: actType.STORE_EDITOR_RESULT,
                   payload: result,
                 });
-                dispatch(clearREPLCode());
               })
               .catch(reason => {
                 dispatch({type: actType.FAIL_EXECUTE, payload: reason});
