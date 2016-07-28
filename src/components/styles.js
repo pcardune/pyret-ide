@@ -69,6 +69,9 @@ export var styles = {
       },
     },
     run: {
+      buttonContainer: {
+        display: "flex",
+      },
       waiting: {
         backgroundColor: "#317BCF",
         ':hover': {
@@ -78,6 +81,24 @@ export var styles = {
       },
       running: {
         color: "gray",
+      },
+      arrowButton: {
+        backgroundColor: "#317BCF",
+        width: 20,
+        height: 40,
+      },
+      dropdownContainer: {
+        display: "flex",
+        position: "absolute",
+        zIndex: 1,
+        flexDirection: "column",
+        fontFamily: "sans-serif",
+      },
+      dropdownButtons: {
+        backgroundColor: "#5a95d8",
+        color: "white",
+        width: 170,
+        height: 40,
       },
     },
     stop: {

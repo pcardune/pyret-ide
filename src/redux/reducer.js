@@ -41,6 +41,9 @@ const initialState = Immutable.Map({
     expanded: false,
     fontSize: 12,
   }),
+  runDropdown: Immutable.Map({
+    expanded: false,
+  }),
 });
 
 function loadApi(state = initialState.get('loadApi'), action) {
@@ -205,6 +208,17 @@ function moreMenu(state = initialState.get('moreMenu'), action) {
   }
 }
 
+function runDropdown(state = initialState.get('runDropdown'), action) {
+  switch (action.type) {
+    case actType.EXPAND_RUN_DROPDOWN:
+      return state.set('expanded', true);
+    case actType.COLLAPSE_RUN_DROPDOWN:
+      return state.set('expanded', false);
+    default:
+      return state;
+  }
+}
+
 const pyretReducer = combineReducers({
   loadApi,
   runCode,
@@ -212,6 +226,7 @@ const pyretReducer = combineReducers({
   REPL,
   googleDrive,
   moreMenu,
+  runDropdown,
 });
 
 export default pyretReducer;

@@ -5,9 +5,20 @@ import Spinner from './Spinner';
 import * as selectors from '../redux/selectors';
 import {styles} from './styles';
 import {connect} from 'react-redux';
-import {run, clearState} from '../redux/actionCreators';
+import RunDropdown from './RunDropdown';
+import ClickOutside from 'react-click-outside';
+import {run,
+        clearState,
+        expandRunDropdown,
+        collapseRunDropdown,
+} from '../redux/actionCreators';
 
 export class Run extends React.Component {
+  handleClickOutside() {
+    if (this.props.expanded) {
+      this.props.collapse();
+    }
+  }
   render() {
     if (this.props.isRunning && this.props.hasLoadedRuntime) {
       return (
@@ -18,10 +29,21 @@ export class Run extends React.Component {
       );
     } else {
       return (
-        <Button style={styles.buttons.run.waiting}
-                onClick={() => this.props.onRun(this.props.source)}>
-          Run
-        </Button>
+        <div>
+          <div style={styles.buttons.run.buttonContainer}>
+            <Button style={styles.buttons.run.waiting}
+                    onClick={() => this.props.onRun(this.props.source)}>
+              Run
+            </Button>
+            <Button style={styles.buttons.run.arrowButton}
+                    onClick={() => {
+                      this.props.expanded ? this.props.collapse() : this.props.expand();
+                    }}>
+              ↴
+            </Button>
+          </div>
+          <RunDropdown/>
+        </div>
       );
     }
   }
@@ -32,10 +54,14 @@ Run.propTypes = {
   onRun: React.PropTypes.func,
   source: React.PropTypes.string,
   hasLoadedRuntime: React.PropTypes.bool,
+  expanded: React.PropTypes.bool,
+  expand: React.PropTypes.func,
+  collapse: React.PropTypes.func,
 };
 
 export default connect(
   state => ({
+    expanded: selectors.isRunDropdownExpanded(state),
     source: selectors.getSource(state),
     isRunning: selectors.isRunning(state),
     hasLoadedRuntime: selectors.hasLoadedRuntime(state),
@@ -44,6 +70,11 @@ export default connect(
     onRun(src) {
       dispatch(clearState());
       dispatch(run(src));
+    },
+    expand() {
+      dispatch(expandRunDropdown());
+    },
+    collapse() {
+      dispatch(collapseRunDropdown());
     }
-  })
-)(Radium(Run));
+  }))(ClickOutside(Radium(Run)));

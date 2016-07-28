@@ -269,7 +269,7 @@ describe("The reducer", () => {
       const incrementFontSize = {type: actType.INCREMENT_FONT_SIZE};
       const decrementFontSize = {type: actType.DECREMENT_FONT_SIZE};
 
-      it("and returns a state object ", () => {
+      it("and returns a state object", () => {
         expect(state.get('moreMenu')).toEqual(jasmine.any(Object));
       });
 
@@ -297,5 +297,26 @@ describe("The reducer", () => {
       });
     });
 
+    describe("handles runDropdown calls", ()=> {
+      const expand = {type: actType.EXPAND_RUN_DROPDOWN, expanded: true};
+      const collapse = {type: actType.COLLAPSE_RUN_DROPDOWN, expanded: false};
+
+      it("and returns a state object", () => {
+        expect(state.get('runDropdown')).toEqual(jasmine.any(Object));
+      });
+
+      describe("and returns a state change for", () => {
+
+        it("action EXPAND_RUN_DROPDOWN", () => {
+          var nextState = pyretReducer(state, expand).get('runDropdown');
+          expect(nextState.get('expanded')).toEqual(true);
+        });
+
+        it("action COLLAPSE_RUN_DROPDOWN", () => {
+          var nextState = pyretReducer(state, collapse).get('runDropdown');
+          expect(nextState.get('expanded')).toEqual(false);
+        });
+      });
+    });
   });
 });

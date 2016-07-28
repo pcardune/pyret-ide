@@ -114,6 +114,18 @@ export function run(src) {
   };
 }
 
+export function expandRunDropdown() {
+  return {
+    type: actType.EXPAND_RUN_DROPDOWN,
+  };
+}
+
+export function collapseRunDropdown() {
+  return {
+    type: actType.COLLAPSE_RUN_DROPDOWN,
+  };
+}
+
 export function stop() {
   return {
     type: actType.STOP_RUN,
@@ -168,7 +180,6 @@ export function connectGoogleDrive() {
               dispatch({type: actType.FAIL_CONNECT_DRIVE,
                         payload: error});
             });
-
   };
 }
 
