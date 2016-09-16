@@ -4,7 +4,7 @@ import * as selectors from '../redux/selectors';
 import {connect} from 'react-redux';
 import Immutable from 'immutable';
 
-export default class REPLHistoryList extends React.Component {
+export class REPLHistoryList extends React.Component {
   render() {
     if (!this.props.hasHistory) {
       return (null);
