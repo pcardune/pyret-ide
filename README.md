@@ -1,3 +1,6 @@
+[![dependencies Status](https://david-dm.org/pcardune/pyret-ide/status.svg)](https://david-dm.org/pcardune/pyret-ide)
+[![devDependencies Status](https://david-dm.org/pcardune/pyret-ide/dev-status.svg)](https://david-dm.org/pcardune/pyret-ide?type=dev)
+[![peerDependencies Status](https://david-dm.org/pcardune/pyret-ide/peer-status.svg)](https://david-dm.org/pcardune/pyret-ide?type=peer)
 [![Build Status](https://travis-ci.org/pcardune/pyret-ide.svg?branch=master)](https://travis-ci.org/pcardune/pyret-ide)
 
 # pyret-ide #
