@@ -14,7 +14,7 @@ class CodeWindow extends React.Component {
   render() {
     return (
       <Codemirror className="PyretIDE-CodeWindow"
-                  value={this.props.source}
+                  value={this.props.source || ''}
                   onChange={this.props.changeSource}
                   options={this.props.codemirrorOptions} />
     );
