@@ -22,7 +22,7 @@ const styles = {
   },
 };
 
-export default class REPLInput extends React.Component {
+export class REPLInput extends React.Component {
   render() {
     if (this.props.isLoadingRuntime) {
       return (null);
