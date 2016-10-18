@@ -173,7 +173,7 @@ describe("The reducer", () => {
       const failConnect = {type: actType.FAIL_CONNECT_DRIVE, payload: 'reason'};
 
       const startSave = {type: actType.START_SAVE_DRIVE};
-      const finishSave = {type: actType.FINISH_SAVE_DRIVE, payload: 'save'};
+      const finishSave = {type: actType.FINISH_SAVE_DRIVE, payload: {fileId: 'some-file-id'}};
       const failSave = {type: actType.FAIL_SAVE_DRIVE, payload: 'reason'};
 
 
@@ -210,7 +210,7 @@ describe("The reducer", () => {
       it("action type FINISH_SAVE_DRIVE", () => {
         var nextState = pyretReducer(state, finishSave).get('googleDrive');
         expect(nextState.get('stage')).toEqual('finishedSave');
-        expect(nextState.get('save')).toEqual('save');
+        expect(nextState.get('fileId')).toEqual('some-file-id');
       });
 
       it("action type FAIL_SAVE_DRIVE", () => {
