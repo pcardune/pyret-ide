@@ -183,22 +183,65 @@ export function connectGoogleDrive() {
   };
 }
 
-export function saveGoogleDrive(file) {
-  return dispatch => {
+export function createGoogleDrive() {
+  return (dispatch, getState) => {
     dispatch({type: actType.START_SAVE_DRIVE});
-    var promise = new Promise((resolve, reject) => {
-      window.setTimeout(() => resolve(file), 1000);
-      if (!file) {
-        reject(new Error("File not saved"));
+    let state = getState();
+    gapi.client.drive.files.create({
+      name: selectors.getFileName(state),
+      mimeType: "text/plain"
+    }).execute(function(response) {
+      if(response.error) {
+        dispatch({type: actType.FAIL_SAVE_DRIVE, payload: response});
+      }
+      else {
+        dispatch({type: actType.FINISH_SAVE_DRIVE, payload: { fileId: response.id }});
       }
     });
-    promise
-      .then(file => {
-        dispatch({type: actType.FINISH_SAVE_DRIVE, payload: file});
-      })
-      .catch(reason => {
-        dispatch({type: actType.FAIL_SAVE_DRIVE, payload: reason});
-      });
+  };
+}
+
+// saveGoogleDrive :: file : -> (Dispatch, [( -> State)] -> Undef)
+export function saveGoogleDrive() {
+  return (dispatch, getState) => {
+    dispatch({type: actType.START_SAVE_DRIVE});
+    let state = getState();
+    let currentFileId = selectors.getFileId(state);
+    let currentSource = selectors.getSource(state);
+    const boundary = '-------314159265358979323846';
+    const delimiter = "\r\n--" + boundary + "\r\n";
+    const close_delim = "\r\n--" + boundary + "--";
+    var metadata = {
+      'mimeType': 'text/plain',
+      'fileExtension': '.arr'
+    };
+    var multipartRequestBody =
+        delimiter +
+        'Content-Type: application/json\r\n\r\n' +
+        JSON.stringify(metadata) +
+        delimiter +
+        'Content-Type: text/plain\r\n' +
+        '\r\n' +
+        currentSource +
+        close_delim;
+
+    var request = gapi.client.request({
+      'path': '/upload/drive/v2/files/' + currentFileId,
+      'method': 'PUT',
+      'params': {'uploadType': 'multipart'},
+      'headers': {
+        'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+      },
+      'body': multipartRequestBody})
+    
+    request.execute(function(response) {
+      if(response.error) {
+        dispatch({type: actType.FAIL_SAVE_DRIVE, payload: response});
+      }
+      else {
+        dispatch({type: actType.FINISH_SAVE_DRIVE, payload: {fileId: currentFileId}});
+      }
+    });
   };
 }
 

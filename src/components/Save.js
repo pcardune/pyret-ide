@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {saveGoogleDrive} from '../redux/actionCreators';
+import {createGoogleDrive, saveGoogleDrive} from '../redux/actionCreators';
 import {bindActionCreators} from 'redux';
 import {styles} from './styles';
 import Button from './Button';
@@ -21,9 +21,12 @@ export class Save extends React.Component {
         </Button>
       );
     }
+    var clickAction = this.props.hasFileId ?
+      this.props.saveGoogleDrive :
+      this.props.createGoogleDrive;
     return (
       <Button kind="toolbar"
-              onClick={() => this.props.saveGoogleDrive("File")}>
+              onClick={clickAction}>
         Save
       </Button>
     );
@@ -33,7 +36,7 @@ export class Save extends React.Component {
 Save.propTypes = {
   hasConnectedDrive: React.PropTypes.bool,
   isSavingDrive: React.PropTypes.bool,
-  hasSavedDrive: React.PropTypes.bool,
+  hasFileId: React.PropTypes.bool,
   saveGoogleDrive: React.PropTypes.func,
 };
 
@@ -41,9 +44,10 @@ export default connect(
   state => ({
     hasConnectedDrive: selectors.hasConnectedDrive(state),
     isSavingDrive: selectors.isSavingDrive(state),
-    hasSavedDrive: selectors.hasSavedDrive(state),
+    hasFileId: selectors.hasFileId(state),
   }),
   dispatch => bindActionCreators({
     saveGoogleDrive: saveGoogleDrive,
+    createGoogleDrive: createGoogleDrive
   }, dispatch)
 )(Save);
