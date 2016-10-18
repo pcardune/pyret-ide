@@ -10,7 +10,7 @@ function REPLValueStory(props) {
       <dl>
         <dt>Value (as JSON)</dt>
         <dd>
-          <pre>{JSON.stringify(props.value, true, 2)}</pre>
+          <pre>{JSON.stringify(props.reprValue, true, 2)}</pre>
         </dd>
         <dt>As it appears in a REPL</dt>
         <dd>
