@@ -44,14 +44,14 @@ REPLValueStory.propTypes = REPLValue.propTypes;
 ].forEach(
   value => stories.add(
     value.type,
-    () => <REPLValueStory value={value}/>
+    () => <REPLValueStory reprValue={value}/>
   )
 );
 
 stories.add(
   'Cyclical array',
   () => (
-    <REPLValueStory value={{type: 'array',
+    <REPLValueStory reprValue={{type: 'array',
                             values: [
                               {type: 'number', value: 1},
                               {type: 'number', value: 2},
@@ -76,5 +76,5 @@ function lazyLinkedList(n) {
 }
 stories.add(
   'Lazy array',
-  () => <REPLValueStory value={lazyLinkedList(10)}/>
+  () => <REPLValueStory reprValue={lazyLinkedList(10)}/>
 );
