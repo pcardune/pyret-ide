@@ -36,7 +36,6 @@ export default {
     }
     const store = createStore({debug});
     store.dispatch(configureIDE({codemirrorOptions, runtimeApiLoader}));
-    store.dispatch(loadRuntimeApi(runtimeApiLoader));
     if (firebaseConfig) {
       firebase.initializeApp(firebaseConfig);
     } else {
