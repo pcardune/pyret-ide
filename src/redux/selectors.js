@@ -26,12 +26,20 @@ export function hasConnectedDrive(state) {
   return state.getIn(['googleDrive', 'drive']) !== null;
 }
 
-export function isSavingDrive(state) {
-  return state.getIn(['googleDrive', 'stage']) === constants.driveStages.save.STARTED;
+export function hasFileId(state) {
+  return state.getIn(['googleDrive', 'fileId']) !== null;
 }
 
-export function hasSavedDrive(state) {
-  return state.getIn(['googleDrive', 'save']) !== null;
+export function getFileId(state) {
+  return state.getIn(['googleDrive', 'fileId']);
+}
+
+export function getFileName(state) {
+  return state.getIn(['googleDrive', 'name']);
+}
+
+export function isSavingDrive(state) {
+  return state.getIn(['googleDrive', 'stage']) === constants.driveStages.save.STARTED;
 }
 
 export function isSharingDrive(state) {
@@ -50,6 +58,7 @@ export function hasSharedDrive(state) {
   return state.getIn(['googleDrive', 'share']) !== null;
 }
 
+
 export function getError(state) {
   return (state.getIn(['loadApi', 'error']) ||
           state.getIn(['runCode', 'error']) ||
@@ -64,6 +73,7 @@ export function getResult(state) {
 export function getSource(state) {
   return state.getIn(['editor', 'source']);
 }
+
 
 export function getCode(state) {
   return state.getIn(['REPL', 'code']);
