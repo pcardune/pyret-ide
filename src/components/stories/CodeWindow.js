@@ -27,12 +27,7 @@ class ColorPickSpan extends React.Component {
 }
 
 class HighlightPicker extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      highlights: []
-    };
-  }
+  state = { highlights: [] }
   changeHighlight(highlights) {
     this.setState({
       highlights: highlights
