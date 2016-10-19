@@ -10,4 +10,12 @@ export function LanguageError(errorComponent) {
 
 LanguageError.prototype = Error.prototype;
 
+/**
+ * Error subclass for errors caused by the user. For example
+ */
+export function UserError(message) {
+  this.message = message;
+}
+
+UserError.prototype = Error.prototype;
 

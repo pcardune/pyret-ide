@@ -1,6 +1,6 @@
 import 'codemirror/mode/javascript/javascript';
 
-import PyretIDE from '../pyret-ide';
+import {init} from '../pyret-ide';
 import stubCompiler from './stubCompiler';
 
 var runtimeApiLoader = function() {
@@ -18,7 +18,7 @@ var firebaseConfig = {
 };
 
 document.body.appendChild(app);
-PyretIDE.init({
+init({
   rootEl: app,
   runtimeApiLoader,
   codemirrorOptions: {
