@@ -1,4 +1,9 @@
 import * as constants from './constants';
+import { createSelector } from 'reselect';
+
+function equalitySelector(selector, expectedValue) {
+  return createSelector(selector, value => value === expectedValue);
+}
 
 export function isRunning(state) {
   return (Object.values(constants.runtimeStages)
@@ -9,55 +14,66 @@ export function isRunDropdownExpanded (state) {
   return state.getIn(['runDropdown', 'expanded']);
 }
 
-export function isLoadingRuntime(state) {
-  return state.getIn(['loadApi', 'stage']) === constants.loadApiStages.STARTED;
-}
+const loadApiStage = state => state.getIn(['loadApi', 'stage']);
+export const isLoadingRuntime = equalitySelector(loadApiStage, constants.loadApiStages.STARTED);
 
-export function hasLoadedRuntime(state) {
-  return state.getIn(['loadApi', 'stage']) === constants.loadApiStages.FINISHED;
-}
+export const hasLoadedRuntime = equalitySelector(loadApiStage, constants.loadApiStages.FINISHED);
 
-export function isConnectingDrive(state) {
-  return state.getIn(['googleDrive', 'stage']) ===
-    constants.driveStages.connect.STARTED;
-}
+const googleDrive = state => state.get('googleDrive');
+const googleDriveStageSelector = createSelector(
+  googleDrive,
+  googleDrive => googleDrive.get('stage')
+);
 
-export function hasConnectedDrive(state) {
-  return state.getIn(['googleDrive', 'drive']) !== null;
-}
+export const isConnectingDrive = equalitySelector(
+  googleDriveStageSelector,
+  constants.driveStages.connect.STARTED
+);
 
-export function hasFileId(state) {
-  return state.getIn(['googleDrive', 'fileId']) !== null;
-}
+export const isSavingDrive = equalitySelector(
+  googleDriveStageSelector,
+  constants.driveStages.save.STARTED
+);
 
-export function getFileId(state) {
-  return state.getIn(['googleDrive', 'fileId']);
-}
+export const isSharingDrive = equalitySelector(
+  googleDriveStageSelector,
+  constants.driveStages.share.STARTED
+);
 
-export function getFileName(state) {
-  return state.getIn(['googleDrive', 'name']);
-}
+export const isOpeningDrive = equalitySelector(
+  googleDriveStageSelector,
+  constants.driveStages.open.STARTED
+);
 
-export function isSavingDrive(state) {
-  return state.getIn(['googleDrive', 'stage']) === constants.driveStages.save.STARTED;
-}
+export const hasOpenedDrive = equalitySelector(
+  googleDriveStageSelector,
+  constants.driveStages.open.FINISHED
+);
 
-export function isSharingDrive(state) {
-  return state.getIn(['googleDrive', 'stage']) === constants.driveStages.share.STARTED;
-}
+export const hasConnectedDrive = createSelector(
+  googleDrive,
+  drive => drive.get('drive') !== null
+);
 
-export function isOpeningDrive(state) {
-  return state.getIn(['googleDrive', 'stage']) === constants.driveStages.open.STARTED;
-}
+export const getFileId = createSelector(
+  googleDrive,
+  drive => drive.get('fileId')
+);
 
-export function hasOpenedDrive(state) {
-  return state.getIn(['googleDrive', 'stage']) === constants.driveStages.open.FINISHED;
-}
+export const hasFileId = createSelector(
+  getFileId,
+  fileId => fileId !== null
+);
 
-export function hasSharedDrive(state) {
-  return state.getIn(['googleDrive', 'share']) !== null;
-}
+export const getFileName = createSelector(
+  googleDrive,
+  drive => drive.get('name')
+);
 
+export const hasSharedDrive = createSelector(
+  googleDrive,
+  drive => drive.get('share') !== null
+);
 
 export function getError(state) {
   return (state.getIn(['loadApi', 'error']) ||
@@ -66,18 +82,33 @@ export function getError(state) {
   );
 }
 
-export function getResult(state) {
-  return state.getIn(['editor', 'result']);
-}
+const editor = state => state.get('editor');
 
-export function getSource(state) {
-  return state.getIn(['editor', 'source']);
-}
+export const getResult = createSelector(
+  editor,
+  editor => editor.get('result')
+);
 
+export const getSource = createSelector(
+  editor,
+  editor => editor.get('source')
+);
 
-export function getCode(state) {
-  return state.getIn(['REPL', 'code']);
-}
+export const REPL = state => state.get('REPL');
+export const getCode = createSelector(
+  REPL,
+  REPL => REPL.get('code')
+);
+
+export const hasHistory = createSelector(
+  REPL,
+  REPL => REPL.get('history') !== []
+);
+
+export const getHistory = createSelector(
+  REPL,
+  REPL => REPL.get('history')
+);
 
 export function isMoreMenuExpanded(state) {
   return state.getIn(['moreMenu', 'expanded']);
@@ -85,14 +116,6 @@ export function isMoreMenuExpanded(state) {
 
 export function getFontSize(state) {
   return state.getIn(['moreMenu', 'fontSize']);
-}
-
-export function hasHistory(state) {
-  return state.getIn(['REPL', 'history']) !== [];
-}
-
-export function getHistory(state) {
-  return state.getIn(['REPL', 'history']);
 }
 
 export function getCodemirrorOptions(state) {
