@@ -64,10 +64,7 @@ module.exports = {
         SRC_DIRECTORY,
         TEST_DIRECTORY,
       ],
-      loader: "babel",
-      query: {
-        cacheDirectory: true
-      }
+      loaders: ["babel?cacheDirectory", "eslint"],
     }].concat(
       (process.env.COVERAGE || process.env.CONTINUOUS_INTEGRATION) ?
       [{
