@@ -1,6 +1,6 @@
+import Immutable from 'immutable';
 import pyretReducer from '../../src/redux/reducer';
 import * as actType from '../../src/redux/action-types';
-import Immutable from 'immutable';
 import {makeHighlight as h} from '../../src/util';
 import * as selectors from '../../src/redux/selectors';
 
@@ -209,7 +209,10 @@ describe("The reducer", () => {
       const failConnect = {type: actType.FAIL_CONNECT_DRIVE, payload: 'reason'};
 
       const startSave = {type: actType.START_SAVE_DRIVE};
-      const finishSave = {type: actType.FINISH_SAVE_DRIVE, payload: {fileId: 'some-file-id'}};
+      const finishSave = {
+        type: actType.FINISH_SAVE_DRIVE,
+        payload: {fileId: 'some-file-id'}
+      };
       const failSave = {type: actType.FAIL_SAVE_DRIVE, payload: 'reason'};
 
 
