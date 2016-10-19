@@ -1,6 +1,7 @@
+import 'codemirror/mode/javascript/javascript';
+
 import PyretIDE from '../pyret-ide';
 import stubCompiler from './stubCompiler';
-import 'codemirror/mode/javascript/javascript';
 
 var runtimeApiLoader = function() {
   return new Promise(function(resolve) {

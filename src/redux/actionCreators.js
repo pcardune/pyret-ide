@@ -1,6 +1,7 @@
+import firebase from 'firebase';
+
 import * as actType from './action-types';
 import * as selectors from './selectors';
-import firebase from 'firebase';
 import * as constants from './constants';
 
 export function configureIDE({codemirrorOptions, runtimeApiLoader}) {

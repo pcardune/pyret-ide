@@ -1,5 +1,5 @@
-import * as constants from './constants';
 import { createSelector } from 'reselect';
+import * as constants from './constants';
 
 function equalitySelector(selector, expectedValue) {
   return createSelector(selector, value => value === expectedValue);

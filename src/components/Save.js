@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createGoogleDrive, saveGoogleDrive} from '../redux/actionCreators';
 import {bindActionCreators} from 'redux';
-import {styles} from './styles';
+import {createGoogleDrive, saveGoogleDrive} from '../redux/actionCreators';
+import styles from './styles';
 import Button from './Button';
 import Spinner from './Spinner';
 import * as selectors from '../redux/selectors';
@@ -16,7 +16,7 @@ export class Save extends React.Component {
     if (this.props.isSavingDrive) {
       return (
         <Button kind="toolbar">
-          <Spinner style={styles.spinners.toolbar}/>
+          <Spinner style={styles.spinners.toolbar} />
           Saving...
         </Button>
       );
@@ -25,8 +25,10 @@ export class Save extends React.Component {
       this.props.saveGoogleDrive :
       this.props.createGoogleDrive;
     return (
-      <Button kind="toolbar"
-              onClick={clickAction}>
+      <Button
+        kind="toolbar"
+        onClick={clickAction}
+      >
         Save
       </Button>
     );

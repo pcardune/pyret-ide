@@ -1,5 +1,6 @@
 import React from "react";
 import {storiesOf} from "@kadira/storybook";
+
 import REPLValue from '../REPLValue';
 
 var stories = storiesOf("REPL Values", module);
@@ -14,7 +15,7 @@ function REPLValueStory(props) {
         </dd>
         <dt>As it appears in a REPL</dt>
         <dd>
-          <REPLValue {...props}/>
+          <REPLValue {...props} />
         </dd>
       </dl>
     </div>
@@ -44,19 +45,21 @@ REPLValueStory.propTypes = REPLValue.propTypes;
 ].forEach(
   value => stories.add(
     value.type,
-    () => <REPLValueStory reprValue={value}/>
+    () => <REPLValueStory reprValue={value} />
   )
 );
 
 stories.add(
   'Cyclical array',
   () => (
-    <REPLValueStory reprValue={{type: 'array',
-                            values: [
-                              {type: 'number', value: 1},
-                              {type: 'number', value: 2},
-                              {type: 'cyclic'},
-                            ]}}/>
+    <REPLValueStory
+      reprValue={{type: 'array',
+                  values: [
+                    {type: 'number', value: 1},
+                    {type: 'number', value: 2},
+                    {type: 'cyclic'},
+                  ]}}
+    />
   )
 );
 
@@ -76,5 +79,5 @@ function lazyLinkedList(n) {
 }
 stories.add(
   'Lazy array',
-  () => <REPLValueStory reprValue={lazyLinkedList(10)}/>
+  () => <REPLValueStory reprValue={lazyLinkedList(10)} />
 );

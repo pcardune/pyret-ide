@@ -10,37 +10,37 @@ import {MoreMenu} from '../MoreMenu';
 
 storiesOf("StopButton", module)
   .add("not running", () => (
-    <Stop running={false}/>
+    <Stop running={false} />
   ))
   .add("running", () => (
-    <Stop running={true} onStop={linkTo("StopButton", "not running")}/>
+    <Stop running onStop={linkTo("StopButton", "not running")} />
   ));
 storiesOf("GoogleDriveButton", module)
   .add("Connect", () => (
-    <Connect/>
+    <Connect />
   ))
   .add("Connecting", () => (
-    <Connect isConnectingDrive={true}/>
+    <Connect isConnectingDrive />
   ))
   .add("Connected", () => (
-    <Connect hasConnectedDrive={true}/>
+    <Connect hasConnectedDrive />
   ))
   .add("Save", () => (
-    <Save hasConnectedDrive={true}/>
+    <Save hasConnectedDrive />
   ))
   .add("Saving", () => (
-    <Save hasConnectedDrive={true} isSavingDrive={true}/>
+    <Save hasConnectedDrive isSavingDrive />
   ))
   .add("Share", () => (
-    <Share hasSavedDrive={true}/>
+    <Share hasSavedDrive />
   ))
   .add("Sharing", () => (
-    <Share hasSavedDrive={true} isSharingDrive={true}/>
+    <Share hasSavedDrive isSharingDrive />
   ));
 storiesOf("MoreButton", module)
   .add("Button", () => (
-    <More/>
+    <More />
   ))
   .add("MoreMenu", () => (
-    <MoreMenu expanded={true}/>
+    <MoreMenu expanded />
   ));

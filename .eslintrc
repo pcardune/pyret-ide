@@ -11,7 +11,16 @@
     "new-parens": 2,
     "space-infix-ops": 2,
     "no-trailing-spaces": 2,
-    "max-len": ["error", {"ignoreUrls": true, "code": 90}]
+    "max-len": ["error", {"ignoreUrls": true, "code": 90}],
+
+    "react/prefer-stateless-function": "off",
+    "react/jsx-filename-extension": "off",
+    "react/forbid-prop-types": "off",
+    "react/no-multi-comp": "off",
+    "react/no-unused-prop-types": ["error", {"skipShapeProps": true}],
+
+    "import/no-named-as-default": "off",
+    "import/no-extraneous-dependencies": "off",
   },
   "env": {
     "es6": true,
@@ -20,6 +29,7 @@
     "jasmine": true
   },
   "extends": [
+    "airbnb",
     "eslint:recommended",
     "plugin:react/recommended"
   ],

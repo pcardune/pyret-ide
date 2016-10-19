@@ -1,8 +1,8 @@
 import React from 'react';
 import Radium from 'radium';
 import SplitPane from '@mnmtanish/react-split-pane';
-import * as selectors from '../redux/selectors';
 import {connect} from 'react-redux';
+import * as selectors from '../redux/selectors';
 import Toolbar from './Toolbar';
 import CodeWindow from './CodeWindow';
 import Spinner from './Spinner';
@@ -41,19 +41,19 @@ class Editor extends React.Component {
         <Toolbar logo="https://code.pyret.org/img/pyret-logo.png" />
         <div style={[styles.splitPaneWrapper, {fontSize: this.props.fontSize}]}>
           <SplitPane defaultSize="50%" split="vertical">
-            <CodeWindow/>
+            <CodeWindow />
             <div>
               {this.props.isLoadingRuntime &&
-               <div>
-                 <Spinner style={styles.spinner}/>
-                 <p style={{textAlign: "center"}}>
-                   {loadTexts[Math.floor(Math.random() * loadTexts.length)]}
-                 </p>
-               </div>
+              <div>
+                <Spinner style={styles.spinner} />
+                <p style={{textAlign: "center"}}>
+                  {loadTexts[Math.floor(Math.random() * loadTexts.length)]}
+                </p>
+              </div>
               }
-              <ErrorBox/>
-              <REPLHistoryList/>
-              <REPLInput/>
+              <ErrorBox />
+              <REPLHistoryList />
+              <REPLInput />
             </div>
           </SplitPane>
         </div>
@@ -63,20 +63,14 @@ class Editor extends React.Component {
 }
 
 Editor.propTypes = {
-  result: React.PropTypes.any,
-  hasHistory: React.PropTypes.bool,
   isLoadingRuntime: React.PropTypes.bool,
-  hasLoadedRuntime: React.PropTypes.bool,
   fontSize: React.PropTypes.number,
 };
 
 export default connect(
   state => {
     return {
-      result: selectors.getResult(state),
-      hasHistory: selectors.hasHistory(state),
       isLoadingRuntime: selectors.isLoadingRuntime(state),
-      hasLoadedRuntime: selectors.hasLoadedRuntime(state),
       fontSize: selectors.getFontSize(state),
     };
   }

@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {shareGoogleDrive} from '../redux/actionCreators';
 import {bindActionCreators} from 'redux';
-import {styles} from './styles';
+import {shareGoogleDrive} from '../redux/actionCreators';
+import styles from './styles';
 import Button from './Button';
 import Spinner from './Spinner';
 import * as selectors from '../redux/selectors';
@@ -15,14 +15,16 @@ export class Share extends React.Component {
     if (this.props.isSharingDrive) {
       return (
         <Button kind="toolbar">
-          <Spinner style={styles.spinners.toolbar}/>
+          <Spinner style={styles.spinners.toolbar} />
           Sharing...
         </Button>
       );
     }
     return (
-      <Button kind="toolbar"
-              onClick={() => this.props.shareGoogleDrive()}>
+      <Button
+        kind="toolbar"
+        onClick={() => this.props.shareGoogleDrive()}
+      >
         Share
       </Button>
     );

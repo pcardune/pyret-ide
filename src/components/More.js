@@ -1,13 +1,13 @@
 import React from "react";
 import Radium from "radium";
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import ClickOutside from 'react-click-outside';
 import Button from "./Button";
 import {isMoreMenuExpanded} from "../redux/selectors";
 import {expandMoreMenu, collapseMoreMenu} from '../redux/actionCreators';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {styles} from './styles';
+import styles from './styles';
 import MoreMenu from "./MoreMenu";
-import ClickOutside from 'react-click-outside';
 
 export class More extends React.Component {
   handleClickOutside() {
@@ -18,13 +18,15 @@ export class More extends React.Component {
   render() {
     return(
       <div>
-        <Button kind="toolbar"
-                style={styles.buttons.more.moreButton}
-                onClick={() =>
-                  this.props.expanded ? this.props.collapse() : this.props.expand()}>
+        <Button
+          kind="toolbar"
+          style={styles.buttons.more.moreButton}
+          onClick={() =>
+                  this.props.expanded ? this.props.collapse() : this.props.expand()}
+        >
           More ▾
         </Button>
-        <MoreMenu/>
+        <MoreMenu />
       </div>
     );
   }
