@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {openGoogleDrive} from '../redux/actionCreators';
 import {bindActionCreators} from 'redux';
-import {styles} from './styles';
+import {openGoogleDrive} from '../redux/actionCreators';
+import styles from './styles';
 import Button from './Button';
 import Spinner from './Spinner';
 import * as selectors from '../redux/selectors';
@@ -16,14 +16,16 @@ export class Open extends React.Component {
     if (this.props.isOpeningDrive) {
       return (
         <Button kind="toolbar">
-          <Spinner style={styles.spinners.toolbar}/>
+          <Spinner style={styles.spinners.toolbar} />
           Opening...
         </Button>
       );
     }
     return (
-      <Button kind="toolbar"
-              onClick={() => this.props.openGoogleDrive("File")}>
+      <Button
+        kind="toolbar"
+        onClick={() => this.props.openGoogleDrive("File")}
+      >
         Open
       </Button>
     );

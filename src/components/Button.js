@@ -1,6 +1,6 @@
 import React from "react";
 import Radium from "radium";
-import {styles} from "./styles";
+import styles from "./styles";
 
 export class Button extends React.Component {
   render() {
@@ -11,7 +11,8 @@ export class Button extends React.Component {
           styles.buttons.base,
           styles.buttons[this.props.kind],
           this.props.style
-        ]}>
+        ]}
+      >
         {this.props.children}
       </button>
     );

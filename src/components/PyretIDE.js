@@ -4,7 +4,7 @@ import Editor from './Editor';
 export default class PyretIDE extends React.Component {
   render() {
     return (
-      <Editor/>
+      <Editor />
     );
   }
 }

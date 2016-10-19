@@ -5,14 +5,16 @@ import Radium from "radium";
 import Button from "./Button";
 import {stop} from "../redux/actionCreators";
 import {isRunning} from "../redux/selectors";
-import {styles} from "./styles";
+import styles from "./styles";
 
 export class Stop extends React.Component {
   render() {
     if (this.props.running) {
       return (
-        <Button style ={styles.buttons.stop.stopping}
-                onClick={this.props.onStop}>
+        <Button
+          style={styles.buttons.stop.stopping}
+          onClick={this.props.onStop}
+        >
           Stop
         </Button>
       );

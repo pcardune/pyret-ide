@@ -11,8 +11,9 @@ export class Name extends React.Component {
       return null;
     }
     return (
-      <Input placeholder="Program Name"
-             onChange={event => this.props.changeProgramName(event.target.value)}
+      <Input
+        placeholder="Program Name"
+        onChange={event => this.props.changeProgramName(event.target.value)}
       />
     );
   }

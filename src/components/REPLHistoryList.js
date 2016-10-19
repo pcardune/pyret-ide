@@ -1,8 +1,8 @@
 import React from 'react';
-import REPLHistoryItem from './REPLHistoryItem';
-import * as selectors from '../redux/selectors';
 import {connect} from 'react-redux';
 import Immutable from 'immutable';
+import REPLHistoryItem from './REPLHistoryItem';
+import * as selectors from '../redux/selectors';
 
 export class REPLHistoryList extends React.Component {
   render() {
@@ -12,9 +12,11 @@ export class REPLHistoryList extends React.Component {
     return (
       <div>
         {this.props.REPLHistory.map((item, index) => (
-           <REPLHistoryItem key={index}
-                            input={item.code}
-                            result={item.result}/>
+          <REPLHistoryItem
+            key={index}
+            input={item.code}
+            result={item.result}
+          />
          ))}
       </div>
     );

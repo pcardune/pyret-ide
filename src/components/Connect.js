@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {connectGoogleDrive} from '../redux/actionCreators';
 import {bindActionCreators} from 'redux';
-import {styles} from './styles';
+import {connectGoogleDrive} from '../redux/actionCreators';
+import styles from './styles';
 import Button from './Button';
 import Spinner from './Spinner';
 import * as selectors from '../redux/selectors';
@@ -15,14 +15,16 @@ export class Connect extends React.Component {
     if (this.props.isConnectingDrive) {
       return (
         <Button kind="googleDrive">
-          <Spinner style={styles.spinners.toolbar}/>
+          <Spinner style={styles.spinners.toolbar} />
           Connecting to Google Drive...
         </Button>
       );
     }
     return (
-      <Button kind="googleDrive"
-              onClick={() => this.props.connectGoogleDrive()}>
+      <Button
+        kind="googleDrive"
+        onClick={() => this.props.connectGoogleDrive()}
+      >
         Connect to Google Drive
       </Button>
     );

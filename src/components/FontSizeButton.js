@@ -1,25 +1,27 @@
 import React from "react";
 import Radium from "radium";
-import {getFontSize} from "../redux/selectors";
 import {connect} from 'react-redux';
-import {styles} from './styles';
+import {bindActionCreators} from "redux";
+import {getFontSize} from "../redux/selectors";
+import styles from './styles';
 import Button from './Button';
 import {incrementFontSize, decrementFontSize} from "../redux/actionCreators";
-import {bindActionCreators} from "redux";
 
 export class FontSizeButton extends React.Component {
   render() {
     return(
       <div style={styles.buttons.more.fontButtonContainer}>
         <Button
-            style={styles.buttons.more.fontSizeButtons}
-            onClick={this.props.decrementFontSize}>
+          style={styles.buttons.more.fontSizeButtons}
+          onClick={this.props.decrementFontSize}
+        >
           -
         </Button>
         <div style={{alignSelf: "center"}}>Font ({this.props.fontSize}px)</div>
         <Button
-            style={styles.buttons.more.fontSizeButtons}
-            onClick={this.props.incrementFontSize}>
+          style={styles.buttons.more.fontSizeButtons}
+          onClick={this.props.incrementFontSize}
+        >
           +
         </Button>
       </div>

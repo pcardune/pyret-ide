@@ -1,16 +1,27 @@
 import React from 'react';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/monokai.css';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Codemirror from 'react-codemirror';
 import {changeSource} from '../redux/actionCreators';
 import {getSource, getCodemirrorOptions} from '../redux/selectors';
 
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/monokai.css';
 
 require('./CodeWindow.css');
 
 export class CodeWindow extends React.Component {
+
+  componentDidMount() {
+    this.drawHighlights(this.props.highlights);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.highlights !== nextProps.highlights) {
+      this.clearHighlights();
+      this.drawHighlights(nextProps.highlights);
+    }
+  }
 
   drawHighlights(highlights) {
     let cm = this.codeMirror.getCodeMirror();
@@ -28,24 +39,17 @@ export class CodeWindow extends React.Component {
 
   render() {
     return (
-      <Codemirror ref={(ref) => this.codeMirror = ref}
-                  className="PyretIDE-CodeWindow"
-                  value={this.props.source || ''}
-                  onChange={this.props.changeSource}
-                  options={this.props.codemirrorOptions} />
+      <Codemirror
+        ref={(ref) => this.codeMirror = ref}
+        className="PyretIDE-CodeWindow"
+        value={this.props.source || ''}
+        onChange={this.props.changeSource}
+        options={this.props.codemirrorOptions}
+      />
     );
   }
 
-  componentDidMount() {
-    this.drawHighlights(this.props.highlights);
-  }
 
-  componentWillReceiveProps(nextProps) {
-    if(this.props.highlights !== nextProps.highlights) {
-      this.clearHighlights();
-      this.drawHighlights(nextProps.highlights);
-    }
-  }
 
 }
 

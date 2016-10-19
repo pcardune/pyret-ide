@@ -1,4 +1,4 @@
-export var styles = {
+export default {
   errorBox: {
     fontFamily: "sans-serif",
     borderWidth: 1,

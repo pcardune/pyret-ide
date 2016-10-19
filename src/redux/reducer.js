@@ -1,7 +1,8 @@
-import * as actType from './action-types';
-import * as constants from './constants';
 import {combineReducers} from 'redux-immutable';
 import Immutable from 'immutable';
+
+import * as actType from './action-types';
+import * as constants from './constants';
 
 const initialState = Immutable.Map({
   loadApi: Immutable.Map({

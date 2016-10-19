@@ -6,18 +6,17 @@ export default class REPLHistoryItem extends React.Component {
     return (
       <div style={{margin: 5}}>
         {this.props.input &&
-         <code>
-           <strong>{'>'}</strong> {this.props.input}
-         </code>
+        <code>
+          <strong>{'>'}</strong> {this.props.input}
+        </code>
         }
-        <REPLResult result={this.props.result}/>
+        <REPLResult result={this.props.result} />
       </div>
     );
   }
 }
 
 REPLHistoryItem.propTypes = {
-  key: React.PropTypes.number,
   input: React.PropTypes.string,
   result: React.PropTypes.any,
 };

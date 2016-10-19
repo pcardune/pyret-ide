@@ -13,9 +13,9 @@ class Lazy extends React.Component {
   }
   render() {
     if (this.state.reprValue === null) {
-      return <span onClick={this.expand}>&lt;click to expand&gt;</span>;
+      return <button onClick={this.expand}>&lt;click to expand&gt;</button>;
     } else {
-      return <REPLValue reprValue={this.state.reprValue}/>;
+      return <REPLValue reprValue={this.state.reprValue} />;
     }
   }
 }
@@ -33,54 +33,54 @@ function Image() {
   return <span>Image</span>;
 }
 
-class Number extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {showFraction: false};
-    this.toggleFraction = this.toggleFraction.bind(this);
-  }
+const NumberProp = React.PropTypes.oneOfType([
+  React.PropTypes.shape({
+    numerator: React.PropTypes.number,
+    denominator: React.PropTypes.number,
+    whole: React.PropTypes.number,
+    fractional: React.PropTypes.number,
+    repeating: React.PropTypes.number,
+  })
+]);
 
-  toggleFraction() {
+const ReprValueProp = (valuePropType) => React.PropTypes.shape({
+  type: React.PropTypes.string.isRequired,
+  value: valuePropType
+});
+
+class Number extends React.Component {
+  static propTypes = {
+    reprValue: ReprValueProp(NumberProp)
+  };
+
+  state = {showFraction: false};
+
+  toggleFraction = () => {
     this.setState({showFraction: !this.state.showFraction});
   }
 
   render() {
-    const reprValue = this.props.reprValue;
-    if (typeof reprValue.value === "object") {
+    if (typeof this.props.reprValue.value === "object") {
       const {
         numerator,
         denominator,
         whole,
         fractional,
         repeating
-      } = reprValue.value;
+      } = this.props.reprValue.value;
       let text = `${whole}.${fractional}${repeating}`;
       if (this.state.showFraction) {
         text = `${numerator}/${denominator}`;
       }
       return (
-        <span onClick={this.toggleFraction}>
+        <button onClick={this.toggleFraction}>
           {text}
-        </span>
+        </button>
       );
     }
-    return <span>{reprValue.value}</span>;
+    return <span>{this.props.reprValue.value}</span>;
   }
 }
-Number.propTypes = {
-  reprValue: React.PropTypes.shape({
-    type: React.PropTypes.string.isRequired,
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.shape({
-        numerator: React.PropTypes.number,
-        denominator: React.PropTypes.number,
-        whole: React.PropTypes.number,
-        fractional: React.PropTypes.number,
-        repeating: React.PropTypes.number,
-      })
-    ])
-  })
-};
 
 function Nothing() {
   return <span>&lt;nothing&gt;</span>;
@@ -93,7 +93,7 @@ function Boolean({reprValue}) {
 Boolean.propTypes = {reprValue: React.PropTypes.object};
 
 function String({reprValue}) {
-  return <span>"{reprValue.value}"</span>;
+  return <span>{`"${reprValue.value}"`}</span>;
 }
 String.propTypes = {reprValue: React.PropTypes.object};
 
@@ -110,10 +110,10 @@ function Array({reprValue}) {
     <span>
       [
       {reprValue.values.map((item, index) => (
-         <span>
-           <REPLValue reprValue={item} />
-           {index < reprValue.values.length - 1 && ", "}
-         </span>
+        <span>
+          <REPLValue reprValue={item} />
+          {index < reprValue.values.length - 1 && ", "}
+        </span>
        ))}
          ]
     </span>
@@ -130,10 +130,10 @@ function Tuple({reprValue}) {
     <span>
       (
       {reprValue.values.map((item, index) => (
-         <span>
-           <REPLValue reprValue={item}/>
-           {index < reprValue.values.length - 1 && ", "}
-         </span>
+        <span>
+          <REPLValue reprValue={item} />
+          {index < reprValue.values.length - 1 && ", "}
+        </span>
        ))}
          )
     </span>
@@ -149,7 +149,7 @@ function Obj({reprValue}) {
       {reprValue.keyValues.map(
          ({key, value}) => [
            <dt key={`dt-${key}`}>{key}</dt>,
-           <dd key={`dd-${key}`}><REPLValue reprValue={value}/></dd>
+           <dd key={`dd-${key}`}><REPLValue reprValue={value} /></dd>
          ]
        )}
     </dl>
@@ -171,18 +171,14 @@ function StandardOut({reprValue}) {
   return <span>stdout: {reprValue.value}</span>;
 }
 StandardOut.propTypes = {
-  reprValue: React.PropTypes.shape({
-    value: React.PropTypes.string,
-  }),
+  reprValue: ReprValueProp(React.PropTypes.string),
 };
 
 function StandardError({reprValue}) {
   return <span>stderr: {reprValue.value}</span>;
 }
 StandardError.propTypes = {
-  reprValue: React.PropTypes.shape({
-    value: React.PropTypes.string,
-  }),
+  reprValue: ReprValueProp(React.PropTypes.string),
 };
 
 

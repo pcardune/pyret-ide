@@ -1,7 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 import {connect} from 'react-redux';
-import {styles} from './styles';
+import styles from './styles';
 import {getError} from '../redux/selectors';
 
 export class ErrorBox extends React.Component {

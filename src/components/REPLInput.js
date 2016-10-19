@@ -32,18 +32,19 @@ export class REPLInput extends React.Component {
         <span style={styles.inputChevron}>
           {'> '}
         </span>
-        <input style={styles.input}
-               value={this.props.code}
-               onChange={event => this.props.changeREPLCode(event.target.value)}
-               onKeyPress={event =>
-                 event.key === "Enter" && this.props.onRun(this.props.code)} />
+        <input
+          style={styles.input}
+          value={this.props.code}
+          onChange={event => this.props.changeREPLCode(event.target.value)}
+          onKeyPress={event =>
+                 event.key === "Enter" && this.props.onRun(this.props.code)}
+        />
       </div>
     );
   }
 }
 
 REPLInput.propTypes = {
-  REPLInput: React.PropTypes.string,
   code: React.PropTypes.string,
   isLoadingRuntime: React.PropTypes.bool,
   changeREPLCode: React.PropTypes.func,
