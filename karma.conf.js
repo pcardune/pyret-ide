@@ -3,9 +3,11 @@ var webpackConfig = require('./webpack.config.js');
 var reporters = ['dots'];
 
 if (process.env.COVERAGE || process.env.CONTINUOUS_INTEGRATION) {
+  console.log("This test run will generate coverage reports");
   reporters.push('coverage');
 
   if (process.env.CONTINUOUS_INTEGRATION) {
+    console.log("Coverage reports will be uploaded to coveralls.io");
     reporters.push('coveralls');
   }
 }
