@@ -9,13 +9,6 @@ import {More} from '../More';
 import {MoreMenu} from '../MoreMenu';
 
 
-storiesOf("RunButton", module)
-  .add("not running", () => (
-    <Run running={false} onRun={linkTo("RunButton", "running")}/>
-  ))
-  .add("running", () => (
-    <Run running={true}/>
-  ));
 storiesOf("StopButton", module)
   .add("not running", () => (
     <Stop running={false}/>
