@@ -97,7 +97,7 @@ function editor(state = initialState.get('editor'), action) {
         }
       });
     case actType.HIGHLIGHTS_OFF:
-      return state.mergeDeep({
+      return state.merge({
         highlights: {
           [action.payload.target]: []
         }

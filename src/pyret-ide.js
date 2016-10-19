@@ -10,6 +10,7 @@ import {Provider} from 'react-redux';
 import firebase from 'firebase';
 
 import PyretIDE from './components/PyretIDE';
+import {LanguageError} from './errors';
 import createStore from './redux/createStore';
 import {configureIDE} from './redux/actionCreators';
 
@@ -51,5 +52,7 @@ export default {
   /**
    * Error subclass for errors caused by the user. For example
    */
-  UserError: class extends Error {}
+  UserError: class extends Error {},
+  LanguageError: LanguageError
+
 };

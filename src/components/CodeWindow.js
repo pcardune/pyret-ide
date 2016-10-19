@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Codemirror from 'react-codemirror';
 import {changeSource} from '../redux/actionCreators';
-import {getSource, getCodemirrorOptions} from '../redux/selectors';
+import {getSource, getCodemirrorOptions, getHighlightsFor} from '../redux/selectors';
 
 
 require('./CodeWindow.css');
@@ -24,6 +24,7 @@ export class CodeWindow extends React.Component {
   }
 
   drawHighlights(highlights) {
+    console.log("Highlights: ", highlights);
     let cm = this.codeMirror.getCodeMirror();
     highlights.forEach(function(h) {
       cm.markText(h.span.from, h.span.to, {
@@ -49,7 +50,13 @@ export class CodeWindow extends React.Component {
     );
   }
 
-
+  componentWillReceiveProps(nextProps) {
+    if(this.props.highlights !== nextProps.highlights) {
+      this.clearHighlights();
+      this.drawHighlights(nextProps.highlights);
+      return;
+    }
+  }
 
 }
 
@@ -65,7 +72,7 @@ CodeWindow.defaultProps = {
 };
 
 export default connect(
-  state, ownProps => ({
+  (state, ownProps) => ({
     source: getSource(state),
     codemirrorOptions: getCodemirrorOptions(state),
     highlights: getHighlightsFor(state, ownProps.uri),

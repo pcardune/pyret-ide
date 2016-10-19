@@ -45,7 +45,7 @@ describe("The reducer", () => {
   });
 
   describe("merges highlights correctly", () => {
-    it("registers highlights", () => {
+    it("registers and unregisters highlights", () => {
       let highlight = {
         type: actType.HIGHLIGHTS_ON,
         payload: {
@@ -59,6 +59,20 @@ describe("The reducer", () => {
       let nextState = pyretReducer(state, highlight);
       expect(selectors.getHighlightsFor(nextState, "definitions://"))
         .toEqual([hilite("blue", [0, 5, 0, 7])]);
+
+      let unhighlight = {
+        type: actType.HIGHLIGHTS_OFF,
+        payload: {
+          target: "definitions://",
+          highlights: [
+            hilite("blue", [0, 5, 0, 7])
+          ]
+        }
+      };
+
+      let unhighlightState = pyretReducer(nextState, unhighlight);
+      expect(selectors.getHighlightsFor(unhighlightState, "definitions://"))
+        .toEqual([]);
     });
 
   });

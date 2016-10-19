@@ -41,7 +41,7 @@ class Editor extends React.Component {
         <Toolbar logo="https://code.pyret.org/img/pyret-logo.png" />
         <div style={[styles.splitPaneWrapper, {fontSize: this.props.fontSize}]}>
           <SplitPane defaultSize="50%" split="vertical">
-            <CodeWindow />
+            <CodeWindow uri="definitions://" />
             <div>
               {this.props.isLoadingRuntime &&
               <div>

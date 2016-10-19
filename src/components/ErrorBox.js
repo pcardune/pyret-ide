@@ -3,11 +3,16 @@ import Radium from 'radium';
 import {connect} from 'react-redux';
 import styles from './styles';
 import {getError} from '../redux/selectors';
+import {LanguageError} from '../errors';
 
 export class ErrorBox extends React.Component {
   render() {
-    if (this.props.error) {
-      return <span style={styles.errorBox}>{this.props.error.message}</span>;
+    console.log(this.props);
+    if (this.props.error instanceof LanguageError) {
+      return <div style={styles.errorBox}>{this.props.error.errorComponent}</div>;
+    }
+    else if (this.props.error) {
+      return <div style={styles.errorBox}>{this.props.error.message}</div>;
     }
     return null;
   }

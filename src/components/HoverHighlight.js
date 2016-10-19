@@ -1,6 +1,7 @@
 import {highlightsOn, highlightsOff} from '../redux/actionCreators';
 import React from "react";
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Radium from "radium";
 import {styles} from "./styles";
 
@@ -42,6 +43,8 @@ HoverHighlight.propTypes = {
     color: React.PropTypes.string
   })),
   onChange: React.PropTypes.func,
+  highlightsOn: React.PropTypes.func.isRequired,
+  highlightsOff: React.PropTypes.func.isRequired,
 };
 
 export default connect(
