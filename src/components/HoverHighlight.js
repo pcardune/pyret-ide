@@ -1,4 +1,5 @@
 import React from "react";
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Radium from "radium";
 import styles from "./styles";
@@ -48,9 +49,9 @@ HoverHighlight.propTypes = {
 
 export default connect(
   () => ({ }),
-  {
+  dispatch => bindActionCreators({
     turnHighlightsOn: turnHighlightsOn,
     turnHighlightsOff: turnHighlightsOff
-  }
+  }, dispatch)
 )(HoverHighlight);
 

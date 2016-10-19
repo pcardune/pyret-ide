@@ -1,9 +1,9 @@
+import thunk from 'redux-thunk';
+import Immutable from 'immutable';
+import configureStore from "redux-mock-store";
 import pyretReducer from '../../src/redux/reducer';
 import * as actCreators from "../../src/redux/actionCreators";
 import * as actType from '../../src/redux/action-types';
-import configureStore from "redux-mock-store";
-import thunk from 'redux-thunk';
-import Immutable from 'immutable';
 import {makeHighlight as h} from '../../src/util';
 
 describe("The actionCreators'", () => {
@@ -290,7 +290,10 @@ describe("The actionCreators'", () => {
   describe("changeProgramName function", () => {
     it("dispatches a CHANGE_PROGRAM_NAME action", () => {
       store.dispatch(actCreators.changeProgramName("name"));
-      expect(store.getActions()[0]).toEqual({type: actType.CHANGE_PROGRAM_NAME, payload: "name"});
+      expect(store.getActions()[0]).toEqual({
+        type: actType.CHANGE_PROGRAM_NAME,
+        payload: "name"
+      });
     });
   });
 

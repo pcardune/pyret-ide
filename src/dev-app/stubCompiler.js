@@ -1,7 +1,6 @@
 import React from "react";
 import "babel-polyfill";
-import PyretIDE from "../pyret-ide";
-import HoverHighlight from "../components/HoverHighlight";
+import {LanguageError, HoverHighlight} from "../pyret-ide";
 import {makeHighlight as h} from "../util";
 
 const OPS = {
@@ -68,7 +67,7 @@ function parseLine(src, lineNo) {
       }
       stack.pop(); // pop (, but not onto the output queue
     } else {
-      throw new PyretIDE.LanguageError(
+      throw new LanguageError(
         <div>Error at &nbsp;
           <HoverHighlight
             color="pink"

@@ -10,11 +10,12 @@ import {Provider} from 'react-redux';
 import firebase from 'firebase';
 
 import PyretIDE from './components/PyretIDE';
-import {LanguageError} from './errors';
+import {LanguageError, UserError} from './errors';
+import HoverHighlight from './components/HoverHighlight';
 import createStore from './redux/createStore';
 import {configureIDE} from './redux/actionCreators';
 
-export default {
+export { LanguageError, UserError, HoverHighlight };
 
   /**
    * Initialize the pyret-ide library
@@ -29,30 +30,23 @@ export default {
    *                                                  of CSS used by pyret-ide
    * @param {Object} [config.codemirrorOptions] - Config object passed to codemirror
    */
-  init({rootEl, runtimeApiLoader, debug, skipCSSLoading,
+export function init({rootEl, runtimeApiLoader, debug, skipCSSLoading,
         codemirrorOptions, firebaseConfig}) {
-    if (!skipCSSLoading) {
-      require('bootstrap/less/bootstrap.less');
-    }
-    const store = createStore({debug});
-    store.dispatch(configureIDE({codemirrorOptions, runtimeApiLoader}));
-    if (firebaseConfig) {
-      firebase.initializeApp(firebaseConfig);
-    } else {
-      console.warn("Configure firebase before initializing!");
-    }
-    ReactDOM.render(
-      <Provider store={store}>
-        <PyretIDE />
-      </Provider>,
-      rootEl
-    );
-  },
+  if (!skipCSSLoading) {
+    require('bootstrap/less/bootstrap.less');
+  }
+  const store = createStore({debug});
+  store.dispatch(configureIDE({codemirrorOptions, runtimeApiLoader}));
+  if (firebaseConfig) {
+    firebase.initializeApp(firebaseConfig);
+  } else {
+    console.warn("Configure firebase before initializing!");
+  }
+  ReactDOM.render(
+    <Provider store={store}>
+      <PyretIDE />
+    </Provider>,
+    rootEl
+  );
+}
 
-  /**
-   * Error subclass for errors caused by the user. For example
-   */
-  UserError: class extends Error {},
-  LanguageError: LanguageError
-
-};
