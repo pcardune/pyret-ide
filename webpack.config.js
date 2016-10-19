@@ -93,10 +93,6 @@ module.exports = {
       ),
     }),
   ]),
-  babel: {
-    presets: ['es2015', 'stage-2', 'react'],
-    sourceMaps: true,
-  },
   devServer: IS_PRODUCTION ? false : {
     hot: true,
     inline: true,
