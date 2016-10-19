@@ -1,4 +1,11 @@
 export default {
+  highlights: {
+    hoverHighlight: {
+      ':hover': {
+        cursor: 'pointer'
+      }
+    }
+  },
   errorBox: {
     fontFamily: "sans-serif",
     borderWidth: 1,

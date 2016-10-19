@@ -326,3 +326,23 @@ export function decrementFontSize() {
     type: actType.DECREMENT_FONT_SIZE,
   };
 }
+
+export function highlightsOn(target, highlights) {
+  return {
+    type: actType.HIGHLIGHTS_ON,
+    payload: {
+      target: target,
+      highlights: highlights,
+    },
+  };
+}
+
+export function highlightsOff(target, highlights) {
+  return {
+    type: actType.HIGHLIGHTS_OFF,
+    payload: {
+      target: target,
+      highlights: highlights,
+    },
+  };
+}

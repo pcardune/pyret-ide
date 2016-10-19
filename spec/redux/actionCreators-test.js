@@ -4,6 +4,7 @@ import * as actType from '../../src/redux/action-types';
 import configureStore from "redux-mock-store";
 import thunk from 'redux-thunk';
 import Immutable from 'immutable';
+import {hilite} from '../../src/util';
 
 describe("The actionCreators'", () => {
   const middlewares = [thunk];
@@ -94,7 +95,46 @@ describe("The actionCreators'", () => {
         });
       });
     });
+
+    describe("highlightsOn action", () => {
+      it("dispatches a HIGHLIGHTS_ON action", () => {
+        store.dispatch(actCreators.highlightsOn("definitions://", [
+          hilite("blue", [0, 5, 0, 10]),
+          hilite("blue", [3, 6, 5, 7]),
+        ]));
+        expect(store.getActions()[0])
+          .toEqual({
+            type: actType.HIGHLIGHTS_ON,
+            payload: {
+              target: "definitions://",
+              highlights: [
+                hilite("blue", [0, 5, 0, 10]),
+                hilite("blue", [3, 6, 5, 7]),
+              ]
+            }
+          });
+      });
+
+      it("dispatches a HIGHLIGHTS_OFF action", () => {
+        store.dispatch(actCreators.highlightsOff("definitions://", [
+          hilite("blue", [0, 5, 0, 10]),
+          hilite("blue", [3, 6, 5, 7]),
+        ]));
+        expect(store.getActions()[0])
+          .toEqual({
+            type: actType.HIGHLIGHTS_OFF,
+            payload: {
+              target: "definitions://",
+              highlights: [
+                hilite("blue", [0, 5, 0, 10]),
+                hilite("blue", [3, 6, 5, 7]),
+              ]
+            }
+          });
+      });
+    });
   });
+
   describe("run function,", () => {
 
     var parseResolve, parseReject, compileResolve, compileReject;

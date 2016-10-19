@@ -65,9 +65,10 @@ CodeWindow.defaultProps = {
 };
 
 export default connect(
-  state => ({
+  state, ownProps => ({
     source: getSource(state),
     codemirrorOptions: getCodemirrorOptions(state),
+    highlights: getHighlightsFor(state, ownProps.uri),
   }),
   dispatch => bindActionCreators(
     {
