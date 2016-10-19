@@ -67,16 +67,18 @@ function parseLine(src, lineNo) {
         postfix.push(stack.pop());
       }
       stack.pop(); // pop (, but not onto the output queue
-    }
-    else {
+    } else {
       throw new PyretIDE.LanguageError(
-        <div>Error at 
+        <div>Error at &nbsp;
           <HoverHighlight
             color="pink"
             target="definitions://"
             highlights={[
-              hilite("pink", [lineNo, i, lineNo, i+1])
-            ]}>this spot</HoverHighlight>
+              hilite("pink", [lineNo, i, lineNo, i + 1])
+            ]}
+          >
+            this spot
+          </HoverHighlight>
         </div>);
     }
   }
@@ -102,8 +104,7 @@ export default {
       try {
         var lines = src.split('\n').map(parseLine).filter(ast => ast.length > 0);
         window.setTimeout(() => resolve(lines), FAKE_TIMEOUT);
-      }
-      catch(err) {
+      } catch(err) {
         reject(err);
       }
     });

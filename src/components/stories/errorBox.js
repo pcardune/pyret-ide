@@ -9,10 +9,11 @@ storiesOf("Error Box", module)
     <ErrorBox error={{message: "Your error goes here"}} />
   ))
   .add("Error", () => (
-    <ErrorBox error={
-      new LanguageError(
-        <div>
-          Error at <HoverHighlight
+    <ErrorBox
+      error={
+        new LanguageError(
+          <div>
+            Error at <HoverHighlight
               color="pink"
               target="definitions://"
               highlightsOn={action('on')}
@@ -21,6 +22,7 @@ storiesOf("Error Box", module)
             >
               this spot
             </HoverHighlight>.
-        </div>)
-    } />
+          </div>)
+      }
+    />
   ));

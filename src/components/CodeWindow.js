@@ -50,14 +50,6 @@ export class CodeWindow extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(this.props.highlights !== nextProps.highlights) {
-      this.clearHighlights();
-      this.drawHighlights(nextProps.highlights);
-      return;
-    }
-  }
-
 }
 
 CodeWindow.propTypes = {

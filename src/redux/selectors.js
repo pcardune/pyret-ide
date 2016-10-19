@@ -102,8 +102,11 @@ export const getSource = createSelector(
 
 export function getHighlightsFor(state, uri) {
   let highlights = state.getIn(['editor', 'highlights', uri]);
-  if(highlights) { return highlights.toJS(); }
-  else { return []; }
+  if(highlights) {
+    return highlights.toJS();
+  } else {
+    return [];
+  }
 }
 
 export const REPL = state => state.get('REPL');
