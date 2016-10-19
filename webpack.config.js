@@ -4,10 +4,13 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
+var SRC_DIRECTORY = path.resolve(__dirname, 'src');
+var BUILD_DIRECTORY = path.resolve(__dirname, "build");
+var TEST_DIRECTORY = path.resolve(__dirname, "spec");
 // this is the config for generating the files needed to run the examples.
 module.exports = {
   output: {
-    path: path.resolve(__dirname, "build"),
+    path: BUILD_DIRECTORY,
     filename: "[name].js",
     publicPath: IS_PRODUCTION ? undefined : "",
     libraryTarget: IS_PRODUCTION ? 'commonjs2' : undefined,
@@ -37,7 +40,7 @@ module.exports = {
   resolve: {
     root: [path.resolve("./node_modules")],
     alias: {
-      'pyret-ide': path.resolve(__dirname, 'src'),
+      'pyret-ide': SRC_DIRECTORY,
     },
   },
   module: {
@@ -51,23 +54,30 @@ module.exports = {
     ].concat(IS_PRODUCTION ? [] : [
       {
         test: /\.js$/,
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
+        include: [SRC_DIRECTORY],
         loader: 'react-hot'
       },
     ]),
     preLoaders: [{
       test: /\.js$/,
       include: [
-        path.resolve(__dirname, 'src'),
-        path.resolve(__dirname, 'spec'),
+        SRC_DIRECTORY,
+        TEST_DIRECTORY,
       ],
       loader: "babel",
       query: {
         cacheDirectory: true
       }
-    }],
+    }].concat(
+      process.env.COVERAGE ?
+      [{
+        test: /\.js/,
+        loader: 'isparta',
+        include: SRC_DIRECTORY,
+        exclude: /node_modules/
+      }] :
+      []
+    ),
   },
   plugins: [
     new webpack.DefinePlugin({

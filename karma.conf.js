@@ -46,7 +46,6 @@ module.exports = function(config) {
         loaders: webpackConfig.module.loaders,
         preLoaders: webpackConfig.module.preLoaders,
       },
-      babel: webpackConfig.babel
     },
     webpackMiddleware: {
       noInfo: true
