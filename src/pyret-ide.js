@@ -11,7 +11,6 @@ import {Provider} from 'react-redux';
 import PyretIDE from './components/PyretIDE';
 import createStore from './redux/createStore';
 import {configureIDE} from './redux/actionCreators';
-import {loadRuntimeApi} from './redux/actionCreators';
 import firebase from 'firebase';
 
 export default {

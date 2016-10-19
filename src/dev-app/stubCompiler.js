@@ -112,7 +112,7 @@ export default {
     });
   },
 
-  execute(bytecodeLines, stdout, stderr, onResult) {
+  execute(bytecodeLines, stdout) {
     return new Promise((resolve, reject) => {
       if (!bytecodeLines) {
         reject(new Error("No bytecode provided"));

@@ -159,8 +159,8 @@ export function connectGoogleDrive() {
     firebase.auth()
             .signInWithPopup(provider)
             .then(result => {
-              var token = result.credential.accessToken;
-              var user = result.user;
+              //var token = result.credential.accessToken;
+              //var user = result.user;
               loadGoogleApi().then(() => {
                 var tokenObject = {
                   access_token: result.credential.accessToken
@@ -173,10 +173,10 @@ export function connectGoogleDrive() {
               });
             })
             .catch(error => {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              var email = error.email;
-              var credential = error.credential;
+              //var errorCode = error.code;
+              //var errorMessage = error.message;
+              //var email = error.email;
+              //var credential = error.credential;
               dispatch({type: actType.FAIL_CONNECT_DRIVE,
                         payload: error});
             });
@@ -193,8 +193,7 @@ export function createGoogleDrive() {
     }).execute(function(response) {
       if(response.error) {
         dispatch({type: actType.FAIL_SAVE_DRIVE, payload: response});
-      }
-      else {
+      } else {
         dispatch({type: actType.FINISH_SAVE_DRIVE, payload: { fileId: response.id }});
       }
     });
@@ -232,13 +231,12 @@ export function saveGoogleDrive() {
       'headers': {
         'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
       },
-      'body': multipartRequestBody})
-    
+      'body': multipartRequestBody});
+
     request.execute(function(response) {
       if(response.error) {
         dispatch({type: actType.FAIL_SAVE_DRIVE, payload: response});
-      }
-      else {
+      } else {
         dispatch({type: actType.FINISH_SAVE_DRIVE, payload: {fileId: currentFileId}});
       }
     });

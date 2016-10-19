@@ -1,7 +1,6 @@
 import React from "react";
 import {storiesOf, linkTo} from "@kadira/storybook";
 import {Stop} from "../Stop";
-import {Run} from "../Run";
 import {Connect} from '../Connect';
 import {Save} from '../Save';
 import {Share} from '../Share';
