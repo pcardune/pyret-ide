@@ -5,20 +5,20 @@ import {CodeWindow} from '../CodeWindow';
 import 'codemirror/mode/python/python';
 
 class ColorPickSpan extends React.Component {
-  mouseOver() {
+  mouseOver = () =>
     this.props.onChange([{color: this.props.color, span: this.props.span}]);
-  }
-  mouseOut() {
+
+  mouseOut = () =>
     this.props.onChange([]);
-  }
+
   render() {
     return (
       <span
         style={{
           backgroundColor: this.props.color
         }}
-        onMouseOver={this.mouseOver.bind(this)}
-        onMouseOut={this.mouseOut.bind(this)}
+        onMouseOver={this.mouseOver}
+        onMouseOut={this.mouseOut}
       >
         {this.props.children}
       </span>
@@ -27,12 +27,12 @@ class ColorPickSpan extends React.Component {
 }
 
 class HighlightPicker extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      highlights: []
-    };
-  }
+
+  state = { highlights: [] };
+
+  changeHighlight = highlights =>
+    this.setState({highlights: highlights});
+
   changeHighlight(highlights) {
     this.setState({
       highlights: highlights
@@ -43,14 +43,14 @@ class HighlightPicker extends React.Component {
       <div>
         <div>
           <ColorPickSpan
-            onChange={this.changeHighlight.bind(this)}
+            onChange={this.changeHighlight}
             color="#eee"
             span={{from:{line: 0, ch: 0}, to: {line:0, ch: 5}}}
           >
             Gray
           </ColorPickSpan>
           <ColorPickSpan
-            onChange={this.changeHighlight.bind(this)}
+            onChange={this.changeHighlight}
             color="blue"
             span={{from:{line: 1, ch: 5}, to: {line:1, ch: 10}}}
           >
