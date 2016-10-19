@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Radium from "radium";
-import {styles} from "./styles";
+import styles from "./styles";
 import {highlightsOn, highlightsOff} from '../redux/actionCreators';
 
 @Radium
