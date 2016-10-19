@@ -32,6 +32,7 @@ const initialState = Immutable.Map({
     open: null,
     share: null,
     error: null,
+    fileId: null,
   }),
   REPL: Immutable.Map({
     code: '',
@@ -147,7 +148,7 @@ function googleDrive(state = initialState.get('googleDrive'), action) {
     case actType.FINISH_SAVE_DRIVE:
       return state.merge({
         stage: constants.driveStages.save.FINISHED,
-        save: action.payload,
+        fileId: action.payload.fileId
       });
     case actType.FAIL_SAVE_DRIVE:
       return state.merge({

@@ -94,7 +94,7 @@ module.exports = {
     }),
   ]),
   babel: {
-    presets: ['es2015', 'react'],
+    presets: ['es2015', 'stage-2', 'react'],
     sourceMaps: true,
   },
   devServer: IS_PRODUCTION ? false : {

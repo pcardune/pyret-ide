@@ -9,7 +9,7 @@ import * as selectors from '../redux/selectors';
 
 export class Share extends React.Component {
   render() {
-    if (!this.props.hasSavedDrive) {
+    if (!this.props.hasSharedDrive) {
       return null;
     }
     if (this.props.isSharingDrive) {
@@ -30,7 +30,6 @@ export class Share extends React.Component {
 }
 
 Share.propTypes = {
-  hasSavedDrive: React.PropTypes.bool,
   isSharingDrive: React.PropTypes.bool,
   hasSharedDrive: React.PropTypes.bool,
   shareGoogleDrive: React.PropTypes.func,
@@ -40,7 +39,6 @@ export default connect(
   state => ({
     isSharingDrive: selectors.isSharingDrive(state),
     hasSharedDrive: selectors.hasSharedDrive(state),
-    hasSavedDrive: selectors.hasSavedDrive(state),
   }),
   dispatch => bindActionCreators({
     shareGoogleDrive: shareGoogleDrive,
