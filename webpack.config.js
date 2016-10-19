@@ -69,7 +69,7 @@ module.exports = {
         cacheDirectory: true
       }
     }].concat(
-      process.env.COVERAGE ?
+      (process.env.COVERAGE || process.env.CONTINUOUS_INTEGRATION) ?
       [{
         test: /\.js/,
         loader: 'isparta',
