@@ -2,7 +2,7 @@ var webpackConfig = require('./webpack.config.js');
 
 var reporters = ['dots'];
 
-if (process.env.COVERAGE) {
+if (process.env.COVERAGE || process.env.CONTINUOUS_INTEGRATION) {
   reporters.push('coverage');
 
   if (process.env.CONTINUOUS_INTEGRATION) {
