@@ -1,16 +1,35 @@
 import React from 'react';
-import {storiesOf, linkTo} from '@kadira/storybook';
+import {storiesOf} from '@kadira/storybook';
 import {CodeWindow} from '../CodeWindow';
 
 import 'codemirror/mode/python/python';
 
 class ColorPickSpan extends React.Component {
+
+  static propTypes = {
+    onChange: React.PropTypes.func,
+    color: React.PropTypes.string,
+    span: React.PropTypes.shape({
+      from: React.PropTypes.shape({
+        line: React.PropTypes.number,
+        to: React.PropTypes.number
+      }),
+      to: React.PropTypes.shape({
+        line: React.PropTypes.number,
+        to: React.PropTypes.number
+      }),
+    }),
+    children: React.PropTypes.node,
+  };
+
   mouseOver() {
     this.props.onChange([{color: this.props.color, span: this.props.span}]);
   }
+
   mouseOut() {
     this.props.onChange([]);
   }
+
   render() {
     return (
       <span
@@ -66,14 +85,14 @@ storiesOf("CodeWindow", module)
     <CodeWindow
       source={"print('Ahoy, world!')"}
       codemirrorOptions={{
-        mode: "python" 
+        mode: "python"
       }}/>
   ))
   .add("highlighted", () => (
     <CodeWindow
       source={"print('Ahoy, world!')"}
       codemirrorOptions={{
-        mode: "python" 
+        mode: "python"
       }}
       highlights={[
         {

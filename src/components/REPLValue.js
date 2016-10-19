@@ -110,7 +110,10 @@ function Array({reprValue}) {
     <span>
       [
       {reprValue.values.map((item, index) => (
-         <span><REPLValue reprValue={item}/>{index < reprValue.values.length - 1 && ", "}</span>
+         <span>
+           <REPLValue reprValue={item} />
+           {index < reprValue.values.length - 1 && ", "}
+         </span>
        ))}
          ]
     </span>
@@ -127,7 +130,10 @@ function Tuple({reprValue}) {
     <span>
       (
       {reprValue.values.map((item, index) => (
-         <span><REPLValue reprValue={item}/>{index < reprValue.values.length - 1 && ", "}</span>
+         <span>
+           <REPLValue reprValue={item}/>
+           {index < reprValue.values.length - 1 && ", "}
+         </span>
        ))}
          )
     </span>

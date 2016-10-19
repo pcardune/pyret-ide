@@ -15,7 +15,7 @@ export class CodeWindow extends React.Component {
   drawHighlights(highlights) {
     let cm = this.codeMirror.getCodeMirror();
     highlights.forEach(function(h) {
-      let m = cm.markText(h.span.from, h.span.to, {
+      cm.markText(h.span.from, h.span.to, {
         css: "background-color: " + h.color
       });
     });

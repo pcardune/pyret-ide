@@ -15,9 +15,15 @@ export function isRunDropdownExpanded (state) {
 }
 
 const loadApiStage = state => state.getIn(['loadApi', 'stage']);
-export const isLoadingRuntime = equalitySelector(loadApiStage, constants.loadApiStages.STARTED);
+export const isLoadingRuntime = equalitySelector(
+  loadApiStage,
+  constants.loadApiStages.STARTED
+);
 
-export const hasLoadedRuntime = equalitySelector(loadApiStage, constants.loadApiStages.FINISHED);
+export const hasLoadedRuntime = equalitySelector(
+  loadApiStage,
+  constants.loadApiStages.FINISHED
+);
 
 const googleDrive = state => state.get('googleDrive');
 const googleDriveStageSelector = createSelector(

@@ -38,6 +38,7 @@ Save.propTypes = {
   isSavingDrive: React.PropTypes.bool,
   hasFileId: React.PropTypes.bool,
   saveGoogleDrive: React.PropTypes.func,
+  createGoogleDrive: React.PropTypes.func,
 };
 
 export default connect(
