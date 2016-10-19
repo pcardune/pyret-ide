@@ -23,6 +23,7 @@ export var styles = {
   spinners: {
     toolbar: {
       height: 30,
+      width: 30
     },
     window: {
     },
