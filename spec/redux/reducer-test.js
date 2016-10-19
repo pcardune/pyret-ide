@@ -1,7 +1,7 @@
 import pyretReducer from '../../src/redux/reducer';
 import * as actType from '../../src/redux/action-types';
 import Immutable from 'immutable';
-import {hilite} from '../../src/util';
+import {makeHighlight as h} from '../../src/util';
 import * as selectors from '../../src/redux/selectors';
 
 describe("The reducer", () => {
@@ -47,25 +47,25 @@ describe("The reducer", () => {
   describe("merges highlights correctly", () => {
     it("registers and unregisters highlights", () => {
       let highlight = {
-        type: actType.HIGHLIGHTS_ON,
+        type: actType.TURN_HIGHLIGHTS_ON,
         payload: {
           target: "definitions://",
           highlights: [
-            hilite("blue", [0, 5, 0, 7])
+            h("blue", [0, 5, 0, 7])
           ]
         }
       };
 
       let nextState = pyretReducer(state, highlight);
       expect(selectors.getHighlightsFor(nextState, "definitions://"))
-        .toEqual([hilite("blue", [0, 5, 0, 7])]);
+        .toEqual([h("blue", [0, 5, 0, 7])]);
 
       let unhighlight = {
-        type: actType.HIGHLIGHTS_OFF,
+        type: actType.TURN_HIGHLIGHTS_OFF,
         payload: {
           target: "definitions://",
           highlights: [
-            hilite("blue", [0, 5, 0, 7])
+            h("blue", [0, 5, 0, 7])
           ]
         }
       };

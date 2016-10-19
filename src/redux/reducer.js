@@ -90,13 +90,13 @@ function editor(state = initialState.get('editor'), action) {
       return state.set('result', action.payload);
     case actType.CONFIGURE_CODEMIRROR:
       return state.set('codemirrorOptions', action.payload);
-    case actType.HIGHLIGHTS_ON:
+    case actType.TURN_HIGHLIGHTS_ON:
       return state.mergeDeep({
         highlights: {
           [action.payload.target]: action.payload.highlights
         }
       });
-    case actType.HIGHLIGHTS_OFF:
+    case actType.TURN_HIGHLIGHTS_OFF:
       return state.merge({
         highlights: {
           [action.payload.target]: []

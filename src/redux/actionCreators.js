@@ -327,9 +327,9 @@ export function decrementFontSize() {
   };
 }
 
-export function highlightsOn(target, highlights) {
+export function turnHighlightsOn(target, highlights) {
   return {
-    type: actType.HIGHLIGHTS_ON,
+    type: actType.TURN_HIGHLIGHTS_ON,
     payload: {
       target: target,
       highlights: highlights,
@@ -337,9 +337,9 @@ export function highlightsOn(target, highlights) {
   };
 }
 
-export function highlightsOff(target, highlights) {
+export function turnHighlightsOff(target, highlights) {
   return {
-    type: actType.HIGHLIGHTS_OFF,
+    type: actType.TURN_HIGHLIGHTS_OFF,
     payload: {
       target: target,
       highlights: highlights,

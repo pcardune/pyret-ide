@@ -1,19 +1,18 @@
 import React from "react";
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import Radium from "radium";
 import styles from "./styles";
-import {highlightsOn, highlightsOff} from '../redux/actionCreators';
+import {turnHighlightsOn, turnHighlightsOff} from '../redux/actionCreators';
 
 @Radium
 export class HoverHighlight extends React.Component {
 
   mouseOver = () => {
-    this.props.highlightsOn(this.props.target, this.props.highlights);
+    this.props.turnHighlightsOn(this.props.target, this.props.highlights);
   }
 
   mouseOut = () => {
-    this.props.highlightsOff(this.props.target, this.props.highlights);
+    this.props.turnHighlightsOff(this.props.target, this.props.highlights);
   }
 
   render() {
@@ -42,16 +41,16 @@ HoverHighlight.propTypes = {
     }),
     color: React.PropTypes.string
   })),
-  highlightsOn: React.PropTypes.func.isRequired,
-  highlightsOff: React.PropTypes.func.isRequired,
+  turnHighlightsOn: React.PropTypes.func.isRequired,
+  turnHighlightsOff: React.PropTypes.func.isRequired,
   children: React.PropTypes.node
 };
 
 export default connect(
   () => ({ }),
-  dispatch => bindActionCreators({
-    highlightsOn: highlightsOn,
-    highlightsOff: highlightsOff
-  }, dispatch)
+  {
+    turnHighlightsOn: turnHighlightsOn,
+    turnHighlightsOff: turnHighlightsOff
+  }
 )(HoverHighlight);
 

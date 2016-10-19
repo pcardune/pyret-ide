@@ -8,7 +8,7 @@ storiesOf("Error Box", module)
   .add("Error", () => (
     <ErrorBox error={{message: "Your error goes here"}} />
   ))
-  .add("Error", () => (
+  .add("Highlighting Error", () => (
     <ErrorBox
       error={
         new LanguageError(
@@ -22,7 +22,8 @@ storiesOf("Error Box", module)
             >
               this spot
             </HoverHighlight>.
-          </div>)
+          </div>
+        )
       }
     />
   ));

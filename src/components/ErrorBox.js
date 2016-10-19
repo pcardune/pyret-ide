@@ -7,7 +7,6 @@ import {LanguageError} from '../errors';
 
 export class ErrorBox extends React.Component {
   render() {
-    console.log(this.props);
     if (this.props.error instanceof LanguageError) {
       return <div style={styles.errorBox}>{this.props.error.errorComponent}</div>;
     } else if (this.props.error) {

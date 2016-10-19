@@ -24,7 +24,6 @@ export class CodeWindow extends React.Component {
   }
 
   drawHighlights(highlights) {
-    console.log("Highlights: ", highlights);
     let cm = this.codeMirror.getCodeMirror();
     highlights.forEach(function(h) {
       cm.markText(h.span.from, h.span.to, {

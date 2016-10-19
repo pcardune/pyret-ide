@@ -2,7 +2,7 @@ import React from "react";
 import "babel-polyfill";
 import PyretIDE from "../pyret-ide";
 import HoverHighlight from "../components/HoverHighlight";
-import {hilite} from "../util";
+import {makeHighlight as h} from "../util";
 
 const OPS = {
   '-': (a,b) => a() - b(),
@@ -74,7 +74,7 @@ function parseLine(src, lineNo) {
             color="pink"
             target="definitions://"
             highlights={[
-              hilite("pink", [lineNo, i, lineNo, i + 1])
+              h("pink", [lineNo, i, lineNo, i + 1])
             ]}
           >
             this spot
