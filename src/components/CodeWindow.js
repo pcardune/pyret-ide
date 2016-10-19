@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Codemirror from 'react-codemirror';
 import {changeSource} from '../redux/actionCreators';
-import {getSource, getCodemirrorOptions} from '../redux/selectors';
+import {getSource, getCodemirrorOptions, getHighlightsFor} from '../redux/selectors';
 
 
 require('./CodeWindow.css');
@@ -49,8 +49,6 @@ export class CodeWindow extends React.Component {
     );
   }
 
-
-
 }
 
 CodeWindow.propTypes = {
@@ -65,9 +63,10 @@ CodeWindow.defaultProps = {
 };
 
 export default connect(
-  state => ({
+  (state, ownProps) => ({
     source: getSource(state),
     codemirrorOptions: getCodemirrorOptions(state),
+    highlights: getHighlightsFor(state, ownProps.uri),
   }),
   dispatch => bindActionCreators(
     {

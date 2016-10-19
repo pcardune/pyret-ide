@@ -24,6 +24,7 @@ const initialState = Immutable.Map({
     localStorage.getItem(constants.LOCAL_STORAGE_SOURCE_KEY) :
     '',
     result: null,
+    highlights: []
   }),
   googleDrive: Immutable.Map({
     stage: null,
@@ -89,6 +90,18 @@ function editor(state = initialState.get('editor'), action) {
       return state.set('result', action.payload);
     case actType.CONFIGURE_CODEMIRROR:
       return state.set('codemirrorOptions', action.payload);
+    case actType.TURN_HIGHLIGHTS_ON:
+      return state.mergeDeep({
+        highlights: {
+          [action.payload.target]: action.payload.highlights
+        }
+      });
+    case actType.TURN_HIGHLIGHTS_OFF:
+      return state.merge({
+        highlights: {
+          [action.payload.target]: []
+        }
+      });
     default:
       return state;
   }

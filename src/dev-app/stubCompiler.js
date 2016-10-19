@@ -1,4 +1,8 @@
+import React from "react";
 import "babel-polyfill";
+import PyretIDE from "../pyret-ide";
+import HoverHighlight from "../components/HoverHighlight";
+import {makeHighlight as h} from "../util";
 
 const OPS = {
   '-': (a,b) => a() - b(),
@@ -8,7 +12,7 @@ const OPS = {
   '^': (a,b) => Math.pow(a(), b()),
 };
 
-function parseLine(src) {
+function parseLine(src, lineNo) {
   var infix = src.replace(/\s+/g, ''); // remove spaces, so infix[i]!=" "
 
   var stack = [];
@@ -63,6 +67,19 @@ function parseLine(src) {
         postfix.push(stack.pop());
       }
       stack.pop(); // pop (, but not onto the output queue
+    } else {
+      throw new PyretIDE.LanguageError(
+        <div>Error at &nbsp;
+          <HoverHighlight
+            color="pink"
+            target="definitions://"
+            highlights={[
+              h("pink", [lineNo, i, lineNo, i + 1])
+            ]}
+          >
+            this spot
+          </HoverHighlight>
+        </div>);
     }
   }
   while (stack.length > 0){
@@ -84,8 +101,12 @@ export default {
         return reject(new Error("no source code provided"));
       }
 
-      var lines = src.split('\n').map(parseLine).filter(ast => ast.length > 0);
-      window.setTimeout(() => resolve(lines), FAKE_TIMEOUT);
+      try {
+        var lines = src.split('\n').map(parseLine).filter(ast => ast.length > 0);
+        window.setTimeout(() => resolve(lines), FAKE_TIMEOUT);
+      } catch(err) {
+        reject(err);
+      }
     });
   },
 
