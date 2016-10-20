@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Lazy extends React.Component {
+class LazyValue extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,17 +19,17 @@ class Lazy extends React.Component {
     }
   }
 }
-Lazy.propTypes = {reprValue: React.PropTypes.object};
+LazyValue.propTypes = {reprValue: React.PropTypes.object};
 
-function Opaque() {
+function OpaqueValue() {
   return <span>&lt;opaque&gt;</span>;
 }
 
-function Cyclic() {
+function CyclicValue() {
   return <span>&lt;cyclic&gt;</span>;
 }
 
-function Image() {
+function ImageValue() {
   return <span>Image</span>;
 }
 
@@ -48,7 +48,7 @@ const ReprValueProp = (valuePropType) => React.PropTypes.shape({
   value: valuePropType
 });
 
-class Number extends React.Component {
+class NumberValue extends React.Component {
   static propTypes = {
     reprValue: ReprValueProp(NumberProp)
   };
@@ -82,30 +82,30 @@ class Number extends React.Component {
   }
 }
 
-function Nothing() {
+function NothingValue() {
   return <span>&lt;nothing&gt;</span>;
 }
-Nothing.propTypes = {reprValue: React.PropTypes.object};
+NothingValue.propTypes = {reprValue: React.PropTypes.object};
 
-function Boolean({reprValue}) {
+function BooleanValue({reprValue}) {
   return <span>{reprValue.value ? "true" : "false"}</span>;
 }
-Boolean.propTypes = {reprValue: React.PropTypes.object};
+BooleanValue.propTypes = {reprValue: React.PropTypes.object};
 
-function String({reprValue}) {
+function StringValue({reprValue}) {
   return <span>{`"${reprValue.value}"`}</span>;
 }
-String.propTypes = {reprValue: React.PropTypes.object};
+StringValue.propTypes = {reprValue: React.PropTypes.object};
 
-function Method() {
+function MethodValue() {
   return <span>&lt;method&gt;</span>;
 }
 
-function Func() {
+function FuncValue() {
   return <span>&lt;func&gt;</span>;
 }
 
-function Array({reprValue}) {
+function ArrayValue({reprValue}) {
   return (
     <span>
       [
@@ -119,13 +119,13 @@ function Array({reprValue}) {
     </span>
   );
 }
-Array.propTypes = {reprValue: React.PropTypes.object};
+ArrayValue.propTypes = {reprValue: React.PropTypes.object};
 
-function Ref() {
+function RefValue() {
   return <span>Ref</span>;
 }
 
-function Tuple({reprValue}) {
+function TupleValue({reprValue}) {
   return (
     <span>
       (
@@ -139,11 +139,9 @@ function Tuple({reprValue}) {
     </span>
   );
 }
-Tuple.propTypes = {reprValue: React.PropTypes.object};
+TupleValue.propTypes = {reprValue: React.PropTypes.object};
 
-function Obj({reprValue}) {
-  console.log("got repr values keyValues", reprValue.keyValues);
-
+function ObjValue({reprValue}) {
   return (
     <dl>
       {reprValue.keyValues.map(
@@ -155,7 +153,7 @@ function Obj({reprValue}) {
     </dl>
   );
 }
-Obj.propTypes = {reprValue: React.PropTypes.shape({
+ObjValue.propTypes = {reprValue: React.PropTypes.shape({
   type: React.PropTypes.string,
   keyValues: React.PropTypes.arrayOf(React.PropTypes.shape({
     key: React.PropTypes.string,
@@ -163,7 +161,7 @@ Obj.propTypes = {reprValue: React.PropTypes.shape({
   }))
 })};
 
-function Data() {
+function DataValue() {
   return <span>Data</span>;
 }
 
@@ -183,21 +181,21 @@ StandardError.propTypes = {
 
 
 const RENDERERS = {
-  opaque: Opaque,
-  cyclic: Cyclic,
-  image: Image,
-  number: Number,
-  nothing: Nothing,
-  boolean: Boolean,
-  string: String,
-  method: Method,
-  func: Func,
-  array: Array,
-  ref: Ref,
-  tuple: Tuple,
-  object: Obj,
-  data: Data,
-  lazy: Lazy,
+  opaque: OpaqueValue,
+  cyclic: CyclicValue,
+  image: ImageValue,
+  number: NumberValue,
+  nothing: NothingValue,
+  boolean: BooleanValue,
+  string: StringValue,
+  method: MethodValue,
+  func: FuncValue,
+  array: ArrayValue,
+  ref: RefValue,
+  tuple: TupleValue,
+  object: ObjValue,
+  data: DataValue,
+  lazy: LazyValue,
   stdout: StandardOut,
   stderr: StandardError,
 };
