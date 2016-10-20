@@ -182,14 +182,16 @@ npm run test-watch
 
 To use React Storybook:
 
-```npm run storybook```
+```
+npm run storybook
+```
 
 Then open a browser window to localhost:9001
 
 To add to react storybooks you need to:
 
-* Write the stories in the ```src/components/stories/directory```
+* Write the stories in the `src/components/stories/` directory
 
-* Add that story's filename to the the config file located in the ```.storybook/directory```
+* Add that story's filename to the the config file located in the `.storybook` directory
 
 To learn how to write stories refer to [this guide](https://github.com/kadirahq/react-storybook/blob/master/docs/writing_stories.md)
