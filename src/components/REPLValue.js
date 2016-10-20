@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from './Spinner';
 import {connect} from 'react-redux';
 import * as actions from '../redux/actionCreators';
 import * as selectors from '../redux/selectors';
@@ -33,7 +34,7 @@ class LazyIterValueEl extends React.Component {
     reprValue: React.PropTypes.object,
     executeHostCallable: React.PropTypes.func,
   };
-  state = { values: [] }
+  state = { expanding: false, values: [] }
   get remainingSize() {
     return this.props.reprValue.size - this.state.values.length;
   }
@@ -41,21 +42,23 @@ class LazyIterValueEl extends React.Component {
     this.expand();
   }
   expand = () => {
-    const loop = (curBreadth, renderedValues) => {
+    this.setState({ expanding: true });
+    const loop = (curBreadth) => {
       if(curBreadth < this.props.expansionFuel.breadth 
         && curBreadth < this.remainingSize) {
         this.props.executeHostCallable(
           this.props.reprValue.callable,
           (renderedValue) => {
-            loop(curBreadth + 1, renderedValues.concat([renderedValue]));
+            this.setState({values: this.state.values.concat([renderedValue])});
+            loop(curBreadth + 1);
           }
         );
       }
       else {
-        this.setState({values: this.state.values.concat(renderedValues)});
+        this.setState({ expanding: false });
       }
     }
-    loop(0, []);
+    loop(0);
   }
   render() {
     return (
@@ -73,6 +76,7 @@ class LazyIterValueEl extends React.Component {
         ))}
         <button disabled={this.props.isRunning} onClick={this.expand}>
           {this.remainingSize} items
+          {this.state.expanding && <Spinner style={{width: 10}} />}
         </button>
       </span>
     );
