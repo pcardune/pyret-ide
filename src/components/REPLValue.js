@@ -1,4 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import * as actions from '../redux/actionCreators';
+import * as selectors from '../redux/selectors';
 
 class LazyValue extends React.Component {
   constructor(props) {
@@ -20,6 +23,72 @@ class LazyValue extends React.Component {
   }
 }
 LazyValue.propTypes = {reprValue: React.PropTypes.object};
+
+class LazyIterValueEl extends React.Component {
+  static propTypes = {
+    expansionFuel: React.PropTypes.shape({
+      breadth: React.PropTypes.number.isRequired,
+      depth: React.PropTypes.number.isRequired,
+    }).isRequired,
+    reprValue: React.PropTypes.object,
+    executeHostCallable: React.PropTypes.func,
+  };
+  state = { values: [] }
+  get remainingSize() {
+    return this.props.reprValue.size - this.state.values.length;
+  }
+  componentDidMount() {
+    this.expand();
+  }
+  expand = () => {
+    const loop = (curBreadth, renderedValues) => {
+      if(curBreadth < this.props.expansionFuel.breadth 
+        && curBreadth < this.remainingSize) {
+        this.props.executeHostCallable(
+          this.props.reprValue.callable,
+          (renderedValue) => {
+            loop(curBreadth + 1, renderedValues.concat([renderedValue]));
+          }
+        );
+      }
+      else {
+        this.setState({values: this.state.values.concat(renderedValues)});
+      }
+    }
+    loop(0, []);
+  }
+  render() {
+    return (
+      <span>
+        {this.props.reprValue.name}
+        {this.state.values.map((rv, ix) => (
+          <div key={ix} style={{marginLeft: 10}}>
+            <REPLValue
+              expansionFuel={{
+                breadth: this.props.expansionFuel.depth,
+                depth: 0
+              }}
+              reprValue={rv} />
+          </div>
+        ))}
+        <button disabled={this.props.isRunning} onClick={this.expand}>
+          {this.remainingSize} items
+        </button>
+      </span>
+    );
+  }
+}
+
+export const LazyIterValue = connect(
+  state => ({
+    isRunning: selectors.isRunning(state) 
+  }),
+  {
+    executeHostCallable: actions.executeHostCallable
+  }
+)(LazyIterValueEl);
+
+
 
 function OpaqueValue() {
   return <span>&lt;opaque&gt;</span>;
@@ -196,19 +265,27 @@ const RENDERERS = {
   object: ObjValue,
   data: DataValue,
   lazy: LazyValue,
+  "lazy-iter": LazyIterValue,
   stdout: StandardOut,
   stderr: StandardError,
 };
 
 
-export default function REPLValue({reprValue}) {
+export default function REPLValue({reprValue, expansionFuel}) {
+  if(!expansionFuel) {
+    expansionFuel = { breadth: 5, depth: 5 };
+  }
   var renderer = typeof reprValue === "object" && RENDERERS[reprValue.type];
   if (!renderer) {
     return <span>{`UNRENDERABLE: ${JSON.stringify(reprValue)}`}</span>;
   }
-  return React.createElement(renderer, {reprValue});
+  return React.createElement(renderer, {reprValue, expansionFuel});
 }
 REPLValue.propTypes = {
+  expansionFuel: React.PropTypes.shape({
+    breadth: React.PropTypes.number.isRequired,
+    depth: React.PropTypes.number.isRequired,
+  }),
   reprValue: React.PropTypes.shape({
     type: React.PropTypes.oneOf(Object.keys(RENDERERS)),
   })

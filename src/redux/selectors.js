@@ -20,6 +20,14 @@ export const isLoadingRuntime = equalitySelector(
   constants.loadApiStages.STARTED
 );
 
+export const getRuntimeAPIOrThrow = (state) => {
+  const runtimeApi = state.get('loadApi') && state.getIn(['loadApi', 'runtime']);
+  if (!runtimeApi) {
+    throw new Error("Runtime has not been loaded, you can't run anything yet!");
+  }
+  return runtimeApi.toJS();
+}
+
 export const hasLoadedRuntime = equalitySelector(
   loadApiStage,
   constants.loadApiStages.FINISHED

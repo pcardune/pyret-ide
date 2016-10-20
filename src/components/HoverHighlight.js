@@ -9,6 +9,7 @@ import {turnHighlightsOn, turnHighlightsOff} from '../redux/actionCreators';
 export class HoverHighlight extends React.Component {
 
   mouseOver = () => {
+    console.log("highlighting");
     this.props.turnHighlightsOn(this.props.target, this.props.highlights);
   }
 

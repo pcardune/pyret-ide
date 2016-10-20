@@ -44,6 +44,21 @@ export function recieveREPLResult(result) {
   };
 }
 
+export function executeHostCallable(c, withResult) {
+  return (dispatch, getState) => {
+    var runtimeAPI = selectors.getRuntimeAPIOrThrow(getState());
+    dispatch(startExecute());
+    runtimeAPI.executeCallable(c)
+      .then(function(result) {
+        withResult(result);
+        dispatch(finishExecute());
+      })
+      .catch(function(err) {
+        dispatch(failExecute(err)); 
+      });
+  };
+}
+
 export function changeSource(source) {
   localStorage.setItem(constants.LOCAL_STORAGE_SOURCE_KEY, source);
   return {
@@ -58,51 +73,56 @@ export function clearState() {
   };
 }
 
+function startExecute() {
+  return {type: actType.START_EXECUTE, stage: 'executing'};
+}
+function finishExecute() {
+  return { type: actType.FINISH_EXECUTE }
+}
+function failExecute(reason) {
+  return { type: actType.FAIL_EXECUTE, payload: reason }
+}
+
 export function run(src) {
   return (dispatch, getState) => {
     dispatch({type: actType.STORE_SOURCE, payload: src});
     dispatch({type: actType.START_PARSE, stage: 'parsing'});
     const state = getState();
-    const runtimeApi = state.get('loadApi') && state.getIn(['loadApi', 'runtime']);
-    if (!runtimeApi) {
-      throw new Error("Runtime has not been loaded, you can't run anything yet!");
-    }
+    var runtimeAPI = selectors.getRuntimeAPIOrThrow(state);
     var stdout = (s) => dispatch(recieveREPLResult({type: 'stdout', value:s}));
     var stderr = (s) => dispatch(recieveREPLResult({type: 'stderr', value:s}));
     var onResult = (s) => dispatch(recieveREPLResult(s));
-    runtimeApi
-      .get('parse')(src)
+    runtimeAPI
+      .parse(src)
       .then(ast => {
         if (!selectors.isRunning(getState())) {
           return;
         }
         dispatch({type: actType.FINISH_PARSE, payload: ast});
         dispatch({type: actType.START_COMPILE, stage: 'compiling'});
-        runtimeApi
-          .get('compile')(ast)
+        runtimeAPI
+          .compile(ast)
           .then(bytecode => {
             if (!selectors.isRunning(getState())) {
               return;
             }
             dispatch({type: actType.FINISH_COMPILE, payload: bytecode});
-            dispatch({type: actType.START_EXECUTE, stage: 'executing'});
-            runtimeApi
-              .get('execute')(bytecode, stdout, stderr, onResult)
+            dispatch(startExecute());
+            runtimeAPI
+              .execute(bytecode, stdout, stderr, onResult)
               .then(result => {
+                console.log("Result for ide: ", result);
                 if (!selectors.isRunning(getState())) {
                   return;
                 }
-                dispatch({
-                  type: actType.FINISH_EXECUTE,
-                  payload: result
-                });
+                dispatch(finishExecute());
                 dispatch({
                   type: actType.STORE_EDITOR_RESULT,
                   payload: result,
                 });
               })
               .catch(reason => {
-                dispatch({type: actType.FAIL_EXECUTE, payload: reason});
+                dispatch(failExecute(reason));
               });
           })
           .catch(reason => {
