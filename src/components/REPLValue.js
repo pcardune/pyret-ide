@@ -1,51 +1,76 @@
 import React from 'react';
-import Spinner from './Spinner';
+import Radium from 'radium';
 import {connect} from 'react-redux';
+import Spinner from './Spinner';
 import * as actions from '../redux/actionCreators';
 import * as selectors from '../redux/selectors';
+import styles from './styles';
+
+const ReprValueProp = (valuePropType) => React.PropTypes.shape({
+  type: React.PropTypes.string.isRequired,
+  value: valuePropType
+});
+
+function REPLValueProps(reprValueType) {
+  return {
+    expansionFuel: React.PropTypes.shape({
+      breadth: React.PropTypes.number.isRequired,
+      depth: React.PropTypes.number.isRequired,
+    }),
+    reprValue: reprValueType,
+    style: React.PropTypes.object,
+    postfix: React.PropTypes.node,
+  }
+};
 
 class LazyValue extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      reprValue: null
-    };
-    this.expand = this.expand.bind(this);
-  }
-  expand() {
-    this.setState({reprValue: this.props.reprValue.getValue()});
-  }
+
+  static propTypes = REPLValueProps(React.PropTypes.object);
+
+  state = {
+    reprValue: null
+  };
+
+  expand = () => this.setState({reprValue: this.props.reprValue.getValue()});
+
   render() {
     if (this.state.reprValue === null) {
       return <button onClick={this.expand}>&lt;click to expand&gt;</button>;
     } else {
-      return <REPLValue reprValue={this.state.reprValue} />;
+      return <REPLValue {...this.props} reprValue={this.state.reprValue} />;
     }
   }
 }
-LazyValue.propTypes = {reprValue: React.PropTypes.object};
 
+@Radium
 class LazyIterValueEl extends React.Component {
-  static propTypes = {
-    expansionFuel: React.PropTypes.shape({
-      breadth: React.PropTypes.number.isRequired,
-      depth: React.PropTypes.number.isRequired,
-    }).isRequired,
-    reprValue: React.PropTypes.object,
-    executeHostCallable: React.PropTypes.func,
+
+  static propTypes = Object.assign(
+    REPLValueProps(React.PropTypes.object),
+    {
+      executeHostCallable: React.PropTypes.func,
+      isRunning: React.PropTypes.bool,
+    }
+  );
+
+  state = {
+    expanding: false,
+    values: []
   };
-  state = { expanding: false, values: [] }
-  get remainingSize() {
-    return this.props.reprValue.size - this.state.values.length;
-  }
+
   componentDidMount() {
     this.expand();
   }
+
+  get remainingSize() {
+    return this.props.reprValue.size - this.state.values.length;
+  }
+
   expand = () => {
     this.setState({ expanding: true });
     const loop = (curBreadth) => {
-      if(curBreadth < this.props.expansionFuel.breadth 
-        && curBreadth < this.remainingSize) {
+      if (curBreadth < this.props.expansionFuel.breadth &&
+          curBreadth < this.remainingSize) {
         this.props.executeHostCallable(
           this.props.reprValue.callable,
           (renderedValue) => {
@@ -53,46 +78,57 @@ class LazyIterValueEl extends React.Component {
             loop(curBreadth + 1);
           }
         );
-      }
-      else {
+      } else {
         this.setState({ expanding: false });
       }
-    }
+    };
     loop(0);
   }
+
   render() {
     return (
-      <span>
-        {this.props.reprValue.name}
+      <div style={this.props.style}>
+        [{this.props.reprValue.name}{': '}
         {this.state.values.map((rv, ix) => (
-          <div key={ix} style={{marginLeft: 10}}>
+          <span key={ix}>
             <REPLValue
+              style={{marginLeft: 10}}
+              postfix={ix < this.remainingSize + this.state.values.length - 1 ? ", " : ''}
               expansionFuel={{
                 breadth: this.props.expansionFuel.depth,
                 depth: 0
               }}
-              reprValue={rv} />
-          </div>
-        ))}
-        <button disabled={this.props.isRunning} onClick={this.expand}>
-          {this.remainingSize} items
-          {this.state.expanding && <Spinner style={{width: 10}} />}
-        </button>
-      </span>
+              reprValue={rv}
+            />
+          </span>
+         ))}
+        {this.remainingSize > 0 &&
+        <button
+          disabled={this.props.isRunning}
+          onClick={this.expand}
+          style={styles.linkButton}
+        >
+          {this.state.expanding &&
+           <span style={{position: 'relative', marginRight: 25}}>
+             <Spinner style={{width: 20, position: 'absolute'}} />
+           </span>
+          }
+          ...{this.remainingSize} items
+        </button>}
+        ]{this.props.postfix}
+      </div>
     );
   }
 }
 
 export const LazyIterValue = connect(
   state => ({
-    isRunning: selectors.isRunning(state) 
+    isRunning: selectors.isRunning(state)
   }),
   {
     executeHostCallable: actions.executeHostCallable
   }
 )(LazyIterValueEl);
-
-
 
 function OpaqueValue() {
   return <span>&lt;opaque&gt;</span>;
@@ -106,25 +142,20 @@ function ImageValue() {
   return <span>Image</span>;
 }
 
-const NumberProp = React.PropTypes.oneOfType([
-  React.PropTypes.shape({
-    numerator: React.PropTypes.number,
-    denominator: React.PropTypes.number,
-    whole: React.PropTypes.number,
-    fractional: React.PropTypes.number,
-    repeating: React.PropTypes.number,
-  })
-]);
-
-const ReprValueProp = (valuePropType) => React.PropTypes.shape({
-  type: React.PropTypes.string.isRequired,
-  value: valuePropType
-});
-
 class NumberValue extends React.Component {
-  static propTypes = {
-    reprValue: ReprValueProp(NumberProp)
-  };
+  static propTypes = REPLValueProps(
+    ReprValueProp(
+      React.PropTypes.oneOfType([
+        React.PropTypes.shape({
+          numerator: React.PropTypes.number,
+          denominator: React.PropTypes.number,
+          whole: React.PropTypes.number,
+          fractional: React.PropTypes.number,
+          repeating: React.PropTypes.number,
+        })
+      ])
+    )
+  );
 
   state = {showFraction: false};
 
@@ -151,34 +182,34 @@ class NumberValue extends React.Component {
         </button>
       );
     }
-    return <span>{this.props.reprValue.value}</span>;
+    return <span>{this.props.reprValue.value}{this.props.postfix}</span>;
   }
 }
 
-function NothingValue() {
-  return <span>&lt;nothing&gt;</span>;
+function NothingValue({postfix}) {
+  return <span>&lt;nothing&gt;{postfix}</span>;
 }
-NothingValue.propTypes = {reprValue: React.PropTypes.object};
+NothingValue.propTypes = REPLValueProps(React.PropTypes.object);
 
-function BooleanValue({reprValue}) {
-  return <span>{reprValue.value ? "true" : "false"}</span>;
+function BooleanValue({reprValue, postfix}) {
+  return <span>{reprValue.value ? "true" : "false"}{postfix}</span>;
 }
-BooleanValue.propTypes = {reprValue: React.PropTypes.object};
+BooleanValue.propTypes = REPLValueProps(React.PropTypes.object);
 
-function StringValue({reprValue}) {
-  return <span>{`"${reprValue.value}"`}</span>;
+function StringValue({reprValue, postfix}) {
+  return <span>{`"${reprValue.value}"`}{postfix}</span>;
 }
-StringValue.propTypes = {reprValue: React.PropTypes.object};
+StringValue.propTypes = REPLValueProps(React.PropTypes.object);
 
-function MethodValue() {
-  return <span>&lt;method&gt;</span>;
-}
-
-function FuncValue() {
-  return <span>&lt;func&gt;</span>;
+function MethodValue({postfix}) {
+  return <span>&lt;method&gt;{postfix}</span>;
 }
 
-function ArrayValue({reprValue}) {
+function FuncValue({postfix}) {
+  return <span>&lt;func&gt;{postfix}</span>;
+}
+
+function ArrayValue({reprValue, postfix}) {
   return (
     <span>
       [
@@ -188,17 +219,17 @@ function ArrayValue({reprValue}) {
           {index < reprValue.values.length - 1 && ", "}
         </span>
        ))}
-         ]
+      ]{postfix}
     </span>
   );
 }
-ArrayValue.propTypes = {reprValue: React.PropTypes.object};
+ArrayValue.propTypes = REPLValueProps(React.PropTypes.object);
 
-function RefValue() {
-  return <span>Ref</span>;
+function RefValue({postfix}) {
+  return <span>Ref{postfix}</span>;
 }
 
-function TupleValue({reprValue}) {
+function TupleValue({reprValue, postfix}) {
   return (
     <span>
       (
@@ -208,13 +239,13 @@ function TupleValue({reprValue}) {
           {index < reprValue.values.length - 1 && ", "}
         </span>
        ))}
-         )
+      ){postfix}
     </span>
   );
 }
-TupleValue.propTypes = {reprValue: React.PropTypes.object};
+TupleValue.propTypes = REPLValueProps(React.PropTypes.object);
 
-function ObjValue({reprValue}) {
+function ObjValue({reprValue, postfix}) {
   return (
     <dl>
       {reprValue.keyValues.map(
@@ -223,35 +254,31 @@ function ObjValue({reprValue}) {
            <dd key={`dd-${key}`}><REPLValue reprValue={value} /></dd>
          ]
        )}
+      {postfix}
     </dl>
   );
 }
-ObjValue.propTypes = {reprValue: React.PropTypes.shape({
+ObjValue.propTypes = REPLValueProps(React.PropTypes.shape({
   type: React.PropTypes.string,
   keyValues: React.PropTypes.arrayOf(React.PropTypes.shape({
     key: React.PropTypes.string,
     value: React.PropTypes.object,
   }))
-})};
+}));
 
 function DataValue() {
   return <span>Data</span>;
 }
 
-function StandardOut({reprValue}) {
-  return <span>stdout: {reprValue.value}</span>;
+function StandardOut({reprValue, postfix}) {
+  return <span>stdout: {reprValue.value}{postfix}</span>;
 }
-StandardOut.propTypes = {
-  reprValue: ReprValueProp(React.PropTypes.string),
-};
+StandardOut.propTypes = REPLValueProps(ReprValueProp(React.PropTypes.string));
 
-function StandardError({reprValue}) {
-  return <span>stderr: {reprValue.value}</span>;
+function StandardError({reprValue, postfix}) {
+  return <span>stderr: {reprValue.value}{postfix}</span>;
 }
-StandardError.propTypes = {
-  reprValue: ReprValueProp(React.PropTypes.string),
-};
-
+StandardError.propTypes = REPLValueProps(ReprValueProp(React.PropTypes.string));
 
 const RENDERERS = {
   opaque: OpaqueValue,
@@ -275,22 +302,15 @@ const RENDERERS = {
 };
 
 
-export default function REPLValue({reprValue, expansionFuel}) {
-  if(!expansionFuel) {
-    expansionFuel = { breadth: 5, depth: 5 };
-  }
+export default function REPLValue(props) {
+  props = Object.assign({expansionFuel: { breadth: 5, depth: 5 }}, props);
+  const {reprValue, expansionFuel, style} = props;
   var renderer = typeof reprValue === "object" && RENDERERS[reprValue.type];
   if (!renderer) {
     return <span>{`UNRENDERABLE: ${JSON.stringify(reprValue)}`}</span>;
   }
-  return React.createElement(renderer, {reprValue, expansionFuel});
+  return React.createElement(renderer, props);
 }
-REPLValue.propTypes = {
-  expansionFuel: React.PropTypes.shape({
-    breadth: React.PropTypes.number.isRequired,
-    depth: React.PropTypes.number.isRequired,
-  }),
-  reprValue: React.PropTypes.shape({
-    type: React.PropTypes.oneOf(Object.keys(RENDERERS)),
-  })
-};
+REPLValue.propTypes = REPLValueProps(React.PropTypes.shape({
+  type: React.PropTypes.oneOf(Object.keys(RENDERERS)),
+}));

@@ -56,6 +56,16 @@ export default {
   forms: {
     width: 194,
   },
+  linkButton: {
+    cursor: 'pointer',
+    background: 'transparent',
+    border: 0,
+    padding: 0,
+    color: 'blue',
+    ':focus': {
+      outline: 0,
+    },
+  },
   buttons: {
     base: {
       display: "flex",
