@@ -40,9 +40,13 @@ class Editor extends React.Component {
       <div style={styles.editor}>
         <Toolbar logo="https://code.pyret.org/img/pyret-logo.png" />
         <div style={[styles.splitPaneWrapper, {fontSize: this.props.fontSize}]}>
-          <SplitPane defaultSize="50%" split="vertical">
+          <SplitPane
+            defaultSize="50%"
+            split="vertical"
+            className="PyretIDE-SplitPane"
+          >
             <CodeWindow uri="definitions://" />
-            <div>
+            <div style={{overflow: 'auto', height: '100%'}}>
               {this.props.isLoadingRuntime &&
               <div>
                 <Spinner style={styles.spinner} />
