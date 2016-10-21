@@ -10,7 +10,7 @@ export class REPLHistoryList extends React.Component {
       return (null);
     }
     return (
-      <div>
+      <div style={{fontFamily: 'monospace'}}>
         {this.props.REPLHistory.map((item, index) => (
           <REPLHistoryItem
             key={index}
