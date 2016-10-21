@@ -54,20 +54,23 @@ class LazyIterValueEl extends React.Component {
   );
 
   state = {
-    expanding: false,
+    rendering: false,
+    expanded: true,
     values: []
   };
 
   componentDidMount() {
-    this.expand();
+    this.renderMore();
   }
 
   get remainingSize() {
     return this.props.reprValue.size - this.state.values.length;
   }
 
-  expand = () => {
-    this.setState({ expanding: true });
+  toggleExpand = () => this.setState({expanded: !this.state.expanded});
+
+  renderMore = () => {
+    this.setState({ rendering: true });
     const loop = (curBreadth) => {
       if (curBreadth < this.props.expansionFuel.breadth &&
           curBreadth < this.remainingSize) {
@@ -79,21 +82,33 @@ class LazyIterValueEl extends React.Component {
           }
         );
       } else {
-        this.setState({ expanding: false });
+        this.setState({ rendering: false });
       }
     };
     loop(0);
   }
 
   render() {
+    const hide = {display: 'none'};
     return (
       <div style={this.props.style}>
-        [{this.props.reprValue.name}{': '}
+        [
+        <button
+          key="expander"
+          onClick={this.toggleExpand}
+          style={[
+            styles.linkButton,
+            {fontWeight: 'bold', color: 'black'}
+          ]}
+        >
+          {this.props.reprValue.name}
+        </button>
+        {': '}
         {this.state.values.map((rv, ix) => (
-          <span key={ix}>
+          <span key={ix} style={[!this.state.expanded && hide]}>
             <REPLValue
               style={{marginLeft: 10}}
-              postfix={ix < this.remainingSize + this.state.values.length - 1 ? ", " : ''}
+              postfix={ix < this.props.reprValue.size - 1 ? ", " : ''}
               expansionFuel={{
                 breadth: this.props.expansionFuel.depth,
                 depth: 0
@@ -103,18 +118,27 @@ class LazyIterValueEl extends React.Component {
           </span>
          ))}
         {this.remainingSize > 0 &&
-        <button
-          disabled={this.props.isRunning}
-          onClick={this.expand}
-          style={styles.linkButton}
-        >
-          {this.state.expanding &&
-           <span style={{position: 'relative', marginRight: 25}}>
-             <Spinner style={{width: 20, position: 'absolute'}} />
-           </span>
-          }
-          ...{this.remainingSize} items
-        </button>}
+         <button
+           key="renderers"
+           disabled={this.props.isRunning}
+           onClick={this.renderMore}
+           style={[styles.linkButton, !this.state.expanded && hide]}
+         >
+           {this.state.rendering &&
+            <span style={{position: 'relative', marginRight: 25}}>
+              <Spinner style={{width: 20, position: 'absolute'}} />
+            </span>
+           }
+           ...{this.remainingSize} items
+         </button>}
+        {!this.state.expanded &&
+         <button
+           key="other-expander"
+           onClick={this.toggleExpand}
+           style={styles.linkButton}
+         >
+           ...{this.props.reprValue.size} items
+         </button>}
         ]{this.props.postfix}
       </div>
     );
