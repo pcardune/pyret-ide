@@ -18,6 +18,7 @@ const initialState = Immutable.Map({
     result: null,
     error: null,
     pausing: null,
+    numOutstandingExecutions: 0,
   }),
   editor: Immutable.Map({
     source: localStorage !== undefined ?
@@ -124,11 +125,22 @@ function runCode(state = initialState.get('runCode'), action) {
     case actType.FAIL_COMPILE:
       return state.merge({stage: null, error: action.payload});
     case actType.START_EXECUTE:
-      return state.set('stage', constants.runtimeStages.EXECUTING);
+      return state.merge({
+        stage: constants.runtimeStages.EXECUTING,
+        numOutstandingExecutions: state.get('numOutstandingExecutions') + 1,
+      });
     case actType.FINISH_EXECUTE:
-      return state.merge({stage: null, result: action.payload});
+      return state.merge({
+        stage: state.get('numOutstandingExecutions') > 1 ? state.get('stage') : null,
+        result: action.payload,
+        numOutstandingExecutions: state.get('numOutstandingExecutions') - 1,
+      });
     case actType.FAIL_EXECUTE:
-      return state.merge({stage: null, error: action.payload});
+      return state.merge({
+        stage: state.get('numOutstandingExecutions') > 1 ? state.get('stage') : null,
+        error: action.payload,
+        numOutstandingExecutions: state.get('numOutstandingExecutions') - 1,
+      });
     case actType.STOP_RUN:
       return state.set('stage', null);
     case actType.PAUSE_RUN:
