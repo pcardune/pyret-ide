@@ -12,9 +12,10 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'stretch',
   },
-  input: {
+  textarea: {
     backgroundColor: '#eee',
     border: 0,
+    resize: "vertical",
     flexBasis: '100%',
   },
   inputChevron: {
@@ -32,12 +33,15 @@ export class REPLInput extends React.Component {
         <span style={styles.inputChevron}>
           {'> '}
         </span>
-        <input
-          style={styles.input}
+        <textarea
+          style={styles.textarea}
           value={this.props.code}
           onChange={event => this.props.changeREPLCode(event.target.value)}
-          onKeyPress={event =>
-                 event.key === "Enter" && this.props.onRun(this.props.code)}
+          onKeyPress={event => {
+            (event.shiftKey && event.key === "Enter") ?
+            this.props.changeREPLCode(event.target.value) :
+            event.key === "Enter" && this.props.onRun(this.props.code);
+          }}
         />
       </div>
     );
